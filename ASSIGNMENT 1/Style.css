@@ -13,7 +13,14 @@
 .a1{
     color: #ffff;
 }
+@media screen and (max-width: 1012px) {
+  .dropdown {
 
+  
+  flex-direction: column;
+    
+  }
+}
 .dropbtn {
   background-color: #000000;
   color: white;

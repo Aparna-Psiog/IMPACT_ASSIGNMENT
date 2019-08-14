@@ -1,0 +1,108 @@
+<html>
+  <head>
+    <title>slideshow</title>
+
+    <link rel="stylesheet" type="text/css" href="../CSS/Style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+      
+    <script type="text/javascript">
+      $(function(){
+         var $slider = $('.slider')
+         var $slides = $slider.find('.slides');
+         var $slide = $slides.find('.slide');
+         var pause = 2500;
+         var CurrentSlide= 1;
+         var interval; 
+         
+         function startSlider(){
+             interval = setInterval(function(){
+                 $slides.animate({ 'margin-left' : '-=400px'} ,1000, function (){
+                     CurrentSlide++;
+                     if(CurrentSlide== $slide.length) {
+                         CurrentSlide=1;
+                         $slides.css( 'margin-left', 0);
+                     }
+                 });
+             } , pause);
+         }
+         
+         function stopSlider(){
+             clearInterval(interval);
+         }
+         
+         $slider.on('mouseenter', stopSlider).on('mouseleave', startSlider);
+         
+         startSlider();
+     });
+      </script>
+  
+  </head>
+
+  
+
+    <body>
+       
+        <header>
+               
+            <h1 class="h1">Psiog Digital<img class="image1" src="../IMAGES/Psiogicon.jpg">
+           
+            
+         <br/>
+           
+         <section class="dropdown">
+           <a href="index.html"><button class="dropbtn">Home</button></a>
+         </section> 
+       
+       <section class="dropdown">
+           <a href="About.html"><button class="dropbtn">About</button></a>
+             
+       </section> 
+       
+    
+       <section class="dropdown">
+           <a href="Gallery.html"><button class="dropbtn">Gallery</button></a>
+             
+       </section> 
+   
+           <section class="dropdown">
+           <button class="dropbtn">Arts</button>
+           <div class="dropdowncontent">
+               <a href="Music.html">Music</a>
+               <a href="Dance.html">Dance</a>
+               <a href="Keyboard.html">Keyboard</a>
+               <a href="Sports.html">Sports</a>
+           </div>
+        </section>
+   
+   
+   
+                    <section class="dropdown">
+                         <a href="Contact.html"><button class="dropbtn">Contact me</button></a>
+                           
+                    </section>    
+                     
+                  
+                     
+   
+       </h1>
+           </header>
+         
+           <section class="container">
+
+        <div class="slider">
+            <ul class="slides">
+                <li class="slide"><img src="../IMAGES/appu1.jpg" alt="" class="photo"></li>
+              <li class="slide"><img src="../IMAGES/appu2.jpg" alt="" class="photo"></li>
+              <li class="slide"><img src="../IMAGES/appu5.jpg" alt="" class="photo"></li>
+              
+              <li class="slide"><img src="../IMAGES/appu1.jpg" alt="" class="photo"></li>
+               </ul>
+          </div>
+        </section>
+
+  </body>
+
+
+  
+
+</html>

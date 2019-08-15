@@ -45,8 +45,10 @@ function cleartext(){
     m2[x] = parseInt(document.getElementById('mark2').value,10);
     m3[x] = parseInt(document.getElementById('mark3').value,10);
     m4[x] = parseInt(document.getElementById('mark4').value,10);
+
+    validateForm();
    
-        alert("submitted");
+        //alert("submitted");
     averagecalc();
 
 
@@ -80,10 +82,11 @@ function averagecalc()
 }
 
 
+
 function display_array()
 {
     var e="<hr/>"; var h ='&nbsp'; var l='&nbsp';
-    for(var s=1;s<=20;s++)
+for(var s=1;s<=20;s++)
     {
         h+="&nbsp";
     }
@@ -115,8 +118,9 @@ function display_array()
     }
 
     document.getElementById("Result").innerHTML=k+e;
-
 }
+
+
 
 
 
@@ -148,7 +152,7 @@ if (x<0 || x >100)
   }
 
 else {
-   
+   alert("Submitted details!")
     return true;
 }
 

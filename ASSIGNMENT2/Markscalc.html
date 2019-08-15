@@ -3,9 +3,11 @@
         <title>Mark Page</title>
        
     </head>
-    <script src="script.js" type="text/javascript"></script>
+    <script src="Samplescript.js" type="text/javascript"></script>
     <body>
-        <form name = "myForm" onsubmit = "return(validateForm());" method="post">
+        <h1 style="text-align: center">Holy bells school</h1>
+        <h1 style="text-align: center">Exam Results</h1>
+        <form name = "myForm">
             <h1>Grades</h1>
             <p>Select any one of the grades</p>
         <select id ="ddlFruits" onchange=myFunction()>
@@ -13,14 +15,14 @@
             <option value="2">2</option>
             <option value="3">3</option>
             <option value="4">4</option>
-            <option value="4">5</option>
-            <option value="4">6</option>
-            <option value="4">7</option>
-            <option value="4">8</option>
-            <option value="4">9</option>
-            <option value="4">10</option>
-            <option value="4">11</option>
-            <option value="4">12</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
         </select>
     <hr />
     Text: <input type="text" id = "txtText" />
@@ -108,13 +110,13 @@ Value: <input type="text" id = "txtValue1" />
             <td><input id="data10" type="number"/></td>
             </tr> 
 
-            <tr><td><input type = "submit" value = "Submit" /></td></tr>
+            
  
         </table>
    </form>
         
 <tr>
-        <input type='button'  value='Add'  onclick='readmarks()'>
+        <input type='button'  value='Submit'  onclick='readmarks()'>
 </tr>
 
 <tr>
@@ -125,6 +127,11 @@ Value: <input type="text" id = "txtValue1" />
         <input type='button'  value='Reset'  onclick='cleartext()'>
 </tr>
 
-<div id="Result"></div> 
+<div id="Result">
+  
+</div> 
+
+
+
         </body>
         </html>

@@ -1,0 +1,95 @@
+<html>
+    <head>
+        <title>sample</title>
+    </head>
+    <body>
+        <table id="login">
+               
+        <tr>
+         <td><label>Student ID</label></td>
+        </tr>
+         <tr>
+        <td colspan="2"><input id="data1" type="text" maxlength="30"    required/></td>
+        </tr>
+
+        <tr>
+        <td><label>Grade</label></td>
+        </tr>
+        <tr>
+        <td colspan="2"><input id="data2" type="number" maxlength="30"    required/></td>
+        </tr>
+
+        <tr>
+        <td><label>Division</label></td>
+        </tr>
+        <tr>
+         <td colspan="2"><input id="data3" type="text" maxlength="30"    required/></td>
+         </tr>
+
+
+        <tr>
+            <td><label>English</label></td>
+        </tr>
+        <tr>
+            <td colspan="2"><input id="mark1" type="number" maxlength="30"    required/></td>
+        </tr>
+
+
+        <tr>
+            <td><label>Maths</label></td>
+        </tr>
+        <tr>
+            <td colspan="2"><input  id="mark2" type="number" maxlength="30"  required/></td>
+        </tr>
+
+        <tr>
+                <td><label>Science</label></td>
+            </tr>
+            <tr>
+                <td colspan="2"><input  id="mark3" type="number" maxlength="30"  required/></td>
+            </tr>
+
+            <tr>
+                    <td><label>Social</label></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><input  id="mark4" type="number" maxlength="30"  required/></td>
+                </tr>
+
+
+        <tr>
+                <td colspan="2"><input id="mark5" type="number" maxlength="30"  required/></td>
+            </tr>
+
+
+
+        
+    </table>
+
+    <script>
+          
+         
+            function readmarks(){
+          
+            var m1 = parseInt(document.getElementById('mark1').value,10);
+            var m2 = parseInt(document.getElementById('mark2').value,10);
+            var m3 = parseInt(document.getElementById('mark3').value,10);
+            var m4 = parseInt(document.getElementById('mark4').value,10);
+            alert(m1);
+                alert(m2);
+                alert(m3);
+                alert(m4);
+                var sum=m1+m2+m3+m4;
+                alert(sum);
+
+                
+           
+            }
+        </script>
+
+        
+<tr>
+        <input type='button'  value='add'  onclick='readmarks()'>
+</tr>
+        </body>
+        </html>

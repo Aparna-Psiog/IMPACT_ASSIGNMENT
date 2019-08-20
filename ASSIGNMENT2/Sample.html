@@ -5,7 +5,8 @@
     </head>
     <body>
         <table id="login">
-            <script></script>
+             
+               
                
         <tr>
          <td><label>Student ID</label></td>
@@ -62,6 +63,10 @@
         <tr>
                 <td colspan="2"><input id="mark5" type="number" maxlength="30"  required/></td>
             </tr>
+            
+        <tr>
+                <td colspan="2"><input id="mark6" type="number" maxlength="30"  required/></td>
+            </tr>
 
 
 
@@ -70,28 +75,93 @@
 
     <script>
           
-         
+         var i=1;
+         var j=1;
+         var N=5;
+         var G=2;
+         var totalpassed=0;
+        var totalfailed=0;
+
+         while(i<=G)
+         {
+         while(j<=N)
+         {
+            readmarks();
+            averagemarks();
+            cleartext();
+
+
             function readmarks(){
-          
+          var pass=0;
+          var fail=0;
+
             var m1 = parseInt(document.getElementById('mark1').value,10);
             var m2 = parseInt(document.getElementById('mark2').value,10);
             var m3 = parseInt(document.getElementById('mark3').value,10);
             var m4 = parseInt(document.getElementById('mark4').value,10);
-            alert(m1);
-                alert(m2);
-                alert(m3);
-                alert(m4);
+
+        
                 var sum=m1+m2+m3+m4;
-                alert(sum);
-
-
+                var average=sum/4;
+                document.getElementById("mark5").value=sum;
+                document.getElementById("mark6").value=average;
            
+                if(average>60){
+                  pass+=pass+1;  
+                }
+
+                else{
+                    fail+=fail+1;
+                }
+
+                
+
             }
+         
+
+            function cleartext(){
+                document.getElementById('data1').value=" ";
+                document.getElementById('data2').value=" ";
+                document.getElementById('data3').value=" ";
+                document.getElementById('mark1').value=" ";
+                document.getElementById('mark2').value=" ";
+                document.getElementById('mark3').value=" ";
+                document.getElementById('mark4').value=" ";
+                document.getElementById('mark5').value=" ";
+                document.getElementById('mark6').value=" ";
+
+            }
+            j=j+1;
+        }
+        document.write("no.of passed students are:"+pass);
+         document.write("no.of failed students are:"+fail);
+        
+
+        totalpassesed.push(pass);
+        totalfailed.push(fail);
+
+
+
+        i=i+1;
+
+         }
+        for(i=0;i<G;i++)
+        {
+         document.write("total passed students are:"+totalpassed[i]);
+         document.write("total failed students are:"+totalfailed[i]);
+        }
         </script>
 
         
 <tr>
-        <input type='button'  value='add'  onclick='readmarks()'>
+        <input type='button'  value='sum'  onclick='readmarks()'>
+</tr>
+<tr>
+        <input type='button'  value='average'  onclick='averagemarks()'>
+</tr>
+
+<tr>
+        <input type='button'  value='clear'  onclick='cleartext()'>
 </tr>
         </body>
         </html>

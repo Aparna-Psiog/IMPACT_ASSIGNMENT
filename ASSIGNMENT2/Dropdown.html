@@ -1,0 +1,24 @@
+<html>
+    <head>
+        <title>Dropdown</title>
+    </head>
+
+
+    <body>
+    <select id = "ddlFruits" accesskey="sample3.html"></select>
+<hr />
+Text: <input type="text" id = "txtText" />
+Value: <input type="text" id = "txtValue" />
+<input type="button" id = "btnAdd" value = "Add" onclick = "Add()" />
+</body>
+
+<script type="text/javascript">
+    function Add() {
+        var ddl = document.getElementById("ddlFruits");
+        var option = document.createElement("OPTION");
+        option.innerHTML = document.getElementById("txtText").value;
+        option.value = document.getElementById("txtValue").value;
+        ddl.options.add(option);
+    }
+ </script>
+</html>

@@ -1,0 +1,58 @@
+<html>
+<head>
+<style type="text/css">
+.hidden {
+    display: none;
+}
+</style>
+</head>
+<body>
+<form id="data" submit="processData.php">
+    <p>Please enter some data</p>
+    <fieldset>
+        <legend>Data</legend>
+    </fieldset>
+    <p><input type="button" name="add" value="Add more data">
+    <p><input type="submit" value="Submit all data"></p>
+</form>
+<script>
+function hide(element) {
+    element.className = 'hidden';
+}
+function hideAll(elements) {
+    var len = elements.length,
+        i;
+    for (i = 0; i < len; i += 1) {
+        if (elements[i].style.display !== 'none') {
+            hide(elements[i]);
+        }
+    }   
+}
+function newData(index) {
+    var div = document.createElement('div'),
+        span = document.createElement('span'),
+        text = document.createTextNode('Item ' + index + ' '),
+        data = document.createElement('input');
+    data.name = 'data[]';
+    
+    span.appendChild(text);
+    div.appendChild(span);
+    div.appendChild(data);
+    return div;
+}
+function addNewData() {
+    var form = this.form,
+        fieldset = form.getElementsByTagName('fieldset')[0],
+        divs = fieldset.getElementsByTagName('div'),
+        data = newData(divs.length + 1);
+
+    hideAll(divs);
+    fieldset.appendChild(data);
+    data.getElementsByTagName('input')[0].focus();
+}
+var form = document.getElementById('data');
+form.elements.add.onclick = addNewData;
+form.elements.add.click();
+</script>
+</body>
+</html>

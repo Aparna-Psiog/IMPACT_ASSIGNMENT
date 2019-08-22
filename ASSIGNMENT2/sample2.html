@@ -1,58 +1,67 @@
-<html>
-<head>
-<style type="text/css">
-.hidden {
-    display: none;
-}
-</style>
-</head>
-<body>
-<form id="data" submit="processData.php">
-    <p>Please enter some data</p>
-    <fieldset>
-        <legend>Data</legend>
-    </fieldset>
-    <p><input type="button" name="add" value="Add more data">
-    <p><input type="submit" value="Submit all data"></p>
-</form>
-<script>
-function hide(element) {
-    element.className = 'hidden';
-}
-function hideAll(elements) {
-    var len = elements.length,
-        i;
-    for (i = 0; i < len; i += 1) {
-        if (elements[i].style.display !== 'none') {
-            hide(elements[i]);
-        }
-    }   
-}
-function newData(index) {
-    var div = document.createElement('div'),
-        span = document.createElement('span'),
-        text = document.createTextNode('Item ' + index + ' '),
-        data = document.createElement('input');
-    data.name = 'data[]';
-    
-    span.appendChild(text);
-    div.appendChild(span);
-    div.appendChild(data);
-    return div;
-}
-function addNewData() {
-    var form = this.form,
-        fieldset = form.getElementsByTagName('fieldset')[0],
-        divs = fieldset.getElementsByTagName('div'),
-        data = newData(divs.length + 1);
+<html><form name="costcalculator">
+        <div class="package-type">
+          <select name="packageType" id="packageType" onchange="setMonths(this.value)">
+            <option value="gold">Gold</option>
+            <option value="silver">Silver</option>
+            <option value="bronze">Bronze</option>
+          </select>
+        </div>
+      
+        <div class="months">
+          <select name="months" id="months">
+            <option value="1">1 month</option>
+            <option value="2">2 months</option>
+            <option value="3">3 months</option>
+            <option value="4">4 months</option>
+            <option value="5">5 months</option>
+            <option value="6">6 months</option>
+            <option value="7">7 months</option>
+            <option value="8">8 months</option>
+            <option value="9">9 months</option>
+            <option value="10">10 months</option>
+            <option value="11">11 months</option>
+            <option value="12">12 months</option>
+          </select>
+        </div>
+      
+        <button type="button" onclick="calculatePrice()">Calculate</button>
+        <div id="price"></div> 
+      </form>
+      
+      <a href="javascript:goToSite();">Take me to a new page</a></p>
+      </html>
 
-    hideAll(divs);
-    fieldset.appendChild(data);
-    data.getElementsByTagName('input')[0].focus();
-}
-var form = document.getElementById('data');
-form.elements.add.onclick = addNewData;
-form.elements.add.click();
+     <script>
+      var costs = {
+        'gold': {'basePrice': 199.99, 'pricePerMonth' : 99.5, 'maxMonths': 12},
+      'silver': {'basePrice': 150, 'pricePerMonth' : 75, 'maxMonths': 12},
+      'bronze': {'basePrice': 75, 'pricePerMonth' : 37.5, 'maxMonths': 2}
+    };
+    
+    function setMonths(package)
+    {
+        var maxMonths = costs[package].maxMonths;
+      document.getElementById("months").innerHTML = ''; // Clear all options
+      for (var i = 1; i<=maxMonths; i++){
+        var opt = document.createElement('option');
+        opt.value = i;
+        opt.innerHTML = i +  (i > 1 ? ' months' : ' month');
+        document.getElementById('months').appendChild(opt);
+        }
+    }
+    
+    function calculatePrice()
+    {
+        var package = document.getElementById('packageType').value;
+      var months = document.getElementById('months').value;
+      var price = costs[package].basePrice + (costs[package].pricePerMonth * (months - 1));
+      document.getElementById('price').innerHTML = price;
+    }
+    
+    function goToSite()
+    {
+        var package = document.getElementById('packageType').value;
+    
+        window.open('https://www.something.com/' + package, '_self');
+    }
 </script>
-</body>
-</html>

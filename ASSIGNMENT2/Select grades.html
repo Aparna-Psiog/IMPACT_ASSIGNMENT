@@ -1,0 +1,31 @@
+<html>
+    <head>
+        <title>Dropdown</title>
+    </head>
+
+
+    <body>
+        <h1>Grades</h1>
+        <p>Select any one of the grades</p>
+    <select id = "ddlFruits" accesskey="sample3.html">
+        <option value="Grade1">Grade1</option>
+        <option value="Grade2">Grade2</option>
+        <option value="Grade3">Grade3</option>
+        <option value="Grade4">Grade4</option>
+    </select>
+<hr />
+Text: <input type="text" id = "txtText" />
+Value: <input type="text" id = "txtValue" />
+<input type="button" id = "btnAdd" value = "Add" onclick = "Add()" />
+</body>
+
+<script type="text/javascript">
+    function Add() {
+        var ddl = document.getElementById("ddlFruits");
+        var option = document.createElement("OPTION");
+        option.innerHTML = document.getElementById("txtText").value;
+        option.value = document.getElementById("txtValue").value;
+        ddl.options.add(option);
+    }
+ </script>
+</html>

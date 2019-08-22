@@ -23,6 +23,20 @@
            i=i+1;
        }
 
+
+       
+function cleartext(){
+    document.getElementById('data1').value=" ";
+
+    document.getElementById('mark1').value=" ";
+    document.getElementById('mark2').value=" ";
+    document.getElementById('mark3').value=" ";
+    document.getElementById('mark4').value=" ";
+    document.getElementById('mark5').value=" ";
+    document.getElementById('mark6').value=" ";
+
+}
+
  function readmarks()
 {
 
@@ -44,12 +58,13 @@ function averagecalc()
 
     if(average>60)
     {
-     pass+=pass+1;
-     totalpass+=pass;
+     pass=pass+1;
+     totalpass=pass;
+     
     }
     else{
-        fail+=fail+1;
-        totalfail+=fail;
+        fail=fail+1;
+        totalfail=fail;
     }
             
     document.getElementById("data4").value=pass;
@@ -60,6 +75,24 @@ function averagecalc()
 
     document.getElementById("data7").value=totalfail;
 }
+
+
+function Add() {
+    var ddl = document.getElementById("ddlFruits");
+    var option = document.createElement("OPTION");
+    option.innerHTML = document.getElementById("txtText").value;
+    option.value = document.getElementById("txtValue").value;
+    ddl.options.add(option);
+}
+function Add1() {
+    var ddl1 = document.getElementById("sections");
+    var option = document.createElement("OPTION");
+    option.innerHTML = document.getElementById("txtText1").value;
+    option.value = document.getElementById("txtValue1").value;
+    ddl1.options.add(option);
+}
+
+
    
 
    
@@ -74,15 +107,3 @@ function averagecalc()
 
 
 
-function cleartext(){
-    document.getElementById('data1').value=" ";
-    document.getElementById('data2').value=" ";
-    document.getElementById('data3').value=" ";
-    document.getElementById('mark1').value=" ";
-    document.getElementById('mark2').value=" ";
-    document.getElementById('mark3').value=" ";
-    document.getElementById('mark4').value=" ";
-    document.getElementById('mark5').value=" ";
-    document.getElementById('mark6').value=" ";
-
-}

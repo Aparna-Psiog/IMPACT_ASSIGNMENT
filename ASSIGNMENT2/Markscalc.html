@@ -5,14 +5,22 @@
     </head>
     <script src="script.js" type="text/javascript"></script>
     <body>
-
+        <form name = "myForm" onsubmit = "return(validateForm());" method="post">
             <h1>Grades</h1>
             <p>Select any one of the grades</p>
-        <select id = "ddlFruits" accesskey="sample3.html">
-            <option value="Grade1">Grade1</option>
-            <option value="Grade2">Grade2</option>
-            <option value="Grade3">Grade3</option>
-            <option value="Grade4">Grade4</option>
+        <select id ="ddlFruits" onchange=myFunction()>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="4">5</option>
+            <option value="4">6</option>
+            <option value="4">7</option>
+            <option value="4">8</option>
+            <option value="4">9</option>
+            <option value="4">10</option>
+            <option value="4">11</option>
+            <option value="4">12</option>
         </select>
     <hr />
     Text: <input type="text" id = "txtText" />
@@ -36,7 +44,7 @@ Value: <input type="text" id = "txtValue1" />
 
 
 <h1>Marks Details</h1>
-        <table id="login">           
+        <table cellspacing = "2" cellpadding = "2" borderwidth="1" id="login">           
         <tr>
          <td><label>Student ID</label></td>
         </tr>
@@ -48,7 +56,7 @@ Value: <input type="text" id = "txtValue1" />
             <td><label>English</label></td>
         </tr>
         <tr>
-            <td colspan="2"><input id="mark1" type="number" maxlength="30"    required/></td>
+            <td colspan="2"><input id="mark1" name="mark1" type="number" maxlength="30"    required/></td>
         </tr>
 
 
@@ -78,7 +86,7 @@ Value: <input type="text" id = "txtValue1" />
                     <td><label>Sum</label></td>
                 </tr>
         <tr>
-                <td colspan="2"><input id="mark5" type="number" maxlength="30"  required/></td>
+                <td colspan="2"><input id="mark5" type="number" maxlength="30"  /></td>
             </tr>
 
 
@@ -86,58 +94,37 @@ Value: <input type="text" id = "txtValue1" />
                     <td><label>Average</label></td>
                 </tr>
         <tr>
-                <td colspan="2"><input id="mark6" type="number" maxlength="30"  required/></td>
+                <td colspan="2"><input id="mark6" type="number" maxlength="30"  /></td>
             </tr>
 
 
 
-            <tr>
-                <td><label>Passed students</label></td>
-            </tr>
-            <tr>
-                <td colspan="2"><input id="data4" type="number" maxlength="30"  required/></td>
-            </tr>
-
-
-            <tr>
-                <td><label>Failed students</label></td>
-            </tr>
-            <tr>
-                <td colspan="2"><input id="data5" type="number" maxlength="30"  required/></td>
-            </tr>
-
-            <tr>
-                <td><label>Total passed students</label></td>
-            </tr>
-            <tr>
-                <td colspan="2"><input id="data6" type="number" maxlength="30"  required/></td>
-            </tr>
-
-
-
-            <tr>
-                <td><label>Total failed students</label></td>
-            </tr>
-            <tr>
-                <td colspan="2"><input id="data7" type="number" maxlength="30"  required/></td>
-            </tr>
-
-
-
+          
         
-    </table>
+            <tr>
+                <td><label>Selected grade</label></td>
+            </tr>
+             <tr> 
+            <td><input id="data10" type="number"/></td>
+            </tr> 
 
-   
+            <tr><td><input type = "submit" value = "Submit" /></td></tr>
+ 
+        </table>
+   </form>
         
 <tr>
-        <input type='button'  value='Sum'  onclick='readmarks()'>
+        <input type='button'  value='Add'  onclick='readmarks()'>
 </tr>
+
 <tr>
-        <input type='button'  value='Average'  onclick='averagecalc()'>
+    <input type='button'  value='Display'  onclick='display_array()'>
 </tr>
 
 <tr>
         <input type='button'  value='Reset'  onclick='cleartext()'>
 </tr>
+
+<div id="Result"></div> 
         </body>
         </html>

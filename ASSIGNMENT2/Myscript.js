@@ -1,7 +1,7 @@
 
 var totalpass;
 var totalfail;
-var count1=0,count2=0,count3=0;
+var count1 = 0, count2 = 0, count3 = 0;
 var totalstudents;
 var totalpasspercent;
 var pass = ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"];
@@ -23,8 +23,8 @@ function myFunction() {
     x = document.getElementById("ddlFruits").value;
     document.getElementById("data2").value = x;
 
-    y=document.getElementById("sections").value;
-    document.getElementById("data3").value=y;
+    y = document.getElementById("sections").value;
+    document.getElementById("data3").value = y;
 }
 
 function cleartext() {
@@ -101,10 +101,10 @@ function averagecalc() {
     cleartext();
     passpercent[Grades[x]] = ((pass[Grades[x]] / N[Grades[x]]) * 100).toFixed(2);
 
-    totalpass=count1;
-    totalfail=count2;
-    totalstudents=count3;
-    totalpasspercent=((count1/count3)*100).toFixed(2);
+    totalpass = count1;
+    totalfail = count2;
+    totalstudents = count3;
+    totalpasspercent = ((count1 / count3) * 100).toFixed(2);
 }
 
 
@@ -131,10 +131,10 @@ function display_array() {
     }
 
     myTable += "</table>";
-    myTable+="<h3>Total passed students:"+totalpass+ "</h3>";
-    myTable+="<h3>Total failed students:"+totalfail+ "</h3>";
-    myTable+="<h3>Total students are:"+totalstudents+"</h3>";
-    myTable+="<h3>Total Pass percentage:"+totalpasspercent+"</h3>";
+    myTable += "<h3>Total passed students:" + totalpass + "</h3>";
+    myTable += "<h3>Total failed students:" + totalfail + "</h3>";
+    myTable += "<h3>Total students are:" + totalstudents + "</h3>";
+    myTable += "<h3>Total Pass percentage:" + totalpasspercent + "</h3>";
 
     document.getElementById("Result").innerHTML = myTable;
 }

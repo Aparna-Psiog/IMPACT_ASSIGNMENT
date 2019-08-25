@@ -20,7 +20,7 @@ var x = 0;
 
 
 function myFunction() {
-    x = document.getElementById("ddlFruits").value;
+    x = document.getElementById("grades").value;
     document.getElementById("data2").value = x;
 
     y = document.getElementById("sections").value;
@@ -29,8 +29,6 @@ function myFunction() {
 
 function cleartext() {
     document.getElementById('data1').value = " ";
-    document.getElementById('data2').value = " ";
-    document.getElementById('data3').value = " ";
     document.getElementById('mark1').value = " ";
     document.getElementById('mark2').value = " ";
     document.getElementById('mark3').value = " ";
@@ -39,25 +37,12 @@ function cleartext() {
     document.getElementById('mark6').value = " ";
 }
 
-function Add() {
-    var ddl = document.getElementById("ddlFruits");
-    var option = document.createElement("OPTION");
-    option.innerHTML = document.getElementById("txtText").value;
-    option.value = document.getElementById("txtValue").value;
-    ddl.options.add(option);
-}
-function Add1() {
-    var ddl1 = document.getElementById("sections");
-    var option = document.createElement("OPTION");
-    option.innerHTML = document.getElementById("txtText1").value;
-    option.value = document.getElementById("txtValue1").value;
-    ddl1.options.add(option);
-}
+
 
 function readmarks() {
 
 
-    Grades[x] = document.getElementById("ddlFruits").value;
+    Grades[x] = document.getElementById("grades").value;
     Sections[x] = document.getElementById("sections").value;
 
     m1[x] = parseInt(document.getElementById('mark1').value, 10);
@@ -87,7 +72,7 @@ function averagecalc() {
         N[Grades[x]]++;
         count1++;
         count3++;
-        // totalpass=pass[Grades[x]];
+
 
     }
     else {
@@ -95,10 +80,10 @@ function averagecalc() {
         N[Grades[x]]++;
         count2++;
         count3++;
-        //totalfail=fail[Grades[x]]++;
+
 
     }
-    cleartext();
+    //cleartext();
     passpercent[Grades[x]] = ((pass[Grades[x]] / N[Grades[x]]) * 100).toFixed(2);
 
     totalpass = count1;
@@ -149,19 +134,19 @@ function validateForm() {
     if (x == "" || y == "" || z == "" || u == "") {
         alert("Please enter all the fields")
     }
-    else if (x < 0 || x > 100) {
+    else if (x < 1 || x > 100) {
         alert("Enter valid mark for english");
         return false;
     }
-    else if (y < 0 || y > 100) {
+    else if (y < 1 || y > 100) {
         alert("Enter valid mark for maths");
         return false;
     }
-    else if (z < 0 || z > 100) {
+    else if (z < 1 || z > 100) {
         alert("Enter valid mark for science");
         return false;
     }
-    else if (u < 0 || u > 100) {
+    else if (u < 1 || u > 100) {
         alert("Enter valid mark for social");
         return false;
     }

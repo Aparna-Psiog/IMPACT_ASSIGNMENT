@@ -27,15 +27,6 @@ function myFunction() {
     document.getElementById("data3").value = y;
 }
 
-function cleartext() {
-    document.getElementById('data1').value = " ";
-    document.getElementById('mark1').value = " ";
-    document.getElementById('mark2').value = " ";
-    document.getElementById('mark3').value = " ";
-    document.getElementById('mark4').value = " ";
-    document.getElementById('mark5').value = " ";
-    document.getElementById('mark6').value = " ";
-}
 
 
 
@@ -53,75 +44,8 @@ function readmarks() {
     validateForm();
 
     //alert("submitted");
-    averagecalc();
-
-
     x++;
 
-}
-
-
-function averagecalc() {
-    sum[x] = m1[x] + m2[x] + m3[x] + m4[x];
-    document.getElementById("mark5").value = sum[x];
-    average[x] = sum[x] / 4;
-    document.getElementById("mark6").value = average[x];
-
-    if (average[x] >= 60) {
-        pass[Grades[x]]++;
-        N[Grades[x]]++;
-        count1++;
-        count3++;
-
-
-    }
-    else {
-        fail[Grades[x]]++;
-        N[Grades[x]]++;
-        count2++;
-        count3++;
-
-
-    }
-    //cleartext();
-    passpercent[Grades[x]] = ((pass[Grades[x]] / N[Grades[x]]) * 100).toFixed(2);
-
-    totalpass = count1;
-    totalfail = count2;
-    totalstudents = count3;
-    totalpasspercent = ((count1 / count3) * 100).toFixed(2);
-}
-
-
-function display_array() {
-    var myTable = "<h1>Final Results</h1>";
-    myTable += "<table border='5'><tr><td style='width: 100px; color: red;'>Grades</td>";
-    myTable += "<td style='width: 100px; color: red; text-align: right;'>No of students</td>";
-    myTable += "<td style='width: 100px; color: red; text-align: right;'>Pass</td>";
-    myTable += "<td style='width: 100px; color: red; text-align: right;'>Fail</td>";
-    myTable += "<td style='width: 100px; color: red; text-align: right;'>Average</td></tr>";
-
-
-
-
-    for (var i = 1; i <= 12; i++) {
-
-        myTable += "<tr><td style='width: 100px;'>Grade" + i + "</td>";
-        //myArray[i] = myArray[i].toFixed(3);
-        myTable += "<td style='width: 100px; text-align: right;'>" + N[i] + "</td>";
-        myTable += "<td style='width: 100px; text-align: right;'>" + pass[i] + "</td>";
-        myTable += "<td style='width: 100px; text-align: right;'>" + fail[i] + "</td>";
-        myTable += "<td style='width: 100px; text-align: right;'>" + passpercent[i] + "</td></tr>";
-
-    }
-
-    myTable += "</table>";
-    myTable += "<h3>Total passed students:" + totalpass + "</h3>";
-    myTable += "<h3>Total failed students:" + totalfail + "</h3>";
-    myTable += "<h3>Total students are:" + totalstudents + "</h3>";
-    myTable += "<h3>Total Pass percentage:" + totalpasspercent + "</h3>";
-
-    document.getElementById("Result").innerHTML = myTable;
 }
 
 
@@ -152,11 +76,90 @@ function validateForm() {
     }
 
     else {
+
         alert("Details submitted successfully");
+        averagecalc();
         return true;
     }
 
 }
 
 
+function averagecalc() {
+    sum[x] = m1[x] + m2[x] + m3[x] + m4[x];
+    document.getElementById("mark5").value = sum[x];
+    average[x] = sum[x] / 4;
+    document.getElementById("mark6").value = average[x];
+
+
+    if (average[x] >= 60) {
+        pass[Grades[x]]++;
+        N[Grades[x]]++;
+        count1++;
+        count3++;
+
+
+    }
+    else {
+        fail[Grades[x]]++;
+        N[Grades[x]]++;
+        count2++;
+        count3++;
+
+
+    }
+
+    //cleartext();
+    passpercent[Grades[x]] = ((pass[Grades[x]] / N[Grades[x]]) * 100).toFixed(2);
+
+    totalpass = count1;
+    totalfail = count2;
+    totalstudents = count3;
+    totalpasspercent = ((count1 / count3) * 100).toFixed(2);
+}
+
+
+function display_array() {
+    var myTable = "<h1>Final Results</h1>";
+    myTable += "<table border='5'><tr><td style='width: 100px; color: red;'>Grades</td>";
+    myTable += "<td style='width: 100px; color: red; text-align: right;'>No of students</td>";
+    myTable += "<td style='width: 100px; color: red; text-align: right;'>Pass</td>";
+    myTable += "<td style='width: 100px; color: red; text-align: right;'>Fail</td>";
+    myTable += "<td style='width: 100px; color: red; text-align: right;'>Average</td></tr>";
+
+
+
+
+    for (var i = 1; i <= 12; i++) {
+
+        myTable += "<tr><td style='width: 100px;'>Grade" + i + "</td>";
+        myTable += "<td style='width: 100px; text-align: right;'>" + N[i] + "</td>";
+        myTable += "<td style='width: 100px; text-align: right;'>" + pass[i] + "</td>";
+        myTable += "<td style='width: 100px; text-align: right;'>" + fail[i] + "</td>";
+        myTable += "<td style='width: 100px; text-align: right;'>" + passpercent[i] + "</td></tr>";
+
+    }
+
+    myTable += "</table>";
+    myTable += "<h3>Total passed students:" + totalpass + "</h3>";
+    myTable += "<h3>Total failed students:" + totalfail + "</h3>";
+    myTable += "<h3>Total students are:" + totalstudents + "</h3>";
+    myTable += "<h3>Total Pass percentage:" + totalpasspercent + "</h3>";
+
+    document.getElementById("Result").innerHTML = myTable;
+}
+
+
+
+
+
+function cleartext() {
+    document.getElementById('data1').value = " ";
+    document.getElementById('mark1').value = " ";
+    document.getElementById('mark2').value = " ";
+    document.getElementById('mark3').value = " ";
+    document.getElementById('mark4').value = " ";
+    document.getElementById('mark5').value = " ";
+    document.getElementById('mark6').value = " ";
+}
 

@@ -1,25 +1,30 @@
 var current_page = 1;
 var records_per_page=5;
+var count=Object.keys(records).length;
+
 function go()
 {
-    validation();
+   
     records_per_page = document.getElementById("myInput1").value;
+    validation(records_per_page);
     current_page = 1;
     changePage(current_page);
 }
    
-function validation()
+function validation(x)
 {
-    if(document.getElementById("myInput1").value=="")
+
+    if(x=="")
     {
-        alert("enter some value");
-        changePage(current_page);
+        alert("Enter some value");
+       insertNewRecord(data);
         return false;
     }
-    else if((document.getElementById("myInput1").value<0)||(document.getElementById("myInput1").value>38))
+   
+    else if((x<0)||x>count)
     {
      alert("Enter valid values");
-     changePage(current_page);
+     insertNewRecord(data);
      return false;
     }
     else{

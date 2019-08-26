@@ -1,5 +1,6 @@
 var selectedRow = null
 var records;
+var total;
 
 function onFormSubmit() {
  
@@ -256,9 +257,9 @@ function insertNewRecord(data) {
     sample["description"]=data.description;
     sample["price"]=data.price;
     sample["category"]=data.category;
-  records.push(sample);
+    records.push(sample);
   //table.innerHTML=records;
-   
+
 }
 
 

@@ -13,14 +13,20 @@
         <h1 class="h1">Batinda Dines</h1>
     </header>
     <br/>
+    <input type="text" id="myInput" onkeyup="searchfunction()" placeholder="Search for names.." title="Type in a name">
         <button id="create" onclick="div_show()">Create product</button>
+        <button id="create" onclick="deleteselected()">Delete Selected</button>
+        
         <br/>
+   
     <table>
           
         <tr>
             <td>
+                  
                 <div id="abc">
                     <div id="popupContact">
+
                 <form onsubmit="event.preventDefault();onFormSubmit();" autocomplete="off">
                         <button class="close" onclick="div_hide()">X</button>
                     <div>
@@ -29,7 +35,10 @@
                     </div>
                     <div>
                         <label>DESCRIPTION</label>
-                        <input type="text" name="description" id="description">
+                        <textarea rows="4" cols="38" id="description" name="description">
+                        
+                        </textarea>
+                     
                     </div>
                     <div>
                         <label>PRICE</label>
@@ -46,7 +55,7 @@
                               </select>
                     </div>
                     <div  class="form-action-buttons">
-                        <input type="submit" value="Submit" onclick="div_hide()">
+                        <input type="submit" value="Update" onclick="div_hide()">
                     </div>
                 </form>
                 </div>
@@ -55,25 +64,36 @@
 
 
             <td>
-                <table class="list" id="employeeList">
+               
+               
+                <table class="list" id="myTable">
                     <thead>
                         <tr>
+        <td><input id="chk" type="checkbox" value="check" onClick="toggle(this)" /><label for="chk">ALL</label></td>
+      
                             <th>ITEM NAME</th>
                             <th>DESCRIPTION</th>
                             <th>PRICE</th>
                             <th>CATEGORY</th>
+                           
                             <th></th>
                         </tr>
                       
                     </thead>
+               
                     <tbody>
 
                     </tbody>
+                
                 </table>
+                
+       
             </td>
         </tr>
     </table>
+
     <script src="Myscript.js"></script>
+    <script src="Pagination.js"></script>
 </body>
 
 </html>

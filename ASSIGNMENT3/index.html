@@ -5,6 +5,7 @@
     <title>
         CRUD OPERATIONS
     </title>
+ 
     <link rel="stylesheet" href="Styles.css">
 </head>
 
@@ -23,10 +24,10 @@
           
         <tr>
             <td>
-                  
+                
                 <div id="abc">
                     <div id="popupContact">
-
+          
                 <form onsubmit="event.preventDefault();onFormSubmit();" autocomplete="off">
                         <button class="close" onclick="div_hide()">X</button>
                     <div>
@@ -57,9 +58,12 @@
                     <div  class="form-action-buttons">
                         <input type="submit" value="Update" onclick="div_hide()">
                     </div>
+
                 </form>
-                </div>
+            
+
             </div>
+
             </td>
 
 
@@ -94,6 +98,22 @@
 
     <script src="Myscript.js"></script>
     <script src="Pagination.js"></script>
+
+    <div id="listingTable"></div>
+<a href="javascript:prevPage()" id="btn_prev">Prev</a>page: <span id="page"></span>
+<a href="javascript:nextPage()" id="btn_next">Next</a>
+<input type="text" name="inputdata" id="myInput1" placeholder="Give number of records">
+<button id="Go" onclick="go()">GO</button>
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+  <label>Display</label>  <select id="sel" onchange="show()">
+            <option selected="selected" value="5">5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="25">20</option>
+        </select>
+
+    
 </body>
 
 </html>

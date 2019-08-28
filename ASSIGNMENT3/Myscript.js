@@ -1,5 +1,6 @@
 var selectedRow = null
-var records=readvalues();
+var records;
+
 function onFormSubmit() {
  
     if (validate()) {
@@ -15,6 +16,7 @@ function onFormSubmit() {
     
         resetForm();
     }
+    //show();
 }
 
 function div_show() {
@@ -25,7 +27,7 @@ function div_show() {
         document.getElementById('abc').style.display = "none";
         }
 
-function readvalues(){
+
     //var records={};
     var records = [
         { itemName: 'Tomato soup', 
@@ -58,36 +60,32 @@ function readvalues(){
           price: '300', 
           category: 'Maincourse' },
 
-        { itemName: 'Pani puri', 
-        description: 'A chat with tomato sauce', 
-        price: '250',
-        category: 'Chat' },
-        { itemName: 'Pani puri', 
-        description: 'A chat with tomato sauce', 
-        price: '250',
+        { itemName: 'Aloo Paratha', 
+        description: 'Main course with paratta and aloo masala', 
+        price: '220',
+        category: 'Maincourse' },
+
+        { itemName: 'Piri piri noodles', 
+        description: 'A spicy noodles with white and tomato sauce', 
+        price: '350',
         category: 'Chat' },
 
-        { itemName: 'Pani puri', 
-        description: 'A chat with tomato sauce', 
-        price: '250',
-        category: 'Chat' },
-        { itemName: 'Pani puri', 
-        description: 'A chat with tomato sauce', 
-        price: '250',
-        category: 'Chat' }
+        { itemName: 'Kaaju kismiss', 
+        description: 'A strawberry and buttercotch flavoured icecream', 
+        price: '310',
+        category: 'Desserts' },
+
+        { itemName: 'Paneer Tikka', 
+        description: 'A spicy starter of paneer', 
+        price: '160',
+        category: 'Starters' }
 
     ]
     //records["fullName"]=["Aparna"];
     //records["empCode"]=["hbjhb"];
     //records["salary"]=["87879"];
     //records["city"]=["chennai"];
-    for(var i=0;i<records.length;i++)
-    {
-        insertNewRecord(records[i]);
-    }
    
-    return records;
-}
 
 function readFormData() {
 
@@ -128,6 +126,15 @@ function resetForm() {
 }
 
 function onEdit(td) {
+    selectedRow = td.parentElement.parentElement;
+    document.getElementById("itemName").value = selectedRow.cells[1].innerHTML;
+    document.getElementById("description").value = selectedRow.cells[2].innerHTML;
+    document.getElementById("price").value = selectedRow.cells[3].innerHTML;
+    document.getElementById("category").value = selectedRow.cells[4].innerHTML;
+    div_show();
+}
+
+function onRead(td) {
     selectedRow = td.parentElement.parentElement;
     document.getElementById("itemName").value = selectedRow.cells[1].innerHTML;
     document.getElementById("description").value = selectedRow.cells[2].innerHTML;
@@ -232,4 +239,66 @@ function toggle(source) {
     }
   }
 
+
+  function deleteall()
+  {
+    var table = document.getElementById("myTable");
+    //or use :  var table = document.all.tableid;
+    for(var i = table.rows.length - 1; i > 0; i--)
+    {
+        table.deleteRow(i);
+    }
+  }
+
+  
+  
+
+  function show() {
+    // GET THE SELECTED VALUE FROM <select> ELEMENT AND SHOW IT.
+ 
+    var ele = document.getElementById('sel').value;
+    var j=1;
+   
+    var i=1;
+    var table1=document.getElementById("myTable");
+  //  var msg = document.getElementById('myTable');
+    //var table = document.getElementById("myTable").getElementsByTagName('tbody')[0];
+    var count = Object.keys(records).length;
+    deleteall();
+
+    while(i<=count && j<=ele)
+    {
+       //j = (ele * (page_span-1)) + 1; //sending the first element of the table to be displayed
+        //print(j);
+
+    var Row = table1.insertRow(j);
+    cell1=Row.insertCell(0);
+    cell1.innerHTML=`<input id="chk" type="checkbox" value="check"/>`
+    cell1 = Row.insertCell(1);
+    cell1.innerHTML = records[i-1].itemName;
+    cell2 = Row.insertCell(2);
+    cell2.innerHTML = records[i-1].description;
+    cell3 = Row.insertCell(3);
+    cell3.innerHTML = records[i-1].price;
+    cell4 = Row.insertCell(4);
+    cell4.innerHTML = records[i-1].category;
+    cell4 = Row.insertCell(5);
+    cell4.innerHTML = 
+    `<input type='button' class="Edit" value='Edit' onclick='onEdit(this)'>
+    <input type='button' class="Read" value='Read' onclick='onRead(this)'>
+    <input type='button' class="Delete" value='Delete' onclick='onDelete(this)'>`
+    
+   i++;
+
+j++;
+  }
+}
+
+
+
+
+
+  
+  
+ 
 

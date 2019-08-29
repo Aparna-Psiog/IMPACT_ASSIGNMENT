@@ -27,6 +27,16 @@ function div_show() {
         document.getElementById('abc').style.display = "none";
         }
 
+ function read_div_show()
+ {
+    document.getElementById('full').style.display = "block";
+ }  
+ 
+ function read_div_hide()
+ {
+    document.getElementById('full').style.display = "none";
+ }
+
 
     //var records={};
     var records = [
@@ -78,7 +88,124 @@ function div_show() {
         { itemName: 'Paneer Tikka', 
         description: 'A spicy starter of paneer', 
         price: '160',
-        category: 'Starters' }
+        category: 'Starters' },
+
+        { itemName: 'Veggie Burger', 
+        description: 'A burger with cheese,vegetables and stuffed potatoes', 
+        price: '220',
+        category: 'Maincourse' },
+
+        { itemName: 'Matar Paneer', 
+        description: 'Matar Paneer is a vegetarian north Indian dish withpeas,farmer cheese.', 
+        price: '250',
+        category: 'Maincourse' },
+
+        { itemName: 'Chocolate Mint Bars', 
+        description: ' thin chocolate-mint Girl Scout cookies or Andes candies. ', 
+        price: '400',
+        category: 'Desserts' },
+
+        { itemName: 'Aloo Tikki', 
+        description: 'spicy green peas curry and sweet and sour chutneys', 
+        price: '150',
+        category: 'Chat' },
+
+        { itemName: 'Lemon-Scented Blueberry Cupcakes', 
+        description: 'Studded with plump, juicy fresh berries', 
+        price: '270',
+        category: 'Desserts' },
+
+        { itemName: 'Naan', 
+        description: 'Naan is a leavened, oven-baked flatbreads', 
+        price: '300',
+        category: 'Maincourse' },
+
+        { itemName: 'Kakori Kebabs', 
+        description: 'Juicy, succulent with some chaat masala, fresh mint chutney', 
+        price: '200',
+        category: 'Starters' },
+
+        { itemName: 'ButterNaan', 
+        description: 'Naan is a leavened and overbaked with butter', 
+        price: '300',
+        category: 'Maincourse' },
+
+        { itemName: 'Dahi Puri', 
+        description: 'Pani puri stuffed with amshed poatatoes with dahi', 
+        price: '450',
+        category: 'Chat' },
+
+        { itemName: 'Bourbon-Pecan Tart with Chocolate Drizzle', 
+        description: 'Pecan pie is the bourbon, molasses, and chocolate', 
+        price: '500',
+        category: 'Desserts' },
+
+        { itemName:'Flat Breads', 
+        description: 'rotis,chapathis and parotas made with whaet flour', 
+        price: '331',
+        category: 'Maincourse' },
+
+        
+        { itemName:'Raspberry-Rhubarb Pie', 
+        description: 'Sweet raspberries pies', 
+        price: '440',
+        category: 'Desserts' },
+
+        { itemName:'Cheese Balls', 
+        description: 'No forks or spoons are required for this easy-to-grab party snack.', 
+        price: '245',
+        category: 'Starters' },
+
+        { itemName:'Puris', 
+        description: 'Puris dwith side dsih of any kind of sabjis', 
+        price: '220',
+        category: 'Maincourse' },
+
+        { itemName:'Ragda Patties', 
+        description: 'Aloo tikki covered withwhite chickpeas called "ragdas" ', 
+        price: '260',
+        category: 'Chat' },
+
+        { itemName:'Walnut Brownies', 
+        description: 'Large chocolate chunks with chocolate chips', 
+        price: '470',
+        category: 'Desserts' },
+
+        { itemName:'Burrata bruschetta', 
+        description: 'bruschetta, topped with burrata, broad beans, radish, mint and chilli.', 
+        price: '430',
+        category: 'Starters' },
+        
+        { itemName:'Idlis', 
+        description: 'A perfect breakfast with sambhar and type of chutnis', 
+        price: '200',
+        category: 'Maincourse' },
+
+        { itemName:'Dahi Vada', 
+        description: 'Vada dumped in dahi and masala', 
+        price: '210',
+        category: 'Chat' },
+
+        { itemName:'Texas Sheet cake', 
+        description: 'A cake prepared with butter and butter milk', 
+        price: '380',
+        category: 'Desserts' },
+
+        { itemName:'Saatdhan Parathas', 
+        description: 'Parathas that is being prepared with butter masala', 
+        price: '190',
+        category: 'Maincourse' },
+
+        { itemName:'Pakora', 
+        description: 'Deep fried fritters like Dahi vada', 
+        price: '230',
+        category: 'Chat' },
+
+        { itemName:'Salt-baked beetroot with feta & pickled onions', 
+        description: 'Salt crust with beetroots and onion soup', 
+        price: '290',
+        category: 'Starters' },
+
 
     ]
     //records["fullName"]=["Aparna"];
@@ -97,13 +224,22 @@ function readFormData() {
     return formData;
 }
 
+function showpage()
+{
+    current_page=numPages();
+    deleteall();
+    changePage(current_page);
+}
+
 function insertNewRecord(data) {
     var table = document.getElementById("myTable").getElementsByTagName('tbody')[0];
+    showpage();
+    var sample=[];
     var newRow = table.insertRow(table.length);
     cell1=newRow.insertCell(0);
     cell1.innerHTML=`<input id="chk" type="checkbox" value="check"/>`
     cell1 = newRow.insertCell(1);
-    cell1.innerHTML = data.itemName;
+    cell1.innerHTML =data.itemName;
     cell2 = newRow.insertCell(2);
     cell2.innerHTML = data.description;
     cell3 = newRow.insertCell(3);
@@ -115,7 +251,16 @@ function insertNewRecord(data) {
     `<input type='button' class="Edit" value='Edit' onclick='onEdit(this)'>
     <input type='button' class="Read" value='Read' onclick='onRead(this)'>
     <input type='button' class="Delete" value='Delete' onclick='onDelete(this)'>`
+     //sample_array.push(newRow);
+    sample["itemName"]=data.itemName;
+    sample["description"]=data.description;
+    sample["price"]=data.price;
+    sample["category"]=data.category;
+  records.push(sample);
+  //table.innerHTML=records;
+   
 }
+
 
 function resetForm() {
     document.getElementById("itemName").value = "";
@@ -123,6 +268,7 @@ function resetForm() {
     document.getElementById("price").value = "";
     document.getElementById("category").value = "";
     selectedRow = null;
+    
 }
 
 function onEdit(td) {
@@ -140,7 +286,7 @@ function onRead(td) {
     document.getElementById("description").value = selectedRow.cells[2].innerHTML;
     document.getElementById("price").value = selectedRow.cells[3].innerHTML;
     document.getElementById("category").value = selectedRow.cells[4].innerHTML;
-    div_show();
+    read_div_show();
 }
 function updateRecord(formData) {
     selectedRow.cells[1].innerHTML = formData.itemName;
@@ -149,28 +295,63 @@ function updateRecord(formData) {
     selectedRow.cells[4].innerHTML = formData.category;
 }
 
+var x;
 function onDelete(td) {
-    if (confirm('Are you sure to delete this record ?')) {
+    //if (confirm('Are you sure to delete this record ?')) {
         row = td.parentElement.parentElement;
-        document.getElementById("myTable").deleteRow(row.rowIndex);
+        x=document.getElementById("myTable").deleteRow(row.rowIndex);
         resetForm();
-    }
+   // }
+    return x;
 }
+//}
+var value1=onDelete();
+
+
+function undo(){
+  
+    var sample1={};
+    sample1["itemName"]=value1.itemName;
+    sample1["description"]=value1.description;
+    sample1["price"]=value1.price;
+    sample1["category"]=value1.category;
+    records.push(sample1);
+}
+
+
+
 function validate() {
     isValid = true;
-    if (document.getElementById("itemName").value == "") {
+    if ((document.getElementById("itemName").value == "")||(document.getElementById("description").value == "")||(document.getElementById("price").value == "")||(document.getElementById("category").value == ""))
+     {
         isValid = false;
+        alert("All input fields required");
+        resetForm();
         document.getElementById("itemNameValidationError").classList.remove("hide");
-    } else {
-        isValid = true;
-        if (!document.getElementById("itemNameValidationError").classList.contains("hide"))
-            document.getElementById("itemNameValidationError").classList.add("hide");
+        document.getElementById("descriptionValidationError").classList.remove("hide");
+        document.getElementById("priceValidationError").classList.remove("hide");
+        document.getElementById("categoryValidationError").classList.remove("hide");
+    } 
+    else if((document.getElementById("price").value<0)||(document.getElementById("price").value>10000))
+    {
+    alert("Price should be between 1 to 10000");
+    div_show();
     }
+    else 
+    {
+        isValid = true;
+        if( (!document.getElementById("itemNameValidationError").classList.contains("hide"))||(!document.getElementById("descriptionValidationError").classList.contains("hide"))||(!document.getElementById("priceValidationError").classList.contains("hide"))||(!document.getElementById("categoryValidationError").classList.contains("hide")))
+        {
+            //alert("Details entered successfully");
+            document.getElementById("itemNameValidationError").classList.add("hide");
+            document.getElementById("descriptionValidationError").classList.add("hide");
+            document.getElementById("priceValidationError").classList.add("hide");
+            document.getElementById("categoryValidationError").classList.add("hide");
+        }
+    }
+ 
     return isValid;
 }
-
-
-
     
 
 function deleteselected() 

@@ -15,8 +15,9 @@
     </header>
     <br/>
     <input type="text" id="myInput" onkeyup="searchfunction()" placeholder="Search for names.." title="Type in a name">
-        <button id="create" onclick="div_show()">Create product</button>
-        <button id="create" onclick="deleteselected()">Delete Selected</button>
+        <button id="create" onclick="div_show()">+  Create product</button>
+        <button id="delete_select" onclick="deleteselected()">Delete Selected</button>
+        <button id="delete_select" onclick="undo()">Undo</button>
         
         <br/>
    
@@ -26,27 +27,30 @@
             <td>
                 
                 <div id="abc">
-                    <div id="popupContact">
-          
+                <div id="popupContact">
+              
                 <form onsubmit="event.preventDefault();onFormSubmit();" autocomplete="off">
                         <button class="close" onclick="div_hide()">X</button>
+                     
+              
                     <div>
                         <label>ITEM NAME*</label><label class="validation-error hide" id="itemNameValidationError">This field is required.</label>
                         <input type="text" name="itemName" id="itemName">
                     </div>
+
                     <div>
-                        <label>DESCRIPTION</label>
-                        <textarea rows="4" cols="38" id="description" name="description">
-                        
-                        </textarea>
+                        <label>DESCRIPTION*</label><label class="validation-error hide" id="descriptionValidationError">This field is required.</label>
+                        <input type="text" id="description" name="description">
                      
                     </div>
+
                     <div>
-                        <label>PRICE</label>
-                        <input type="text" name="price" id="price">
+                        <label>PRICE*</label><label class="validation-error hide" id="priceValidationError">This field is required.</label>
+                        <input type="number" name="price" id="price">
                     </div>
+
                     <div>
-                        <label>CATEGORY</label>
+                        <label>CATEGORY*</label><label class="validation-error hide" id="categoryValidationError">This field is required.</label>
                         <select id = "category">
                             
                                 <option value = "Starters">Starters</option>
@@ -55,15 +59,61 @@
                                 <option value = "Chat">Chat</option>
                               </select>
                     </div>
+
+             
+
                     <div  class="form-action-buttons">
                         <input type="submit" value="Update" onclick="div_hide()">
                     </div>
 
                 </form>
-            
+      
+              </div>
 
             </div>
 
+
+            
+            <div id="full">
+                <div id="popupContact">
+              
+                <form onsubmit="event.preventDefault();onFormSubmit();" autocomplete="off">
+                        <button class="close" onclick="read_div_hide()">X</button>
+                     
+              
+                    <div>
+                        <label>ITEM NAME*</label><label class="validation-error hide" id="itemNameValidationError">This field is required.</label>
+                        <input type="text" name="itemName" id="itemName">
+                    </div>
+
+                    <div>
+                        <label>DESCRIPTION*</label><label class="validation-error hide" id="descriptionValidationError">This field is required.</label>
+                        <input type="text" id="description" name="description">
+                     
+                    </div>
+
+                    <div>
+                        <label>PRICE*</label><label class="validation-error hide" id="priceValidationError">This field is required.</label>
+                        <input type="number" name="price" id="price">
+                    </div>
+
+                    <div>
+                        <label>CATEGORY*</label><label class="validation-error hide" id="categoryValidationError">This field is required.</label>
+                        <select id = "category">
+                            
+                                <option value = "Starters">Starters</option>
+                                <option value = "Maincourse">Main Course</option>
+                                <option value = "Desserts">Desserts</option>
+                                <option value = "Chat">Chat</option>
+                              </select>
+                    </div>
+
+                </form>
+      
+              </div>
+
+            </div>
+       
             </td>
 
 
@@ -86,7 +136,7 @@
                     </thead>
                
                     <tbody>
-
+                   
                     </tbody>
                 
                 </table>
@@ -96,14 +146,19 @@
         </tr>
     </table>
 
+    <br/>
+
     <script src="Myscript.js"></script>
     <script src="Pagination.js"></script>
 
-    <div id="listingTable"></div>
-<a href="javascript:prevPage()" id="btn_prev">Prev</a>page: <span id="page"></span>
-<a href="javascript:nextPage()" id="btn_next">Next</a>
+    <scetion id="pager_style">
+
+<button onclick="javascript:prevPage()" id="btn_prev"><<</button><b>Page:</b> <span id="page"></span>
+<button onclick="javascript:nextPage()" id="btn_next">>></button></section>
+<br/>
+
 <input type="text" name="inputdata" id="myInput1" placeholder="Give number of records">
-<button id="Go" onclick="go()">GO</button>
+<button id="go" onclick="go()">Show records</button>
 
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
   <label>Display</label>  <select id="sel" onchange="show()">

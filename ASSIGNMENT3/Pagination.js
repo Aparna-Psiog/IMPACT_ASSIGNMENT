@@ -2,12 +2,32 @@ var current_page = 1;
 var records_per_page=5;
 function go()
 {
+    validation();
     records_per_page = document.getElementById("myInput1").value;
     current_page = 1;
     changePage(current_page);
 }
    
-
+function validation()
+{
+    if(document.getElementById("myInput1").value=="")
+    {
+        alert("enter some value");
+        changePage(current_page);
+        return false;
+    }
+    else if((document.getElementById("myInput1").value<0)||(document.getElementById("myInput1").value>38))
+    {
+     alert("Enter valid values");
+     changePage(current_page);
+     return false;
+    }
+    else{
+        
+        return true;  
+    }
+    
+}
 
 function prevPage()
 {

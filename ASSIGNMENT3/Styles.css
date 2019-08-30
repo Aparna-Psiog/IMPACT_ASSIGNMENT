@@ -185,6 +185,32 @@ label.validation-error{
         margin-bottom: 2%;
         }
 
+        #undo{
+         
+                width:15%;
+                height:2.81em;
+                border-radius:0.18em;
+                background-color:#FF0000;
+                color:#fff;
+                font-family:'Raleway',sans-serif;
+                font-size:1.12em;
+                cursor:pointer;
+                margin-bottom: 2%;
+        }
+
+        #go {
+            width:15%;
+            height:2.81em;
+            border-radius:0.18em;
+            background-color:#0000ff;
+            color:#fff;
+            font-family:'Raleway',sans-serif;
+            font-size:1.12em;
+            cursor:pointer;
+            margin-bottom: 2%;
+            }
+        
+
     @media only screen and (max-width: 650px) {
         #create{
             width:100%;

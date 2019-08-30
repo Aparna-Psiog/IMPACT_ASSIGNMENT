@@ -1,6 +1,6 @@
 var current_page = 1;
 var records_per_page=5;
-var count=Object.keys(records).length;
+var count=Object.keys(record_copy).length;
 
 function go()
 {
@@ -21,7 +21,7 @@ function validation(x)
         return false;
     }
    
-    else if((x<0)||x>count)
+    else if((x<0)||x>1000)
     {
      alert("Enter valid values");
      insertNewRecord(data);
@@ -71,13 +71,13 @@ function changePage(page)
         cell1=newRow.insertCell(0);
         cell1.innerHTML=`<input id="chk" type="checkbox" value="check"/>`
         cell1 = newRow.insertCell(1);
-        cell1.innerHTML = records[i].itemName;
+        cell1.innerHTML = record_copy[i].itemName;
         cell2 = newRow.insertCell(2);
-        cell2.innerHTML = records[i].description;
+        cell2.innerHTML = record_copy[i].description;
         cell3 = newRow.insertCell(3);
-        cell3.innerHTML = records[i].price;
+        cell3.innerHTML = record_copy[i].price;
         cell4 = newRow.insertCell(4);
-        cell4.innerHTML = records[i].category;
+        cell4.innerHTML = record_copy[i].category;
         cell4 = newRow.insertCell(5);
         cell4.innerHTML = 
         `<input type='button' class="Edit" value='Edit' onclick='onEdit(this)'>
@@ -103,7 +103,12 @@ function changePage(page)
 
 function numPages()
 {
-    return Math.ceil(records.length / records_per_page);
+    return Math.ceil(Object.keys(record_copy).length / records_per_page);
+}
+
+function num_pages_after()
+{
+    return Math.ceil(Object.keys(record_copy).length);
 }
 
 window.onload = function() {

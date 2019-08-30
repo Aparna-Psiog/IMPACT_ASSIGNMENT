@@ -17,7 +17,7 @@
     <input type="text" id="myInput" onkeyup="searchfunction()" placeholder="Search for names.." title="Type in a name">
         <button id="create" onclick="div_show()">+  Create product</button>
         <button id="delete_select" onclick="deleteselected()">Delete Selected</button>
-        <button id="delete_select" onclick="undo()">Undo</button>
+        <button id="undo" onclick="undo()">Undo</button>
         
         <br/>
    
@@ -109,7 +109,7 @@
                     </div>
 
                     <div  class="form-action-buttons">
-                        <input type="submit" value="Update" onclick="div_hide()">
+                        <input type="submit" value="Update" id="update" onclick="div_hide()">
                     </div>
 
                 </form>

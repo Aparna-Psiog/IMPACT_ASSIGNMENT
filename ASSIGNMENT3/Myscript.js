@@ -30,12 +30,15 @@ function div_show() {
 
  function read_div_show()
  {
-    document.getElementById('full').style.display = "block";
+
+    document.getElementById('abc').style.display = "block";
+    //document.getElementById("abc").readOnly=true;
+ 
  }  
  
  function read_div_hide()
  {
-    document.getElementById('full').style.display = "none";
+    document.getElementById('abc').style.display = "none";
  }
 
 
@@ -213,7 +216,7 @@ function div_show() {
     //records["empCode"]=["hbjhb"];
     //records["salary"]=["87879"];
     //records["city"]=["chennai"];
-   
+   var record_copy=JSON.parse(JSON.stringify(records));
 
 function readFormData() {
 
@@ -258,6 +261,7 @@ function insertNewRecord(data) {
     sample["price"]=data.price;
     sample["category"]=data.category;
     records.push(sample);
+    record_copy.push(sample);
   //table.innerHTML=records;
 
 }
@@ -272,8 +276,13 @@ function resetForm() {
     
 }
 
+var selectedRow;
+var temp;
+var index_row;
 function onEdit(td) {
     selectedRow = td.parentElement.parentElement;
+    temp=selectedRow.rowIndex;
+    index_row=((current_page-1)*records_per_page)+temp;
     document.getElementById("itemName").value = selectedRow.cells[1].innerHTML;
     document.getElementById("description").value = selectedRow.cells[2].innerHTML;
     document.getElementById("price").value = selectedRow.cells[3].innerHTML;
@@ -283,10 +292,11 @@ function onEdit(td) {
 
 function onRead(td) {
     selectedRow = td.parentElement.parentElement;
-    document.getElementById("itemName").value = selectedRow.cells[1].innerHTML;
-    document.getElementById("description").value = selectedRow.cells[2].innerHTML;
-    document.getElementById("price").value = selectedRow.cells[3].innerHTML;
-    document.getElementById("category").value = selectedRow.cells[4].innerHTML;
+   
+    document.getElementById("itemName").value.setAttribute("readonly", true) = selectedRow.cells[1].innerHTML;
+    document.getElementById("description").value.setAttribute("readonly", true) = selectedRow.cells[2].innerHTML;
+    document.getElementById("price").value.setAttribute("readonly", true) = selectedRow.cells[3].innerHTML;
+    document.getElementById("category").setAttribute("readonly", true) = selectedRow.cells[4].innerHTML;
     read_div_show();
 }
 function updateRecord(formData) {
@@ -294,29 +304,56 @@ function updateRecord(formData) {
     selectedRow.cells[2].innerHTML = formData.description;
     selectedRow.cells[3].innerHTML = formData.price;
     selectedRow.cells[4].innerHTML = formData.category;
+   
+    //div_show();
+    record_copy[index_row-1].itemName=selectedRow.cells[1].innerHTML;
+    record_copy[index_row-1].description=selectedRow.cells[2].innerHTML;
+    record_copy[index_row-1].price=selectedRow.cells[3].innerHTML;
+    record_copy[indexrow-1].category=selectedRow.cells[4].innerHTML;
 }
 
-var x;
+
+document.getElementById("undo").disabled=true;
+var y;
+var deleted_row_index;
 function onDelete(td) {
-    //if (confirm('Are you sure to delete this record ?')) {
+
+    if (confirm('Are you sure to delete this record ?')) {
         row = td.parentElement.parentElement;
-        x=document.getElementById("myTable").deleteRow(row.rowIndex);
+        y=row.rowIndex;
+        deleted_row_index=((current_page-1)*records_per_page)+y;
+        document.getElementById("myTable").deleteRow(row.rowIndex);
         resetForm();
-   // }
+        document.getElementById("undo").disabled=false;
+
+        return deleted_row_index;
+    }
     return x;
 }
 //}
-var value1=onDelete();
+var value1=onDelete(td);
 
 
 function undo(){
-  
-    var sample1={};
-    sample1["itemName"]=value1.itemName;
-    sample1["description"]=value1.description;
-    sample1["price"]=value1.price;
-    sample1["category"]=value1.category;
-    records.push(sample1);
+    var table1 = document.getElementById("myTable").getElementsByTagName('tbody')[0];
+    
+    var newRow1 = table1.insertRow(deleted_row_index-1);
+    cell1=newRow1.insertCell(0);
+    cell1.innerHTML=`<input id="chk" type="checkbox" value="check"/>`
+    cell1 = newRow1.insertCell(1);
+    cell1.innerHTML =record_copy[deleted_row_index-1].itemName;
+    cell2 = newRow1.insertCell(2);
+    cell2.innerHTML = record_copy[deleted_row_index-1].description;
+    cell3 = newRow1.insertCell(3);
+    cell3.innerHTML = record_copy[deleted_row_index-1].price;
+    cell4 = newRow1.insertCell(4);
+    cell4.innerHTML = record_copy[deleted_row_index-1].category;
+    cell4 = newRow1.insertCell(5);
+    cell4.innerHTML = 
+    `<input type='button' class="Edit" value='Edit' onclick='onEdit(this)'>
+    <input type='button' class="Read" value='Read' onclick='onRead(this)'>
+    <input type='button' class="Delete" value='Delete' onclick='onDelete(this)'>`
+   
 }
 
 
@@ -387,6 +424,7 @@ function getcheckboxes() {
     return checkboxes;
 }
 
+
 function toggle(source) {
     checkboxes = getcheckboxes();
     for(var i=0, n=checkboxes.length;i<n;i++) 
@@ -394,14 +432,20 @@ function toggle(source) {
       checkboxes[i].checked = source.checked;
     }
   }
+
+
   function searchfunction() {
     // Declare variables 
+    //deleteall();
+  records_per_page=num_pages_after();
+  deleteall();
+  changePage(records_per_page);
+
     var input, filter, table, tr, td,td1, i, txtValue,txtValue1;
     input = document.getElementById("myInput");
     filter = input.value.toUpperCase();
     table = document.getElementById("myTable");
     tr = table.getElementsByTagName("tr");
-  
     // Loop through all table rows, and hide those who don't match the search query
     for (i = 0; i < tr.length; i++) {
       td = tr[i].getElementsByTagName("td")[1];
@@ -409,10 +453,12 @@ function toggle(source) {
       if (td) {
         txtValue = td.textContent || td.innerText;
         txtValue1=td1.textContent || td1.innerText;
+        
         if((txtValue.toUpperCase().indexOf(filter) > -1) ||(txtValue1.toUpperCase().indexOf(filter) > -1))
          {
           tr[i].style.display = "";
         }
+        
          else 
          {
           tr[i].style.display = "none";

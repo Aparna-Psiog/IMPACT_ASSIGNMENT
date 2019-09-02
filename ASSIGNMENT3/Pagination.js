@@ -10,6 +10,12 @@ function go()
     current_page = 1;
     changePage(current_page);
 }
+
+function gotopage()
+{
+current_page=document.getElementById("myInput2").value;
+changePage(current_page);
+}
    
 function validation(x)
 {

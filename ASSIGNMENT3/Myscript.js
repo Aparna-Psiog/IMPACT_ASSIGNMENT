@@ -30,7 +30,6 @@ function div_show() {
 
  function read_div_show()
  {
-
     document.getElementById('abc').style.display = "block";
     //document.getElementById("abc").readOnly=true;
  
@@ -38,6 +37,7 @@ function div_show() {
  
  function read_div_hide()
  {
+  
     document.getElementById('abc').style.display = "none";
  }
 
@@ -292,13 +292,18 @@ function onEdit(td) {
 
 function onRead(td) {
     selectedRow = td.parentElement.parentElement;
-   
-    document.getElementById("itemName").value.setAttribute("readonly", true) = selectedRow.cells[1].innerHTML;
-    document.getElementById("description").value.setAttribute("readonly", true) = selectedRow.cells[2].innerHTML;
-    document.getElementById("price").value.setAttribute("readonly", true) = selectedRow.cells[3].innerHTML;
-    document.getElementById("category").setAttribute("readonly", true) = selectedRow.cells[4].innerHTML;
+  document.getElementById("category").readOnly = true;
+  document.getElementById("itemName").readOnly = true;
+  document.getElementById("description").readOnly = true;
+  document.getElementById("price").readOnly = true;
+  document.getElementById("category").disabled=true;
+    document.getElementById("itemName").value= selectedRow.cells[1].innerHTML;
+    document.getElementById("description").value = selectedRow.cells[2].innerHTML;
+    document.getElementById("price").value = selectedRow.cells[3].innerHTML;
+    document.getElementById("category").value = selectedRow.cells[4].innerHTML;
     read_div_show();
 }
+
 function updateRecord(formData) {
     selectedRow.cells[1].innerHTML = formData.itemName;
     selectedRow.cells[2].innerHTML = formData.description;
@@ -328,7 +333,7 @@ function onDelete(td) {
 
         return deleted_row_index;
     }
-    return x;
+    //return x;
 }
 //}
 var value1=onDelete(td);
@@ -356,41 +361,6 @@ function undo(){
    
 }
 
-
-
-function validate() {
-    isValid = true;
-    if ((document.getElementById("itemName").value == "")||(document.getElementById("description").value == "")||(document.getElementById("price").value == "")||(document.getElementById("category").value == ""))
-     {
-        isValid = false;
-        alert("All input fields required");
-        resetForm();
-        document.getElementById("itemNameValidationError").classList.remove("hide");
-        document.getElementById("descriptionValidationError").classList.remove("hide");
-        document.getElementById("priceValidationError").classList.remove("hide");
-        document.getElementById("categoryValidationError").classList.remove("hide");
-    } 
-    else if((document.getElementById("price").value<0)||(document.getElementById("price").value>10000))
-    {
-    alert("Price should be between 1 to 10000");
-    div_show();
-    }
-    else 
-    {
-        isValid = true;
-        if( (!document.getElementById("itemNameValidationError").classList.contains("hide"))||(!document.getElementById("descriptionValidationError").classList.contains("hide"))||(!document.getElementById("priceValidationError").classList.contains("hide"))||(!document.getElementById("categoryValidationError").classList.contains("hide")))
-        {
-            //alert("Details entered successfully");
-            document.getElementById("itemNameValidationError").classList.add("hide");
-            document.getElementById("descriptionValidationError").classList.add("hide");
-            document.getElementById("priceValidationError").classList.add("hide");
-            document.getElementById("categoryValidationError").classList.add("hide");
-        }
-    }
- 
-    return isValid;
-}
-    
 
 function deleteselected() 
 {
@@ -432,6 +402,41 @@ function toggle(source) {
       checkboxes[i].checked = source.checked;
     }
   }
+
+function validate() {
+    isValid = true;
+    if ((document.getElementById("itemName").value == "")||(document.getElementById("description").value == "")||(document.getElementById("price").value == "")||(document.getElementById("category").value == ""))
+     {
+        isValid = false;
+        alert("All input fields required");
+        resetForm();
+        document.getElementById("itemNameValidationError").classList.remove("hide");
+        document.getElementById("descriptionValidationError").classList.remove("hide");
+        document.getElementById("priceValidationError").classList.remove("hide");
+        document.getElementById("categoryValidationError").classList.remove("hide");
+    } 
+    else if((document.getElementById("price").value<0)||(document.getElementById("price").value>10000))
+    {
+      isValid = false;
+    alert("Price should be between 1 to 10000");
+    div_show();
+    }
+    else 
+    {
+        isValid = true;
+        if( (!document.getElementById("itemNameValidationError").classList.contains("hide"))||(!document.getElementById("descriptionValidationError").classList.contains("hide"))||(!document.getElementById("priceValidationError").classList.contains("hide"))||(!document.getElementById("categoryValidationError").classList.contains("hide")))
+        {
+            //alert("Details entered successfully");
+            document.getElementById("itemNameValidationError").classList.add("hide");
+            document.getElementById("descriptionValidationError").classList.add("hide");
+            document.getElementById("priceValidationError").classList.add("hide");
+            document.getElementById("categoryValidationError").classList.add("hide");
+        }
+    }
+ 
+    return isValid;
+}
+    
 
 
   function searchfunction() {

@@ -54,7 +54,7 @@ function div_show() {
         { itemName: 'Bhel puri',
          description: 'A chat with tomato sauce', 
          price: '170', 
-         category: 'Chat' },
+         category: 'Chat'},
 
         { itemName: 'French fries',
          description: 'Fried crisps with Sauce',
@@ -64,12 +64,12 @@ function div_show() {
         { itemName: 'North Indian Thali', 
         description: 'Meal with chapathi,paratta,Panner butter masala',
         price: '300',
-        category: 'Maincourse' },
+        category: 'Maincourse'},
 
         { itemName: 'Vanilla Milkshake', 
         description: 'A shake with vanilla flavour with icecream', 
         price: '290',
-         category: 'Desserts' },
+         category: 'Desserts'},
 
         { itemName: 'South Indian Thali',
          description: 'Meal with rice,Sambhar,rasam,vegetable,aplam',
@@ -239,8 +239,9 @@ function showpage()
 
 function insertNewRecord(data) {
     var table = document.getElementById("myTable").getElementsByTagName('tbody')[0];
-    showpage();
-    var sample=[];
+    
+    //showpage();
+    var sample={};
     var newRow = table.insertRow(table.length);
     cell1=newRow.insertCell(0);
     cell1.innerHTML=`<input id="chk" type="checkbox" value="check"/>`
@@ -264,8 +265,8 @@ function insertNewRecord(data) {
     sample["category"]=data.category;
     records.push(sample);
     record_copy.push(sample);
-  //table.innerHTML=records;
-
+    showpage();
+      
 }
 
 
@@ -321,48 +322,42 @@ function updateRecord(formData) {
 document.getElementById("undo").disabled=true;
 var y;
 var deleted_row_index;
-function onDelete(td) {
 
+function onDelete(td) {
     if (confirm('Are you sure to delete this record ?')) {
         row = td.parentElement.parentElement;
         y=row.rowIndex;
         deleted_row_index=((current_page-1)*records_per_page)+y;
-        //document.getElementById("myTable").deleteRow(row.rowIndex);
-
+       
+        //document.getElementById("myTable").deleteRow(y);
         record_copy.splice(deleted_row_index-1,1);
+      
         resetForm();
         deleteall();
         changePage(current_page);
+       
         document.getElementById("undo").disabled=false;
-
-        return deleted_row_index;
+        
     }
-    //return x;
-}
-//}
-var value1=onDelete(td);
-
-
-function undo(){
-    var table1 = document.getElementById("myTable").getElementsByTagName('tbody')[0];
     
-    var newRow1 = table1.insertRow(deleted_row_index-1);
-    cell1=newRow1.insertCell(0);
-    cell1.innerHTML=`<input id="chk" type="checkbox" value="check"/>`
-    cell1 = newRow1.insertCell(1);
-    cell1.innerHTML =records[deleted_row_index-1].itemName;
-    cell2 = newRow1.insertCell(2);
-    cell2.innerHTML = records[deleted_row_index-1].description;
-    cell3 = newRow1.insertCell(3);
-    cell3.innerHTML = records[deleted_row_index-1].price;
-    cell4 = newRow1.insertCell(4);
-    cell4.innerHTML = records[deleted_row_index-1].category;
-    cell4 = newRow1.insertCell(5);
-    cell4.innerHTML = 
-    `<input type='button' class="Edit" value='Edit' onclick='onEdit(this)'>
-    <input type='button' class="Read" value='Read' onclick='onRead(this)'>
-    <input type='button' class="Delete" value='Delete' onclick='onDelete(this)'>`
+}
 
+
+function undo()
+{
+
+var obj_copy={};
+obj_copy["itemName"]=records[deleted_row_index-1].itemName;
+obj_copy["description"]=records[deleted_row_index-1].description;
+obj_copy["price"]=records[deleted_row_index-1].price;
+obj_copy["category"]=records[deleted_row_index-1].category;
+record_copy.splice(deleted_row_index-1,0,obj_copy);
+   
+resetForm();
+deleteall();
+changePage(current_page);
+
+  document.getElementById("undo").disabled=true;
 
 }
 
@@ -489,48 +484,6 @@ function validate() {
   }
 
   
-  
-
-  function show() {
-    // GET THE SELECTED VALUE FROM <select> ELEMENT AND SHOW IT.
- 
-    var ele = document.getElementById('sel').value;
-    var j=1;
-   
-    var i=1;
-    var table1=document.getElementById("myTable");
-  //  var msg = document.getElementById('myTable');
-    //var table = document.getElementById("myTable").getElementsByTagName('tbody')[0];
-    var count = Object.keys(records).length;
-    deleteall();
-
-    while(i<=count && j<=ele)
-    {
-       //j = (ele * (page_span-1)) + 1; //sending the first element of the table to be displayed
-        //print(j);
-
-    var Row = table1.insertRow(j);
-    cell1=Row.insertCell(0);
-    cell1.innerHTML=`<input id="chk" type="checkbox" value="check"/>`
-    cell1 = Row.insertCell(1);
-    cell1.innerHTML = records[i-1].itemName;
-    cell2 = Row.insertCell(2);
-    cell2.innerHTML = records[i-1].description;
-    cell3 = Row.insertCell(3);
-    cell3.innerHTML = records[i-1].price;
-    cell4 = Row.insertCell(4);
-    cell4.innerHTML = records[i-1].category;
-    cell4 = Row.insertCell(5);
-    cell4.innerHTML = 
-    `<input type='button' class="Edit" value='Edit' onclick='onEdit(this)'>
-    <input type='button' class="Read" value='Read' onclick='onRead(this)'>
-    <input type='button' class="Delete" value='Delete' onclick='onDelete(this)'>`
-    
-   i++;
-
-j++;
-  }
-}
 
 
 

@@ -25,24 +25,26 @@ function div_show() {
     }
 
     function div_hide(){
+      document.getElementById("itemName").readOnly = false;
+      document.getElementById("description").readOnly = false;
+      document.getElementById("price").readOnly = false;
+      document.getElementById("category").disabled=false;
         document.getElementById('abc').style.display = "none";
         }
 
  function read_div_show()
  {
+    
+  document.getElementById("itemName").readOnly = true;
+  document.getElementById("description").readOnly = true;
+  document.getElementById("price").readOnly = true;
+  document.getElementById("category").disabled=true;
     document.getElementById('abc').style.display = "block";
     //document.getElementById("abc").readOnly=true;
  
  }  
  
- function read_div_hide()
- {
-  
-    document.getElementById('abc').style.display = "none";
- }
-
-
-    //var records={};
+ //var records={};
     var records = [
         { itemName: 'Tomato soup', 
         description: 'Tomato soup-A starter with pieces of breads', 
@@ -279,6 +281,7 @@ function resetForm() {
 var selectedRow;
 var temp;
 var index_row;
+
 function onEdit(td) {
     selectedRow = td.parentElement.parentElement;
     temp=selectedRow.rowIndex;
@@ -292,16 +295,13 @@ function onEdit(td) {
 
 function onRead(td) {
     selectedRow = td.parentElement.parentElement;
-  document.getElementById("category").readOnly = true;
-  document.getElementById("itemName").readOnly = true;
-  document.getElementById("description").readOnly = true;
-  document.getElementById("price").readOnly = true;
-  document.getElementById("category").disabled=true;
+
     document.getElementById("itemName").value= selectedRow.cells[1].innerHTML;
     document.getElementById("description").value = selectedRow.cells[2].innerHTML;
     document.getElementById("price").value = selectedRow.cells[3].innerHTML;
     document.getElementById("category").value = selectedRow.cells[4].innerHTML;
-    read_div_show();
+  
+   read_div_show();
 }
 
 function updateRecord(formData) {
@@ -327,8 +327,12 @@ function onDelete(td) {
         row = td.parentElement.parentElement;
         y=row.rowIndex;
         deleted_row_index=((current_page-1)*records_per_page)+y;
-        document.getElementById("myTable").deleteRow(row.rowIndex);
+        //document.getElementById("myTable").deleteRow(row.rowIndex);
+
+        record_copy.splice(deleted_row_index-1,1);
         resetForm();
+        deleteall();
+        changePage(current_page);
         document.getElementById("undo").disabled=false;
 
         return deleted_row_index;
@@ -346,19 +350,20 @@ function undo(){
     cell1=newRow1.insertCell(0);
     cell1.innerHTML=`<input id="chk" type="checkbox" value="check"/>`
     cell1 = newRow1.insertCell(1);
-    cell1.innerHTML =record_copy[deleted_row_index-1].itemName;
+    cell1.innerHTML =records[deleted_row_index-1].itemName;
     cell2 = newRow1.insertCell(2);
-    cell2.innerHTML = record_copy[deleted_row_index-1].description;
+    cell2.innerHTML = records[deleted_row_index-1].description;
     cell3 = newRow1.insertCell(3);
-    cell3.innerHTML = record_copy[deleted_row_index-1].price;
+    cell3.innerHTML = records[deleted_row_index-1].price;
     cell4 = newRow1.insertCell(4);
-    cell4.innerHTML = record_copy[deleted_row_index-1].category;
+    cell4.innerHTML = records[deleted_row_index-1].category;
     cell4 = newRow1.insertCell(5);
     cell4.innerHTML = 
     `<input type='button' class="Edit" value='Edit' onclick='onEdit(this)'>
     <input type='button' class="Read" value='Read' onclick='onRead(this)'>
     <input type='button' class="Delete" value='Delete' onclick='onDelete(this)'>`
-   
+
+
 }
 
 

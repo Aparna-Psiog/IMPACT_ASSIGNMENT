@@ -11,12 +11,50 @@ function go()
     changePage(current_page);
 }
 
+function show(){
+    records_per_page=document.getElementById("sel").value;
+    current_page=1;
+    changePage(current_page);
+}
+
 function gotopage()
 {
 current_page=document.getElementById("myInput2").value;
+validategotopage(current_page);
 changePage(current_page);
 }
-   
+
+function validategotopage(y)
+{
+    if(y=="")
+    {
+        alert("Enter some page number");
+        return false;
+    }
+    else if(y>numPages())
+    {
+        alert("The page number entered is not available");
+       insertNewRecord(data);
+        return false;
+    }
+    else if(y<0)
+    {
+        alert("Page number should be positive");
+        insertNewRecord(data);
+        return false;
+    }
+    else if(y=0)
+    {
+        alert("Enter a valid page number");
+        insertNewRecord(data);
+        return false;
+    }
+    else{
+        return true;
+    }
+}
+  
+
 function validation(x)
 {
 

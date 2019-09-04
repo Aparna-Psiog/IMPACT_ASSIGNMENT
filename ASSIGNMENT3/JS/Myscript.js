@@ -472,10 +472,7 @@ function duplicate_check(data) {
 }
 
 function create_div_show() {
-  document.getElementById("itemName").value = "";
-  document.getElementById("description").value = "";
-  document.getElementById("price").value = "";
-  document.getElementById("category").value = "";
+ resetForm();
   document.getElementById('abc').style.display = "block";
 }
 
@@ -530,20 +527,20 @@ function validate() {
     alert("select a category");
     div_show();
   }
-  else if (isNaN(document.getElementById("itemName").value)) {
-    isvalid = true;
-  }
-
-  else if ((document.getElementById("price").value < 0)) {
+ 
+  else if (document.getElementById("price").value < 0){
     isValid = false;
     alert("Price should be positive");
     div_show();
   }
-  else if ((document.getElementById("price").value > 10000)) {
+  else if(document.getElementById("price").value > 10000)
+  {
     isValid = false;
-    alert("Price should be valid");
+    alert("Enter valid price value");
     div_show();
   }
+  
+
   else {
     isValid = true;
     if (isNaN(document.getElementById("itemName").value)) {

@@ -5,130 +5,138 @@
     <title>
         CRUD OPERATIONS
     </title>
- 
-    <link rel="stylesheet" href="Styles.css">
+
+    <link rel="stylesheet" href="CSS/Styles.css">
 </head>
 
 <body>
     <header>
         <h1 class="h1">Batinda Dines</h1>
     </header>
-    <br/>
-    <input type="text" id="myInput" onkeyup="searchfunction()" placeholder="Search for names.." title="Type in a name">
-        <button id="create" onclick="div_show()">+  Create product</button>
-        <button id="delete_select" onclick="deleteselected()">Delete Selected</button>
-        <button id="undo" onclick="undo()">Undo</button>
-        
-        <br/>
-   
+
+    <input type="text" id="myInput" onkeyup="searchfunction()" placeholder="Search for Items.." title="Type in a name">
+    <br />
+    <button id="create" onclick="create_div_show()">+ Create product</button>
+    <button id="delete_select" onclick="deleteselected()">Delete Selected</button>
+    <button id="undo" onclick="undo()">Undo</button>
+
+    <br />
+
     <table>
-          
+
         <tr>
             <td>
-                
+
                 <div id="abc">
-                <div id="popupContact">
-              
-                <form onsubmit="event.preventDefault();onFormSubmit();" autocomplete="off">
-                        <button class="close" onclick="div_hide()">X</button>
-                     
-              
-                    <div>
-                        <label>ITEM NAME*</label><label class="validation-error hide" id="itemNameValidationError">This field is required.</label>
-                        <input type="text" name="itemName" id="itemName">
+                    <div id="popupContact">
+
+                        <form onsubmit="event.preventDefault();onFormSubmit();" autocomplete="off">
+                            <button id="close" onclick="div_hide()">X</button>
+
+
+                            <section>
+                                <label>ITEM NAME*</label><label class="validation-error hide"
+                                    id="itemNameValidationError">This field is required.</label>
+                                <input type="text" name="itemName" id="itemName">
+                            </section>
+
+                            <section>
+                                <label>DESCRIPTION*</label><label class="validation-error hide"
+                                    id="descriptionValidationError">This field is required.</label>
+                                <br />
+                                <textarea rows="4" cols="38" id="description" name="description"></textarea>
+
+                            </section>
+
+                            <section>
+                                <label>PRICE*</label><label class="validation-error hide" id="priceValidationError">This
+                                    field is required.</label>
+                                <input type="number" name="price" id="price">
+                            </section>
+
+                            <section>
+                                <label>CATEGORY*</label><label class="validation-error hide"
+                                    id="categoryValidationError">This field is required.</label>
+                                <select id="category">
+                                    <option value="Starters">Starters</option>
+                                    <option value="Maincourse">Main Course</option>
+                                    <option value="Desserts">Desserts</option>
+                                    <option value="Chat">Chat</option>
+                                </select>
+                            </section>
+
+
+
+                            <div class="form-action-buttons">
+                                <input type="submit" value="Update" onclick="div_hide()">
+                            </div>
+
+                        </form>
+
                     </div>
 
-                    <div>
-                        <label>DESCRIPTION*</label><label class="validation-error hide" id="descriptionValidationError">This field is required.</label>
-                        <input type="text" id="description" name="description">
-                     
-                    </div>
-
-                    <div>
-                        <label>PRICE*</label><label class="validation-error hide" id="priceValidationError">This field is required.</label>
-                        <input type="number" name="price" id="price">
-                    </div>
-
-                    <div>
-                        <label>CATEGORY*</label><label class="validation-error hide" id="categoryValidationError">This field is required.</label>
-                        <select id = "category">
-                            
-                                <option value = "Starters">Starters</option>
-                                <option value = "Maincourse">Main Course</option>
-                                <option value = "Desserts">Desserts</option>
-                                <option value = "Chat">Chat</option>
-                              </select>
-                    </div>
-
-             
-
-                    <div  class="form-action-buttons">
-                        <input type="submit" value="Update" onclick="div_hide()">
-                    </div>
-
-                </form>
-      
-              </div>
-
-            </div>
+                </div>
 
             </td>
 
             <td>
-               
+
                 <table class="list" id="myTable">
                     <thead>
                         <tr>
-                           <td><input id="chk" type="checkbox" value="check" onClick="toggle(this)" /><label for="chk">ALL</label></td>
-      
+                            <td class="td1"><input id="chk" type="checkbox" value="check"
+                                    onClick="toggle(this)" /><label id="chk1" for="chk">ALL</label></td>
+
                             <th>ITEM NAME</th>
                             <th>DESCRIPTION</th>
                             <th>PRICE</th>
                             <th>CATEGORY</th>
-                           
+
                             <th></th>
                         </tr>
-                      
+
                     </thead>
-               
+
+
                     <tbody>
-                   
+
                     </tbody>
-                
+
                 </table>
-                
-       
+
+
             </td>
         </tr>
     </table>
 
-    <br/>
+    <br />
 
-    <script src="Myscript.js"></script>
-    <script src="Pagination.js"></script>
+    <script src="JS/Myscript.js"></script>
+    <script src="JS/Pagination.js"></script>
 
     <scetion id="pager_style">
 
-<button onclick="javascript:prevPage()" id="btn_prev"><<</button><b>Page:</b> <span id="page"></span>
-<button onclick="javascript:nextPage()" id="btn_next">>></button></section>
-<br/>
+        <button onclick="javascript:prevPage()" id="btn_prev">
+            <<</button> <b>Page:</b> <span id="page"></span>
+                <button onclick="javascript:nextPage()" id="btn_next">>></button></section>
+                <br />
 
-<input type="text" name="inputdata" id="myInput1" placeholder="Give number of records">
-<button id="go" onclick="go()">Show records</button>
+                <input type="number" name="inputdata" id="myInput1" placeholder="Give number of records">
+                <button id="go" onclick="go()">Show records</button>
 
-&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
-<input type="text" name="inputdata" id="myInput2" placeholder="Go to Page">
-<button id="gotopage" onclick="gotopage()">GO</button>
+                &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+                <input type="number" name="inputdata" id="myInput2" placeholder="Go to Page">
+                <button id="gotopage" onclick="gotopage()">GO</button>
 
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-  <label>Display</label>  <select id="sel" onchange="show()">
-            <option selected="selected" value="5">5</option>
-            <option value="10">10</option>
-            <option value="15">15</option>
-            <option value="25">20</option>
-        </select>
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                <label id="display">Display</label> <select id="sel" onchange="show()">
+                    <option selected="selected" value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                    <option value="25">20</option>
+                </select>
 
-    
+
 </body>
 
 </html>

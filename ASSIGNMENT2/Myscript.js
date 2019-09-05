@@ -141,10 +141,17 @@ function display_array() {
     }
 
     myTable += "</table>";
-    myTable += "<h3>Total passed students:" + totalpass + "</h3>";
-    myTable += "<h3>Total failed students:" + totalfail + "</h3>";
-    myTable += "<h3>Total students are:" + totalstudents + "</h3>";
+    myTable += "<h3>Total passed students:" + count1 + "</h3>";
+    myTable += "<h3>Total failed students:" + count2 + "</h3>";
+    myTable += "<h3>Total students are:" + count3 + "</h3>";
+    if(count3==0)
+    {
+        totalpasspercent=0;
     myTable += "<h3>Total Pass percentage:" + totalpasspercent + "</h3>";
+    }
+    else{
+        myTable += "<h3>Total Pass percentage:" + totalpasspercent + "</h3>";  
+    }
 
     document.getElementById("Result").innerHTML = myTable;
 }

@@ -30,8 +30,8 @@ var Benz=new car("Mercedes","Red",4,9000000,20,100);
 Benz.display_data();
 Benz.display_originalprice();
 
-console.log(Benz.price);
-console.log(Benz.brand);
-console.log(Benz.color);
+console.log(Benz.price);//this variable can be accessed 
+console.log(Benz.brand);//this variable can be accessed
+console.log(Benz.color);//this variable can be accessed
 
 console.log(Benz.original_price);//the variable original_price cannot be accessed because it is a private variable encapsulated inside display_originalprice

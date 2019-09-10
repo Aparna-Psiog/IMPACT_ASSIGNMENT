@@ -1,0 +1,3 @@
+const Figo={
+    name:"Figo"
+}

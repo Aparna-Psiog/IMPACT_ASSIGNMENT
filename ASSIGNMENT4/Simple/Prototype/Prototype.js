@@ -32,7 +32,7 @@ car.prototype={
     warranty:"5 years",
 }
 
-console.log(car_obj1.type);//gives undefined because the updated values are not known for car_oobj1,car_obj2,car_obj3
+console.log(car_obj1.type);//gives undefined because the updated values are not known for car_obj1,car_obj2,car_obj3
 console.log(car_obj1.name);//This is accessible beacuse the old properties still exists
 const car_obj4=new car();//A new object created for car
 console.log(car_obj4.type);//This will give the updated value

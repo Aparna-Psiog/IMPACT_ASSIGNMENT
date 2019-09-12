@@ -128,25 +128,31 @@ car_obj3.profit=400;
     
     car_obj2.total_profit = (car_obj2.price * car_obj2.profit);
     console.log("Total profit made by shwroom 2 is " ,  car_obj2.total_profit);
+
+    
+    car_obj3.total_profit = (car_obj3.price * car_obj3.profit);
+    console.log("Total profit made by shwroom 2 is " ,  car_obj3.total_profit);
    
   })();
 
   console.log("------------------------------------------------------------------");
 
-
+//Revealing module pattern
   let people_visited = (function () {
     let count=0;
+    let count1=0;
 
   
     function no_of_people_visted() {
      count += 1;
-      console.log(`Number of people visited the showroom are:${count}`);
+     count1+=1;
+      console.log(`Number of people visited the showroom ${count1} are:${count}`);
     }
   
     function displayName() {
-      console.log(car_obj1.displaydetails());
-      console.log(car_obj2.displaydetails());
-      console.log(car_obj2.displaydetails());
+      car_obj1.displaydetails();
+      car_obj2.displaydetails();
+      car_obj2.displaydetails();
     }
   
     function display_visited() {
@@ -160,9 +166,106 @@ car_obj3.profit=400;
   })();
 
 
-  console.log(people_visited.name());
-console.log(people_visited.visited());
-console.log(people_visited.visited());
-console.log(people_visited.visited());
+people_visited.name();
+console.log("------------------------------------------------------------------");
+people_visited.visited();
+people_visited.visited();
+people_visited.visited();
+
+console.log("------------------------------------------------------------------");
 
 
+//Composite pattern
+(function Feedback(){
+
+    function Customer(name,feedback,city,email){
+      this.cus_name = name;
+      this.email=email
+      this.feedback = feedback;
+      this.city = city;
+    }
+    
+    function car_showrooms(name)
+    {
+      this.sname = name;
+      this.cars = [];
+    }
+    
+    car_showrooms.prototype.add = function(cars){
+    
+      this.cars.push(cars);
+    }
+    
+    car_showrooms.prototype.getName = function(index){
+      return this.cars[index].cus_name;
+    }
+    
+    car_showrooms.prototype.getFeedback = function(index){
+      return this.cars[index].feedback;
+    }
+    
+    car_showrooms.prototype.getCity = function(index){
+      return this.cars[index].city;
+    }
+
+    car_showrooms.prototype.getemail = function(index){
+        var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;  
+   if(mailformat.test(this.cars[index].email))
+     {  
+    console.log("Valid email address!");  
+    }  
+   else  
+   {  
+    console.log("You have entered an invalid email address!");  
+   }
+
+        return this.cars[index].email;
+      }
+    
+    car_showrooms.prototype.display = function(){
+    
+      console.log("Customers Feedback for " + this.sname);
+      for(var i = 0 , len = this.cars.length ; i < len ; i++){
+    
+        console.log(" " , this.getName(i) , " gave a review of " , this.getFeedback(i) ,   " from " , this.getCity(i),"of address",this.getemail(i));
+      }
+    }
+    showroom1 = new car_showrooms("Showroom 1");
+    showroom2 = new car_showrooms("Showroom 2");
+    
+    input3 = new Customer("Priya" , "Good" , "Mumbai","me-info@example.com");
+    input4 = new Customer("Sherin" , "Poor" , "Chennai","hi-data@example.in");
+    input5 = new Customer("Leela" , "Outstanding" , "Bangalore","me-info@example.comfs");
+    
+    showroom1.add(input3);
+    showroom1.add(input4);
+    
+    showroom2.add(input5);
+    showroom2.add(input3);
+    showroom2.add(input4);
+    
+    showroom1.display();
+    showroom2.display();
+    
+    })();
+
+
+    console.log("----------------------Showroom1---------------------");
+    car_obj1.displaydetails();
+    console.log("Mode:"+" "+car_obj1.mode);
+    console.log("Color:"+" "+car_obj1.color);
+    console.log("Profit made for a single car:"+" "+car_obj1.profit);
+    console.log("Total profit:"+" "+car_obj1.total_profit);
+    console.log("----------------------Showroom2---------------------");
+    car_obj2.displaydetails();
+    console.log("Mode:"+" "+car_obj2.mode);
+    console.log("Color:"+" "+car_obj2.color);
+    console.log("Profit made for a single car:"+" "+car_obj2.profit);
+    console.log("Total profit:"+" "+car_obj2.total_profit);
+    console.log("----------------------Showroom3---------------------");
+    car_obj3.displaydetails();
+    console.log("Mode:"+" "+car_obj3.mode);
+    console.log("Color:"+" "+car_obj3.color);
+    console.log("Profit made for a single car:"+" "+car_obj3.profit);
+    console.log("Total profit:"+" "+car_obj3.total_profit);
+    console.log("-----------------------------------------------------");

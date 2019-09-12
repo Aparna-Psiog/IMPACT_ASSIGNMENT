@@ -10,7 +10,7 @@ function vehicle()
 }
 
 function car(carname,color,price,seats,year){
-    this.noofwheels=2;
+    this.noofwheels=4;
     this.type_of_tank="Petrol";
     this.discount=500;
 
@@ -98,6 +98,9 @@ Sports_car.prototype=new car();
 Racing_car.prototype=new Sports_car();
 Luxurious_car.prototype=new car();
 
+var vehicle1=new vehicle();
+vehicle1.type_of_vehicle();
+
 var car1=new car();
 console.log(car1.type);//prints a property of vehicle
 car1.type_of_vehicle();//prints method of vehicle
@@ -110,6 +113,8 @@ race1.ride("100kmph","70kpl");
 race1.cal_price(900000,500);//calling method of car object
 console.log("---------------------------------------------------------------------------")
 
+var sports1=new Sports_car("Mazda","White",700500,4,2017);
+
 
 //Call() and apply()
 
@@ -119,8 +124,9 @@ function Audi()
     Luxurious_car.call(this,"AudiA5","Green",950000,7,2017);
 }
 
-var a1=new Audi();
-a1.displaydetails();
+var audi1=new Audi();
+console.log("Audi car added to Luxurious car list");
+audi1.displaydetails();
 
 
 
@@ -132,9 +138,13 @@ function Chevrolet()
 
 
     var chev=new Chevrolet();
+   
     chev.describe_car();
+    console.log("Chevrolet added to Racing car list");
     chev.warranty();
     console.log("---------------------------------------------------------------------------");
+
+
   
    console.log("Other services:")
     var carpayment=(function()   //Main Module
@@ -168,7 +178,7 @@ function Chevrolet()
     }());
     console.log(`The total car payment:`);
     console.log(carpayment);
-    console.log("---------------------------------------------------------------------------")
+    console.log("---------------------------------------------------------------------------");
     
     
 

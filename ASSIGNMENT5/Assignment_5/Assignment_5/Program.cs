@@ -4,22 +4,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Impact_Assignment5
+namespace GradeBook
 {
     class Program
     {
         static void Main(string[] args)
         {
+            var book = new Book("Aparna's Grade book");
+            book.AddGrade(87.5);
+
             var numbers = new int[4];
             var result = 0;
             int n = numbers.Length;
 
-            var grades = new List<int>();
-            grades.Add(1);
-            grades.Add(3);
-            grades.Add(8);
-            grades.Add(0);
-            var result1 = 0;
+            var grades = new List<double>();
+            grades.Add(15.76);
+            grades.Add(32.45);
+            grades.Add(83.55);
+            grades.Add(44.66);
+            var result1 = 0.00;
             
             
             foreach(var grade in grades)
@@ -28,8 +31,10 @@ namespace Impact_Assignment5
             }
             result1/=grades.Count;
 
-            Console.WriteLine("The average is :"+result1);
+            Console.WriteLine($"The average is :{result1:N1}");
             
+            //new code for array
+
             Console.WriteLine("Enter the array elements:");
             for (var i = 0; i < n; i++)
             {

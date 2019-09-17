@@ -1,7 +1,0 @@
-C:\Users\aparna.j\Documents\GitHub\IMPACT_ASSIGNMENT\ASSIGNMENT5\Assignment_5\Assignment_5\bin\Debug\Assignment_5.exe.config
-C:\Users\aparna.j\Documents\GitHub\IMPACT_ASSIGNMENT\ASSIGNMENT5\Assignment_5\Assignment_5\bin\Debug\Assignment_5.exe
-C:\Users\aparna.j\Documents\GitHub\IMPACT_ASSIGNMENT\ASSIGNMENT5\Assignment_5\Assignment_5\bin\Debug\Assignment_5.pdb
-C:\Users\aparna.j\Documents\GitHub\IMPACT_ASSIGNMENT\ASSIGNMENT5\Assignment_5\Assignment_5\obj\Debug\Assignment_5.csprojAssemblyReference.cache
-C:\Users\aparna.j\Documents\GitHub\IMPACT_ASSIGNMENT\ASSIGNMENT5\Assignment_5\Assignment_5\obj\Debug\Assignment_5.csproj.CoreCompileInputs.cache
-C:\Users\aparna.j\Documents\GitHub\IMPACT_ASSIGNMENT\ASSIGNMENT5\Assignment_5\Assignment_5\obj\Debug\Assignment_5.exe
-C:\Users\aparna.j\Documents\GitHub\IMPACT_ASSIGNMENT\ASSIGNMENT5\Assignment_5\Assignment_5\obj\Debug\Assignment_5.pdb

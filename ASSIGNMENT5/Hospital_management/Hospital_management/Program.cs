@@ -8,10 +8,19 @@ namespace Hospital_management
 {
     class Program
     {
-        static void Main(string[] args)
+  
+        public static void Main(string[] args)
         {
-            Console.WriteLine("Hello");
-            Console.ReadKey();
+            Console.WriteLine("Welcome to Front Line Hospital!!");
+            Console.WriteLine();
+            Login_system login = new Login_system();
+            login.login_user();
+
+            Departments d = new Departments();
+            d.Show();
+
+
+
         }
     }
 }

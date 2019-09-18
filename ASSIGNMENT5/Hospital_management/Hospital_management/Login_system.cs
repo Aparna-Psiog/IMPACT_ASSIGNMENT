@@ -12,77 +12,79 @@ namespace Hospital_management
 
             var arrUsers = new Users[]
        {
-            new Users("tomas","samsung",2605),
-            new Users("stefan","pasle",15),
-            new Users("dimitar","jovanov",32)
+            new Users("user1","pass1",2),
+            new Users("user2","pass2",3),
+            new Users("user3","pass3",4)
        };
+            var username = "";
+            var password ="";
 
         Start:
             Console.WriteLine("Press 1 for Login and 2 for Register");
             var input = Console.ReadLine();
 
+            bool successfull = true;
 
-
-            bool successfull = false;
-            while (!successfull)
+            do
             {
-
-                if (input == "1")
+                switch (input)
                 {
-                    Console.WriteLine("Write your username:");
-                    var username = Console.ReadLine();
-                    Console.WriteLine("Enter your password:");
-                    var password = Console.ReadLine();
+                    case "1":
+                        Console.WriteLine("Write your username:");
+                         username = Console.ReadLine();
+                        Console.WriteLine("Enter your password:");
+                         password = Console.ReadLine();
 
 
-                    foreach (Users user in arrUsers)
-                    {
-                        if (username == user.username && password == user.password)
+                        foreach (Users user in arrUsers)
                         {
-                            Console.WriteLine("You have successfully logged in !!!");
-                            Console.WriteLine("Press any key to continue:");
-                            Console.ReadLine();
-                            Console.Clear();
-                            successfull = true;
-
+                            if (username == user.username && password == user.password)
+                            {
+                                Console.WriteLine("You have successfully logged in !!!");
+                                Console.WriteLine("Press Enter to continue:");
+                                Console.ReadLine();
+                                Console.Clear();
+                                successfull = false;
+                            }
                         }
+                        break;
+                    case "2":
+                        Console.WriteLine("Enter your username:");
+                         username= Console.ReadLine();
+
+                        Console.WriteLine("Enter your password:");
+                        password = Console.ReadLine();
+
+                        Console.WriteLine("Enter your id:");
+                        int id = int.Parse(Console.ReadLine());
+
+
+                        Array.Resize(ref arrUsers, arrUsers.Length + 1);
+                        arrUsers[arrUsers.Length - 1] = new Users(username, password, id);
+                        //successfull = true;
+                        goto Start;
+                        break;
+                    default:
+                        Console.WriteLine("Try again !!!");
+                        goto Start;
+
+                }
+                    if (successfull == false)
+                    {
+                    return;
                     }
 
-                    if (!successfull)
+                    if (successfull == true)
                     {
                         Console.WriteLine("Your username or password is incorect, try again !!!");
+                        
                     }
 
-                }
-
-                else if (input == "2")
-                {
-
-                    Console.WriteLine("Enter your username:");
-                    var username = Console.ReadLine();
-
-                    Console.WriteLine("Enter your password:");
-                    var password = Console.ReadLine();
-
-                    Console.WriteLine("Enter your id:");
-                    int id = int.Parse(Console.ReadLine());
+            } while (successfull == true);
 
 
-                    Array.Resize(ref arrUsers, arrUsers.Length + 1);
-                    arrUsers[arrUsers.Length - 1] = new Users(username, password, id);
-                    successfull = true;
-                    goto Start;
-
-                }
-                else
-                {
-                    Console.WriteLine("Try again !!!");
-                    break;
-
-
-                }
-
-            }
         }
+       
+
     }
 }

@@ -13,17 +13,19 @@ namespace Hospital_management
             int userOption;
             string Getoption;
             bool Confirmresult = false;
-            List<Patient> Patient_name = new List<Patient>();
-            Food foodMenu = new Food();
+            List<Patient_Details> Patient_name = new List<Patient_Details>();
+            Check_up check = new Check_up();
             do
             {
                 Console.WriteLine("\t\t\t Welcome To Front Line Hospital");
                 Console.WriteLine();
                 Console.WriteLine("\t\tDepartments");
                 Console.WriteLine();
-                Console.WriteLine("1. Cardiologists ");
-                Console.WriteLine("2. Neurologists ");
-                Console.WriteLine("3. Dermatologists ");
+                Console.WriteLine("\t\tSelect a Department:");
+                Console.WriteLine();
+                Console.WriteLine("1. Cardiology ");
+                Console.WriteLine("2. Neurology ");
+                Console.WriteLine("3. Dermatology ");
                 Console.WriteLine("4. Exit ");
                 Console.WriteLine("");
 
@@ -43,17 +45,17 @@ namespace Hospital_management
                     {
                         case 1:
                             Console.Clear();
-                            foodMenu.South(Patient_name);
+                            check.Cardiology_list(Patient_name);
                             break;
 
                         case 2:
                             Console.Clear();
-                            foodMenu.Italian(Patient_name);
+                            check.Neurology_list(Patient_name);
                             break;
 
                         case 3:
                             Console.Clear();
-                            foodMenu.Deserts(Patient_name);
+                            check.Dermatology_list(Patient_name);
                             break;
 
                         case 4:

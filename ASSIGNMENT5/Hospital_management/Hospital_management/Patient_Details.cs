@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace Hospital_management
 {
@@ -7,10 +8,58 @@ namespace Hospital_management
     {
         public int SNo = 1;
         public string Checkup_Name;
-        public int Date_Timing;
-        public int Correct_time;
+        public string Date_Timing;
+        public string Correct_time;
 
         public object Patient_name { get; private set; }
+
+        static bool DateCheck(string stringdate)
+        {
+            // Define the acceptable date formats and check if entered date is valid
+            string[] formats = { "d/MM/yyyy", "dd/MM/yyyy", "d/M/yyyy" };
+            string bdate = stringdate;
+
+            DateTime parsedDate;
+            try
+            {
+                //Conversion from string to Date time
+                bool isValidFormat = DateTime.TryParseExact(stringdate, formats, new CultureInfo("en-US"), DateTimeStyles.None, out parsedDate);
+
+                if (isValidFormat)
+                {
+                    // If date is valid, check whether the given year is more than the year Today
+                    if (parsedDate < DateTime.Now)
+                    {
+                        Console.WriteLine("Date cannot be yesterday or before");
+                        Console.WriteLine("Give a proper appointment date");
+                        return false;
+                    }
+                    else
+                    {
+                        //end do while Loop
+                        return true;
+                    }
+                }
+                else
+                {
+                    //if not a valid date, give an error
+                    Console.WriteLine("Wrong Date format");
+                    return false;
+                }
+
+            }
+            catch (FormatException)
+            {
+                //Catch format exception errors on date
+                return false;
+            }
+        }
+        static int CalculateAge(string dateOfbirth)
+        {
+            DateTime birthDay = DateTime.Parse(dateOfbirth);
+            int years = DateTime.Now.Year - birthDay.Year;
+            return years;
+        }
 
         public void GetOrder(List<Tuple<int, string>> department, int userOption, List<Patient_Details> Patient_name)
         {
@@ -25,24 +74,23 @@ namespace Hospital_management
                 }
             }
 
-            Console.WriteLine("Enter the timing for appointment");             //getting the quantity
+            Console.WriteLine("Enter the date for appointment");             //getting the quantity
             do
             {
-                while (!int.TryParse(Console.ReadLine(), out patientdetails.Date_Timing))
-                {
-                    Console.WriteLine("This is not a number!");
-                }
-                if (patientdetails.Date_Timing > 0)
-                {
-                    confirmresult = false;
+                //Prompt and obtain user input 
+                //get Date of Birth
+                Console.Write("Date of Appointment: (dd/mm/yyyy): ");
+                patientdetails.Date_Timing = Console.ReadLine();
 
-                }
-                else
+                //validate date input if empty and if satisfies formatting conditions
+                if (!string.IsNullOrEmpty (patientdetails.Date_Timing) && DateCheck( patientdetails.Date_Timing ))
                 {
-                    confirmresult = true;
-                    Console.WriteLine("Enter the proper time");
+                    //end loop
+                    break;
                 }
-            } while (confirmresult == true);
+
+                //Ask the user to repeatedly enter the value until a valid value has been entered
+            } while (true);
 
             patientdetails.Correct_time = patientdetails.Date_Timing;
             Patient_name.Add(patientdetails);
@@ -75,7 +123,7 @@ namespace Hospital_management
             Console.WriteLine("1. Confirm");
             Console.WriteLine("2. Update");
             Console.WriteLine("3. Delete");
-            Console.WriteLine("4. Continue Shopping");
+            Console.WriteLine("4. Continue!");
             Console.WriteLine("Enter your Option");
 
             do

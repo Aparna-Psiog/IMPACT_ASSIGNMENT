@@ -65,8 +65,10 @@ namespace Hospital_management
                 }
             }
 
-            // Define a function to calculate a person's age by subtracting their yearOfBirth from the current year
-            static int CalculateAge(string dateOfbirth)
+       
+
+        // Define a function to calculate a person's age by subtracting their yearOfBirth from the current year
+        static int CalculateAge(string dateOfbirth)
             {
                 DateTime birthDay = DateTime.Parse(dateOfbirth);
                 int years = DateTime.Now.Year - birthDay.Year;

@@ -63,7 +63,6 @@ namespace Hospital_management
                         arrUsers[arrUsers.Length - 1] = new Users(username, password, id);
                         //successfull = true;
                         goto Start;
-                        break;
                     default:
                         Console.WriteLine("Try again !!!");
                         goto Start;

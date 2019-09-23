@@ -16,8 +16,8 @@ namespace Hospital_management
             Login_system login = new Login_system();
             login.login_user();
 
-            //Patient_info p = new Patient_info();
-            //p.patient_info();
+           Patient_info p = new Patient_info();
+            p.patient_info();
 
             Departments d = new Departments();
             d.Show();

@@ -11,7 +11,7 @@ namespace Hospital_management
         public string Date_Timing;
         public string Correct_time;
 
-        public object Patient_name { get; private set; }
+        //public object Patient_name { get; private set; }
 
         static bool DateCheck(string stringdate)
         {
@@ -23,17 +23,17 @@ namespace Hospital_management
             try
             {
                 //Conversion from string to Date time
-                bool isValidFormat = DateTime.TryParseExact(stringdate, formats, new CultureInfo("en-US"), DateTimeStyles.None, out parsedDate);
+                bool isValidFormat = DateTime.TryParseExact(stringdate, formats, new CultureInfo("ta-IN"), DateTimeStyles.None, out parsedDate);
 
                 if (isValidFormat)
                 {
                     // If date is valid, check whether the given year is more than the year Today
-                    if (parsedDate < DateTime.Now)
+                    if (parsedDate<DateTime.Now)
+
                     {
-                        Console.WriteLine("Date cannot be yesterday or before");
-                        Console.WriteLine("Give a proper appointment date");
+                        Console.WriteLine("Appointment date must be appropriate");
                         return false;
-                    }
+                    } 
                     else
                     {
                         //end do while Loop
@@ -57,14 +57,26 @@ namespace Hospital_management
         static int CalculateAge(string dateOfbirth)
         {
             DateTime birthDay = DateTime.Parse(dateOfbirth);
-            int years = DateTime.Now.Year - birthDay.Year;
+            int years = DateTime.Now.Year-birthDay.Year;
             return years;
+        }
+        static int Calculatemonth(string dateOfbirth)
+        {
+            DateTime birthDay = DateTime.Parse(dateOfbirth);
+            int month = DateTime.Now.Month-birthDay.Month;
+            return month;
+        }
+
+        static double Calculatedate(string dateOfbirth)
+        {
+            DateTime birthDay = DateTime.Parse(dateOfbirth);
+            double date = (DateTime.Now.Date-birthDay.Date).TotalDays;
+            return date;
         }
 
         public void GetOrder(List<Tuple<int, string>> department, int userOption, List<Patient_Details> Patient_name)
         {
             Patient_Details patientdetails = new Patient_Details();
-            bool confirmresult = true;
             foreach (Tuple<int, string> tuple in department)             //loop inside the Tuple
             {
                 if (tuple.Item1 == userOption)
@@ -74,7 +86,7 @@ namespace Hospital_management
                 }
             }
 
-            Console.WriteLine("Enter the date for appointment");             //getting the quantity
+            Console.WriteLine("Enter the date of appointment:");
             do
             {
                 //Prompt and obtain user input 
@@ -104,15 +116,15 @@ namespace Hospital_management
             bool Confirmresult = true;
 
             Console.Clear();
-            Console.WriteLine("----------------------- Hospital appointment ---------------------------------");    //Displaying the order
-            Console.WriteLine($"{"SNo",13}" + "\t" + $"{"Checkup_Name",13}" + "  " +"  "+"  "+"  "+"  "+$"{"Appointment time",13}");
+           
+            Console.WriteLine("-----------------------FrontLine Hospital appointment -----------------------");    //Displaying the order
+            Console.WriteLine($"{"SNo",13}" + "\t" + $"{"Checkup_Name",13}" + "  " +"  "+"  "+"  "+"  "+$"{"Appointment Date",13}");
             Console.WriteLine();
 
             SNo = 1;
             foreach (Patient_Details i in Patient_name)
             {
                 i.SNo = SNo;
-               // i.Total = i.Price * i.Quantity;
                 Console.WriteLine($"{i.SNo,10} \t  {i.Checkup_Name,10}{i.Correct_time,10}");
                
                 SNo += 1;

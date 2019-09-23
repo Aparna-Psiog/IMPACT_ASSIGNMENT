@@ -18,17 +18,17 @@ namespace Hospital_management
             try
             {
                 //Conversion from string to Date time
-                bool isValidFormat = DateTime.TryParseExact(stringdate, formats, new CultureInfo("en-US"), DateTimeStyles.None, out parsedDate);
+                bool isValidFormat = DateTime.TryParseExact(stringdate, formats, new CultureInfo("ta-IN"), DateTimeStyles.None, out parsedDate);
 
                 if (isValidFormat)
                 {
                     // If date is valid, check whether the given year is more than the year Today
-                    if (CalculateAge(parsedDate.ToString())<0)
+                    if (parsedDate < DateTime.Now)
+
                     {
-                        Console.WriteLine("Give a proper appointment date");
+                        Console.WriteLine("Appointment date must be appropriate");
                         return false;
                     }
-                    
                     else
                     {
                         //end do while Loop
@@ -51,19 +51,29 @@ namespace Hospital_management
         }
         static int CalculateAge(string dateOfbirth)
         {
-        
             DateTime birthDay = DateTime.Parse(dateOfbirth);
-         
             int years = DateTime.Now.Year - birthDay.Year;
             return years;
         }
+        static int Calculatemonth(string dateOfbirth)
+        {
+            DateTime birthDay = DateTime.Parse(dateOfbirth);
+            int month = DateTime.Now.Month - birthDay.Month;
+            return month;
+        }
 
+        static double Calculatedate(string dateOfbirth)
+        {
+            DateTime birthDay = DateTime.Parse(dateOfbirth);
+            double date = (DateTime.Now.Date - birthDay.Date).TotalDays;
+            return date;
+        }
 
         public static void Confirm(List<Patient_Details> Patient_name)
         {
-           // Bill.PrintBill(Ordername);               // Calling the print bill function
-            //PreviousOrder.Addorders(Ordername);
-            Console.WriteLine("\n Your prescription is being processed. Please wait! ");
+              Bill.PrintBill(Patient_name);               // Calling the print bill function
+            PreviousAppointment.AddAppoint(Patient_name);
+            Console.WriteLine("\n Your Appointment Slip is being processed. Please wait! ");
             Console.WriteLine("\n Press Enter to exit");
             Console.ReadLine();
             Environment.Exit(0);

@@ -55,7 +55,7 @@
     <Compile Include="Check_up.cs" />
     <Compile Include="Login_system.cs" />
     <Compile Include="Patient.cs" />
-    <Compile Include="Patient_Details.cs" />
+    <Compile Include="Patient_Appointment.cs" />
     <Compile Include="Patient_info.cs" />
     <Compile Include="PreviousAppointment.cs" />
     <Compile Include="Program.cs" />

@@ -7,7 +7,7 @@ namespace Hospital_management
 {
 
 
-    class Patient
+ public class Patient
     {
         public string PatientType { get; set; }
         public string FirstName { get; set; }
@@ -25,20 +25,20 @@ namespace Hospital_management
         public string Zip { get; set; }
         public string check { get; set; }
     }
-    class OutPatient : Patient
+   public class OutPatient : Patient
     {
         public string ContactFirstName { get; set; }
         public string ContactLastName { get; set; }
     }
-    class ResidentPatient : Patient
+    public class ResidentPatient : Patient
     {
-        public string HospitalName { get; set; }
+        public string ProblemName{ get; set; }
     }
-    class Contact
+    public class Contact
     {
         public string HomeNumber { get; set; }
         public string MobileNumber { get; set; }
         public string ContactPhone { get; set; }
-        public string HospitalPhone { get; set; }
+  
     }
 }

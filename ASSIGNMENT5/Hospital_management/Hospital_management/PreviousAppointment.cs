@@ -7,7 +7,7 @@ namespace Hospital_management
 {
     class PreviousAppointment
     {
-        public static void AddAppoint(List<Patient_Details> Patient_name)
+        public static void AddAppoint(List<Patient_Appointment> Patient_name)
         {
             int TotalCost = 0;
             var SNo = 1;
@@ -17,12 +17,16 @@ namespace Hospital_management
 
 
 
-            sw.WriteLine("-----------------------FrontLine Hospital appointment ------------------------");    //Displaying the order
+            sw.WriteLine("-----------------------FrontLine Hospital appointment ------------------------");
+
+            sw.WriteLine("------------------------------------------------------------------------------");//Displaying the order
             sw.WriteLine($"{"SNo",13}" + "\t" + $"{"Checkup_Name",13}" + "  " + "  " + "  " + "  " + "  " + $"{"Appointment Date",13}");
+
+            sw.WriteLine("------------------------------------------------------------------------------");
             sw.WriteLine();
 
             SNo = 1;
-            foreach (Patient_Details i in Patient_name)
+            foreach (Patient_Appointment i in Patient_name)
             {
                 i.SNo = SNo;
                 // i.Total = i.Price * i.Quantity;
@@ -30,9 +34,8 @@ namespace Hospital_management
 
                 SNo += 1;
             }
-
-
             sw.WriteLine("-------------------------------------------------------------------------------");
+         
             sw.Close();
         }
     }

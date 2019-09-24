@@ -13,7 +13,7 @@ namespace Hospital_management
             int userOption;
             string Getoption;
             bool Confirmresult = false;
-            List<Patient_Details> Patient_name = new List<Patient_Details>();
+            List<Patient_Appointment> Patient_name = new List<Patient_Appointment>();
             Check_up check = new Check_up();
             do
             {
@@ -26,7 +26,8 @@ namespace Hospital_management
                 Console.WriteLine("1. Cardiology ");
                 Console.WriteLine("2. Neurology ");
                 Console.WriteLine("3. Dermatology ");
-                Console.WriteLine("4. Exit ");
+                Console.WriteLine("4. Generalcheckup");
+                Console.WriteLine("5. Exit ");
                 Console.WriteLine("");
 
                 Console.WriteLine("Enter your option");
@@ -57,8 +58,12 @@ namespace Hospital_management
                             Console.Clear();
                             check.Dermatology_list(Patient_name);
                             break;
-
                         case 4:
+                            Console.Clear();
+                            check.Generalcheckup_list(Patient_name);
+                            break;
+
+                        case 5:
                             Environment.Exit(0);
                             break;
 

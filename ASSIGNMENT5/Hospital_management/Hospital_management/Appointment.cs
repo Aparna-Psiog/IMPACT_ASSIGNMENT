@@ -8,6 +8,11 @@ namespace Hospital_management
 
 
     {
+        private static int Option;
+
+        public static string Getoption { get; private set; }
+        public static bool Confirmresult { get; private set; }
+
         static bool DateCheck(string stringdate)
         {
             // Define the acceptable date formats and check if entered date is valid
@@ -69,23 +74,69 @@ namespace Hospital_management
             return date;
         }
 
-        public static void Confirm(List<Patient_Details> Patient_name)
+        public static void Confirm(List<Patient_Appointment> Patient_name)
         {
-              Bill.PrintBill(Patient_name);               // Calling the print bill function
+              Bill.PrintBill(Patient_name);
+         
+            // Calling the print bill function
+
             PreviousAppointment.AddAppoint(Patient_name);
-            Console.WriteLine("\n Your Appointment Slip is being processed. Please wait! ");
+            do
+            {
+                Console.WriteLine("How do you want to save your file? ");
+                Console.WriteLine("1. json");
+                Console.WriteLine("2. xml");
+            
+                Console.WriteLine("Enter your Option");
+
+            
+                Getoption = Console.ReadLine();
+                while (!int.TryParse(Getoption, out Option))
+                {
+                    Console.WriteLine("This is not a number!");
+                    Getoption = Console.ReadLine();
+                }
+                if ((Option > 0) && (Option < 3))
+                {
+                    Confirmresult = false;
+                    
+                    switch (Option)      //Switch case for chosing what to do
+                    {
+                        case 1:
+                            Bill.saveasjson(Patient_name);
+                            //Patient_info.saveasjson(PatientList);
+                            break;
+
+                        case 2:
+                            Bill.saveasxml(Patient_name);
+                            break;
+
+                        default:
+                            Console.WriteLine("Option not found");
+                            break;
+
+                    }
+
+                }else
+                {
+                    Confirmresult = true;
+                    Console.WriteLine("Re-enter option");
+                }
+
+            } while (Confirmresult == true);
+            Console.WriteLine("\nYour Appointment slip is being processed");
             Console.WriteLine("\n Press Enter to exit");
             Console.ReadLine();
             Environment.Exit(0);
         }
-        public static void Update(List<Patient_Details> Patient_name)
+        public static void Update(List<Patient_Appointment> Patient_name)
         {
             bool Confirmresult = true;
             int UpdateOption = 0;
             string Getupdateoption;
            string UpdateQuantity=" ";
             bool result = true;
-            Patient_Details pt = new Patient_Details();
+            Patient_Appointment pt = new Patient_Appointment();
 
             Console.WriteLine("Which Item you want to update");
             do
@@ -96,7 +147,7 @@ namespace Hospital_management
                     Console.WriteLine("This is not a number!");
                     Getupdateoption = Console.ReadLine();
                 }
-                foreach (Patient_Details i in Patient_name)
+                foreach (Patient_Appointment i in Patient_name)
                 {
                     if (UpdateOption == i.SNo)
                     {
@@ -140,12 +191,12 @@ namespace Hospital_management
             Console.WriteLine("Updated Appointment details");
             pt.Display(Patient_name);
         }
-        public static void Delete(List<Patient_Details> Patient_name)
+        public static void Delete(List<Patient_Appointment> Patient_name)
         {
             bool Confirmresult = true;
             int UpdateOption = 0;
             string Getupdateoption;
-           Patient_Details pt = new Patient_Details();
+           Patient_Appointment pt = new Patient_Appointment();
 
             Console.WriteLine("Which Item you want to Delete");
             do

@@ -1,31 +1,17 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 
 namespace Hospital_management
 {
-    class Patient_info
+    public class Patient_info
     {
-            public static string FormatName(string inputString)
-            {
-
-                //check if string is empty
-                if (inputString.Length < 1)
-                {
-                    return inputString;
-                }
-
-                //set all to lower cast
-                string name = inputString.ToLower();
-
-                //set first char to upper case then concatenate the string
-                return name[0].ToString().ToUpper() + name.Substring(1);
-            }
-
-            //Validate date entered
-            //return true or false 
-            static bool DateCheck(string stringdate)
+ 
+        List<Patient> PatientList = new List<Patient>();
+        static bool DateCheck(string stringdate)
             {
                 // Define the acceptable date formats and check if entered date is valid
                 string[] formats = { "d/MM/yyyy", "dd/MM/yyyy", "d/M/yyyy" };
@@ -142,7 +128,7 @@ namespace Hospital_management
             //Create Patient and contact  objects
             Patient patient = new Patient();
             Contact contact = new Contact();
-            ResidentPatient residentpatient = new ResidentPatient();
+            ResidentPatient inpatient = new ResidentPatient();
             OutPatient outpatient = new OutPatient();
             Console.Write("Welcome to Front Line Hospital!\n");
 
@@ -301,7 +287,7 @@ namespace Hospital_management
                     //Prompt and obtain user input 
                     //get Expenses
                     //Check if the field is empty
-                    Console.Write("Expenses $: ");
+                    Console.Write("Tentative Expenses $: ");
                     double alteration;
                     //Convert the entered value to a double using a try clause
                     bool converted = Double.TryParse(Console.ReadLine(), out alteration);
@@ -383,7 +369,8 @@ namespace Hospital_management
 
                     //An array containing all 50 states in the U.S
                     string[] UsStates = {
-                  "Delhi","Karnataka","Kerala","Tamil Nadu","Mumbai","Goa","Punjab","Kolkata","Andhra pradesh" };
+                  "Delhi","Karnataka","Kerala","Tamil Nadu","Mumbai","Goa","Punjab","Kolkata","Andhra pradesh","Orissa","Gujarat","Jammu & Kashmir","J&K",
+                    "Bihar","Assam","Andhra"};
 
                     //Boolean variable to mark a user entry as a valid state or not
                     bool isValidState = false;
@@ -574,18 +561,18 @@ namespace Hospital_management
                     {
                         //Prompt for hospital details
                         //Input hospital name
-                        Console.Write("Hospital Name: ");
-                        residentpatient.HospitalName = Console.ReadLine();
+                        Console.Write("State your Problem: ");
+                        inpatient.ProblemName = Console.ReadLine();
 
                         //check if name field is empty
-                        if (string.IsNullOrEmpty(residentpatient.HospitalName))
+                        if (string.IsNullOrEmpty(inpatient.ProblemName))
                         {
-                            Console.WriteLine("Hospital Name is empty!");
+                            Console.WriteLine("Problem name is empty!");
                         }
                         //check if the field only contains number characters
-                        else if (residentpatient.HospitalName.All(char.IsNumber))
+                        else if (inpatient.ProblemName.All(char.IsNumber))
                         {
-                            Console.WriteLine("Enter a valid hospital name!");
+                            Console.WriteLine("Enter a valid problem!");
                         }
                         else
                         {
@@ -593,28 +580,9 @@ namespace Hospital_management
                             break;
                         }
                     } while (true);
-                    do
-                    {
-                        //Get hospital phone number
-                        //Input hospital number
-                        Console.Write("Hospital Phone: ");
-                        contact.HospitalPhone = Console.ReadLine();
-
-                        //call function to confirm the validity of the number
-                        bool validNumber = checkPhoneNumber(contact.HospitalPhone);
-                        if (validNumber)
-                        {
-                            //end do while Loop
-                            break;
-                        }
-                        else
-                        {
-                            continue;
-                        }
-                    } while (true);
 
                 }
-                display_patient_info(patient,contact,residentpatient,outpatient);
+                display_patient_info(patient,contact,inpatient,outpatient);
                 do
               
                 {
@@ -631,7 +599,7 @@ namespace Hospital_management
 
                     //loop until a valid value has been entered
                 } while (patient.check != "Y" || patient.check != "N");
-
+             
                 if (patient.check == "Y")
                 {
 
@@ -645,15 +613,18 @@ namespace Hospital_management
                     Login_system login = new Login_system();
                     login.login_user();
                 }
+            
             }
+           
         }
 
 
 
-        public void display_patient_info(Patient patient,Contact contact,ResidentPatient residentpatient,OutPatient outpatient)
+
+        public void display_patient_info(Patient patient,Contact contact,ResidentPatient inpatient,OutPatient outpatient)
         {
             //Call function to calculate patient age
-            bool patientresident = false;
+            bool patientin = false;
             
             int patientAge = CalculateAge(patient.BirthDate);
 
@@ -663,77 +634,112 @@ namespace Hospital_management
             Console.Write("\n\n\n");
             //Display patient Data
             //check gender and  appropriate Title(Mr  or Ms)
+            Console.Write("Name :");
+            sw.Write("Name :");
             Console.Write(patient.Gender == "M" ? "Mr. " : "Ms. ");
-            sw.WriteLine(patient.Gender == "M" ? "Mr. " : "Ms. ");
+            sw.Write(patient.Gender == "M" ? "Mr. " : "Ms. ");
             //Format first name and concatenate to second name
-            Console.Write(FormatName(patient.LastName) + ", " + FormatName(patient.FirstName) + "\t");
-            sw.Write(FormatName(patient.LastName) + ", " + FormatName(patient.FirstName) + "\t");
+            Console.Write((patient.LastName) + ", " + (patient.FirstName) + "\t");
+            sw.Write((patient.LastName) + ", " + (patient.FirstName) + "\t");
             //Output patient type
-            Console.WriteLine(patient.PatientType.ToLower() == "resident" || patient.PatientType.ToLower() == "r" ? "Resident, " : "Patient, ");
-            sw.WriteLine(patient.PatientType.ToLower() == "resident" || patient.PatientType.ToLower() == "r" ? "Resident, " : "Patient, ");
+            Console.WriteLine();
+            sw.WriteLine();
+            Console.WriteLine();
+            sw.WriteLine();
+            Console.Write("Type of Patient :");
+            sw.Write("Type of Patient :");
+            Console.WriteLine( patient.PatientType.ToLower() == "resident" || patient.PatientType.ToLower() == "r" ? "ResidentPatient, " : "OutPatient");
+            sw.WriteLine(patient.PatientType.ToLower() == "resident" || patient.PatientType.ToLower() == "r" ? "ResidentPatient, " : "OutPatient");
             //Output marital status
+            Console.WriteLine();
+            sw.WriteLine();
+            Console.Write("Status:");
+            sw.Write("Status :");
             Console.WriteLine(patient.Married == "Y" ? "Married " : "Single ");
             sw.WriteLine(patient.Married == "Y" ? "Married " : "Single ");
+            Console.WriteLine();
+            sw.WriteLine();
             //output calculated age
-            Console.WriteLine(" Age: " + patientAge + ", ");
-            sw.WriteLine(" Age: " + patientAge + ", ");
+            Console.WriteLine("Age: " + patientAge + ", ");
+            sw.WriteLine("Age: " + patientAge + ", ");
+            Console.WriteLine();
+            sw.WriteLine();
             //Format and output expenses value
-            Console.WriteLine("Expenses: $" + patient.HealthCareExpenses.ToString("n2") + ", ");
-            sw.WriteLine("Expenses: $" + patient.HealthCareExpenses.ToString("n2") + ", ");
-            if (patientresident)
+            Console.WriteLine("Tentative Expenses: Rs." + patient.HealthCareExpenses.ToString("n2") + ", ");
+            sw.WriteLine("Tentative Expenses: Rs." + patient.HealthCareExpenses.ToString("n2") + ", ");
+            Console.WriteLine();
+            sw.WriteLine();
+            if (patientin)
             {
                 //If patient resident, calculate copay and coverage with a 5% copay rate
-                Console.WriteLine(" Copay: $" + CalculateCopay(patient.HealthCareExpenses, 5).ToString("n2") + " , ");
-                sw.WriteLine(" Copay: $" + CalculateCopay(patient.HealthCareExpenses, 5).ToString("n2") + " , ");
-                Console.WriteLine(" Coverage: $" + CalculateCoverage(patient.HealthCareExpenses, 5).ToString("n2"));
-                sw.WriteLine(" Coverage: $" + CalculateCoverage(patient.HealthCareExpenses, 5).ToString("n2"));
+                Console.WriteLine("Copay: Rs." + CalculateCopay(patient.HealthCareExpenses, 5).ToString("n2") + " , ");
+                sw.WriteLine("Copay: Rs." + CalculateCopay(patient.HealthCareExpenses, 5).ToString("n2") + " , ");
+                Console.WriteLine();
+                sw.WriteLine();
+                Console.WriteLine("Coverage: Rs." + CalculateCoverage(patient.HealthCareExpenses, 5).ToString("n2"));
+                sw.WriteLine("Coverage: Rs." + CalculateCoverage(patient.HealthCareExpenses, 5).ToString("n2"));
+                Console.WriteLine();
+                sw.WriteLine();
             }
             else
             {
                 //if patient an outpatient, calculate copay and coverage with a 2.5% copay rate
-                Console.WriteLine(" Copay: $" + CalculateCopay(patient.HealthCareExpenses, 2.5).ToString("n2") + " , ");
-                sw.WriteLine(" Copay: $" + CalculateCopay(patient.HealthCareExpenses, 2.5).ToString("n2") + " , ");
-                Console.WriteLine(" Coverage: $" + CalculateCoverage(patient.HealthCareExpenses, 2.5).ToString("n2"));
-                sw.WriteLine(" Coverage: $" + CalculateCoverage(patient.HealthCareExpenses, 2.5).ToString("n2"));
+                Console.WriteLine("Copay: Rs." + CalculateCopay(patient.HealthCareExpenses, 2.5).ToString("n2") + " , ");
+                sw.WriteLine("Copay: Rs." + CalculateCopay(patient.HealthCareExpenses, 2.5).ToString("n2") + " , ");
+                Console.WriteLine();
+                sw.WriteLine();
+                Console.WriteLine("Coverage: Rs." + CalculateCoverage(patient.HealthCareExpenses, 2.5).ToString("n2"));
+                sw.WriteLine("Coverage: RS." + CalculateCoverage(patient.HealthCareExpenses, 2.5).ToString("n2"));
+                Console.WriteLine();
+                sw.WriteLine();
             }
             //Output street address
-            Console.WriteLine(". " + patient.StreetAddress + ", ");
-            sw.WriteLine(". " + patient.StreetAddress + ", ");
+            Console.Write("Address :" + patient.StreetAddress + ", ");
+            sw.Write("Address :" + patient.StreetAddress + ", ");
             //output city
-            Console.WriteLine(patient.City + ", ");
-            sw.WriteLine(patient.City + ", ");
+            Console.Write(patient.City + ", ");
+            sw.Write(patient.City + ", ");
             //output State in UPPERCASE
-            Console.WriteLine(patient.State.ToUpper() + " ");
-            sw.WriteLine(patient.State.ToUpper() + " ");
+            Console.Write(patient.State.ToUpper() + " ");
+            sw.Write(patient.State.ToUpper() + " ");
             //output zip code
-            Console.WriteLine(patient.Zip + ". ");
-            sw.WriteLine(patient.Zip + ". ");
+            Console.Write(patient.Zip + ". ");
+            sw.Write(patient.Zip + ". ");
+            Console.WriteLine();
+            sw.WriteLine();
+            Console.WriteLine();
+            sw.WriteLine();
             //Format and output home number and mobile number
-            Console.WriteLine(String.Format("{0:(###) ###-####}", Convert.ToInt64(contact.HomeNumber)) + "/");
-            sw.WriteLine(String.Format("{0:(###) ###-####}", Convert.ToInt64(contact.HomeNumber)) + "/");
-            Console.WriteLine(String.Format("{0:(###) ###-####}", Convert.ToInt64(contact.MobileNumber)) + ". ");
-            sw.WriteLine(String.Format("{0:(###) ###-####}", Convert.ToInt64(contact.MobileNumber)) + ". ");
-            if (patientresident)
+            Console.WriteLine("Home number :" +" "+String.Format("{0:(###) ###-####}", Convert.ToInt64(contact.HomeNumber)) + "/");
+            sw.WriteLine("Home number :" + " "+ String.Format("{0:(###) ###-####}", Convert.ToInt64(contact.HomeNumber)) + "/");
+            Console.WriteLine();
+            sw.WriteLine();
+            Console.WriteLine("Mobile number :" + " " + String.Format("{0:(###) ###-####}", Convert.ToInt64(contact.MobileNumber)) + ". ");
+            sw.WriteLine("Mobile number :" + " " +String.Format("{0:(###) ###-####}", Convert.ToInt64(contact.MobileNumber)) + ". ");
+            Console.WriteLine();
+            sw.WriteLine();
+            if (patientin)
             {
                 Console.WriteLine();
                 //Format and output hospital name and phone number
-                Console.Write("Hospital: " + residentpatient.HospitalName + " / ");
-                Console.Write(String.Format("{0:(###) ###-####}", Convert.ToInt64(contact.HospitalPhone)));
-                sw.Write("Hospital: " + residentpatient.HospitalName + " / ");
-                sw.Write(String.Format("{0:(###) ###-####}", Convert.ToInt64(contact.HospitalPhone)));
+                Console.Write("Problem: " + inpatient.ProblemName + " / ");
+                sw.Write("Problem: " + inpatient.ProblemName + " / ");
+               
             }
             else
             {
                 Console.WriteLine();
                 //Format and output contact names and phone number
-                Console.Write("Contact: " + FormatName(outpatient.ContactFirstName) + " , " + FormatName(outpatient.ContactLastName) + " / ");
+                Console.Write("Contact: " +(outpatient.ContactFirstName) + " , " + (outpatient.ContactLastName) + " / ");
                 Console.Write(String.Format("{0:(###) ###-####}", Convert.ToInt64(contact.ContactPhone)));
-                sw.Write("Contact: " + FormatName(outpatient.ContactFirstName) + " , " + FormatName(outpatient.ContactLastName) + " / ");
+                sw.Write("Contact: " + (outpatient.ContactFirstName) + " , " + (outpatient.ContactLastName) + " / ");
                 sw.Write(String.Format("{0:(###) ###-####}", Convert.ToInt64(contact.ContactPhone)));
             }
 
 
             sw.WriteLine();
+
+            sw.WriteLine("----------------------------------------------------------------------------------------");
             Console.Write("\n\n\n");
 
             //Prompt and obtain user input 

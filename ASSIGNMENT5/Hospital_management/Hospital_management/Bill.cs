@@ -5,38 +5,36 @@ using System.Collections.Generic;
 using System.IO;
 
 using Newtonsoft.Json;
+using System.Xml.Serialization;
+using System.Text;
 
 namespace Hospital_management
 {
-    class Bill
+    class Bill 
     {
       
-        public static void PrintBill(List<Patient_Details> Patient_name)                   //Printing bill
+        public static void PrintBill(List<Patient_Appointment> Patient_name)                   //Printing bill
         {
             
             var SNo = 1;
             DateTime now = DateTime.Now;
-            Patient_info p = new Patient_info();
+            Patient patient = new Patient();
 
-           
+            File.Delete(@"Jsonfile.txt");
+            File.Delete("@Xmlfile.xml");
+
             StreamWriter sw = File.AppendText(@"Bill.txt");
-            using (StreamWriter file = File.CreateText(@"Jsonfile.txt"))
-            {
-                JsonSerializer serializer = new JsonSerializer();
-                //serialize object directly into file stream
-                serializer.Serialize(file, Patient_name);
-            }
 
             sw.WriteLine();
            
-
-
-            sw.WriteLine("-----------------------FrontLine Hospital appointment ---------------------------------");    //Displaying the order
-           sw.WriteLine($"{"SNo",13}" + "\t" + $"{"Checkup_Name",13}" + "  " + "  " + "  " + "  " + "  " + $"{"Appointment Date",13}");
-           sw.WriteLine();
+            sw.WriteLine("-----------------------FrontLine Hospital appointment ---------------------------------");
+            sw.WriteLine("----------------------------------------------------------------------------------------");//Displaying the order
+            sw.WriteLine($"{"SNo",13}" + "\t" + $"{"Checkup_Name",13}" + "\t" + "\t" +$"{"Appointment Date",13}");
+            sw.WriteLine("----------------------------------------------------------------------------------------");
+            sw.WriteLine();
 
             SNo = 1;
-            foreach (Patient_Details i in Patient_name)
+            foreach (Patient_Appointment i in Patient_name)
             {
                 i.SNo = SNo;
                 // i.Total = i.Price * i.Quantity;
@@ -49,6 +47,36 @@ namespace Hospital_management
             sw.Flush();
             sw.Close();
             
+        }
+
+        public static void saveasjson(List<Patient_Appointment> Patient_name)
+        {
+            using (StreamWriter file = File.CreateText(@"Jsonfile.txt"))
+            {
+                JsonSerializer serializer1 = new JsonSerializer();
+             
+                //serialize object directly into file stream
+                serializer1.Serialize(file, Patient_name);
+            
+                
+            }
+         
+        }
+
+        public static void saveasxml(List<Patient_Appointment> Patient_name)
+        {
+
+            XmlSerializer xs1 = new XmlSerializer(typeof(List<Patient_Appointment>));
+         
+
+            TextWriter txtWriter = new StreamWriter(@"Xmlfile.xml");
+
+            xs1.Serialize(txtWriter, Patient_name);
+           
+            
+
+            txtWriter.Close();
+         
         }
     }
 }

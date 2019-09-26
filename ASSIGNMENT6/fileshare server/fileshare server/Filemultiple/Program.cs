@@ -22,7 +22,7 @@ namespace beginSocketServer
                 Socket clientSock = sock.Accept();
 
                 byte[] clientData = new byte[1024 * 5000];
-                string receivedPath = "C:/Users/Sabarish.a/Desktop/";
+                string receivedPath = "C:/Users/aparna.j/Documents/GitHub/IMPACT_ASSIGNMENT/ASSIGNMENT6/fileshare server/fileshare server/Filemultiple/bin/Debug/";
 
                 int receivedBytesLen = clientSock.Receive(clientData);
 

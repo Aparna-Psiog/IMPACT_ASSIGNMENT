@@ -15,7 +15,7 @@ namespace Chatclient
     {
         static void Main(string[] args)
         {
-            IPAddress ip = IPAddress.Parse("192.168.153.58");
+            IPAddress ip = IPAddress.Parse("192.168.153.57");
             int port = 5000;
             TcpClient client = new TcpClient();
             client.Connect(ip, port);

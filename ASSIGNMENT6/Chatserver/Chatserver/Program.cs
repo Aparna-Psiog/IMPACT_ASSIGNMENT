@@ -41,6 +41,7 @@ namespace Chatserver
                 t.Start(count);
                 count++;
             }
+            Console.WriteLine();
         }
 
 
@@ -72,7 +73,7 @@ namespace Chatserver
 
 
                 string data = Encoding.ASCII.GetString(buffer, 0, byte_count);
-                broadcast(data);
+                broadcast(data); Console.WriteLine("Message received from: " + client.Client.RemoteEndPoint);
                 Console.WriteLine(data);
             }
 
@@ -96,9 +97,7 @@ namespace Chatserver
                 foreach (TcpClient c in list_clients.Values)
                 {
                     NetworkStream stream = c.GetStream();
-
-
-
+                   
                     stream.Write(buffer, 0, buffer.Length);
                 }
             }

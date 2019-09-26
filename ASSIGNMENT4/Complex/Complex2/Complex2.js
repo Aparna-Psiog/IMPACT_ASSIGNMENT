@@ -106,6 +106,9 @@ console.log(car1.type);//prints a property of vehicle
 car1.type_of_vehicle();//prints method of vehicle
 car1.display_details();
 
+var vehicle1=new vehicle();
+console.log(vehicle1.noofwheels);//displays undefined because vehicle object cannot access car object
+
 
 var race1=new Racing_car("BMW","Blue",550000,2,2018);//creating object of racing car 
 race1.seating_capacity();//calling method of Sports_car object

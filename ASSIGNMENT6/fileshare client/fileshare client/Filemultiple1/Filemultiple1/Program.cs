@@ -24,7 +24,7 @@ namespace Client_Socket
 
                     Console.WriteLine("Enter the file name to be sent:");
                     string fileName;
-                    string filePath = @"C:\Users\Sabarish.a\Desktop\extras\";//Your File Path;
+                    string filePath = @"C:\Users\aparna.j\Documents\GitHub\IMPACT_ASSIGNMENT\ASSIGNMENT6\fileshare client\fileshare client\Filemultiple1\Filemultiple1\bin\Debug\";//Your File Path;
 
                     while (!string.IsNullOrEmpty((fileName = Console.ReadLine())))
                     {

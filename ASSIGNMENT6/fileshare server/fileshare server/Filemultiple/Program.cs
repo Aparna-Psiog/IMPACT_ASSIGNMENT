@@ -4,7 +4,7 @@ using System.Text;
 using System.Net;
 using System.Net.Sockets;
 using System.IO;
-namespace beginSocketServer
+namespace Filemultiple
 {
     //FILE TRANSFER USING C#.NET SOCKET - SERVER
     class Program
@@ -21,7 +21,7 @@ namespace beginSocketServer
                 //clientSock is the socket object of client, so we can use it now to transfer data to client
                 Socket clientSock = sock.Accept();
 
-                byte[] clientData = new byte[1024 * 5000];
+                byte[] clientData = new byte[1024 * 50000];
                 string receivedPath = "C:/Users/aparna.j/Documents/GitHub/IMPACT_ASSIGNMENT/ASSIGNMENT6/fileshare server/fileshare server/Filemultiple/bin/Debug/";
 
                 int receivedBytesLen = clientSock.Receive(clientData);

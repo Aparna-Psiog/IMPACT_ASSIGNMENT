@@ -4,7 +4,7 @@ using System.Text;
 using System.Net;
 using System.Net.Sockets;
 using System.IO;
-namespace Client_Socket
+namespace Filemultiple1
 {
     //FILE TRANSFER USING C#.NET SOCKET - CLIENT
     class Program
@@ -15,7 +15,7 @@ namespace Client_Socket
             {
             
                     Console.WriteLine("That program can transfer small file. I've test up to 850kb file");
-                    IPAddress[] ipAddress = Dns.GetHostAddresses("192.168.153.57");
+                    IPAddress[] ipAddress = Dns.GetHostAddresses("192.168.153.58");
                     IPEndPoint ipEnd = new IPEndPoint(ipAddress[0], 8100);
                     Socket clientSock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.IP);
                
@@ -24,7 +24,7 @@ namespace Client_Socket
 
                     Console.WriteLine("Enter the file name to be sent:");
                     string fileName;
-                    string filePath = @"C:\Users\aparna.j\Documents\GitHub\IMPACT_ASSIGNMENT\ASSIGNMENT6\fileshare client\fileshare client\Filemultiple1\Filemultiple1\bin\Debug\";//Your File Path;
+                    string filePath =@"C:\Users\aparna.j\Documents\GitHub\IMPACT_ASSIGNMENT\ASSIGNMENT6\fileshare client\fileshare client\Filemultiple1\Filemultiple1\bin\Debug\";//Your File Path;
 
                     while (!string.IsNullOrEmpty((fileName = Console.ReadLine())))
                     {

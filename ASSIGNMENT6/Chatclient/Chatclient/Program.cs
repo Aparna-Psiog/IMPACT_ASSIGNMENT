@@ -20,7 +20,7 @@ namespace Chatclient
         {
             try
             {
-                IPAddress ip = IPAddress.Parse("192.168.153.57");
+                IPAddress ip = IPAddress.Parse("192.168.153.58");
                 int port = 5000;
                 TcpClient client = new TcpClient();
                 client.Connect(ip, port);
@@ -28,28 +28,13 @@ namespace Chatclient
                 NetworkStream ns = client.GetStream();
                 Thread thread = new Thread(o => ReceiveData((TcpClient)o));
 
-
-
-
-
-
-
                 thread.Start(client);
-
-
-
-
-
-
-
 
                 string fileName;
                 string filePath = @"C:\Users\aparna.j\Desktop\";
                 Console.WriteLine("Enter the name of the file to be sent");
 
                 
-
-
 
 
                     while (!string.IsNullOrEmpty((fileName = Console.ReadLine())))
@@ -85,10 +70,6 @@ namespace Chatclient
 
 
 
-
-
-
-
                 
                 client.Client.Shutdown(SocketShutdown.Send);
                 thread.Join();
@@ -106,24 +87,16 @@ namespace Chatclient
 
 
 
-
-
-
-
-
-
         static void ReceiveData(TcpClient client)
         {
             try
             {
                 NetworkStream ns = client.GetStream();
-                byte[] receivedBytes = new byte[1024 * 50000];
-                
+                byte[] receivedBytes = new byte[1024 * 500000];
+                Encoding asciiEncoding = Encoding.ASCII;
 
 
-               
-                
-                string receivedPath = @"C:/Users/aparna.j/Desktop/";
+                string receivedPath = @"C:/Users/aparna.j/Desktop/Shared files/";
 
 
 
@@ -132,15 +105,11 @@ namespace Chatclient
 
 
                 int fileNameLen = BitConverter.ToInt32(receivedBytes, 0);
-                string fileName = Encoding.ASCII.GetString(receivedBytes, 4, fileNameLen);
+                string fileName = asciiEncoding.GetString(receivedBytes, 4, fileNameLen);
 
 
 
                 Console.WriteLine("Client:{0} connected & File {1} sharing started.", client.Client.RemoteEndPoint, fileName);
-
-
-
-
 
 
 
@@ -155,6 +124,7 @@ namespace Chatclient
 
                 bWrite.Close();
             }
+
             catch(Exception ex)
             {
                 Console.WriteLine("Failed"+ex.Message);

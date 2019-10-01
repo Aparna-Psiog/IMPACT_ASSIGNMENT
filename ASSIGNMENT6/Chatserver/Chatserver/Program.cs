@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
+using System.IO;
 
 
 
@@ -20,7 +21,11 @@ namespace Chatserver
 
         static void Main(string[] args)
         {
+
+
+
             int count = 1;
+
 
 
 
@@ -29,20 +34,26 @@ namespace Chatserver
 
 
 
+
             while (true)
             {
                 TcpClient client = ServerSocket.AcceptTcpClient();
                 lock (_lock) list_clients.Add(count, client);
-                Console.WriteLine("Someone connected!!");
+                Console.WriteLine($"Client {count} connected!!");
+
 
 
 
                 Thread t = new Thread(handle_clients);
                 t.Start(count);
+
+
+
+                Console.WriteLine($"Number of clients connected {count}");
                 count++;
             }
-            Console.WriteLine();
         }
+
 
 
 
@@ -53,28 +64,51 @@ namespace Chatserver
 
 
 
+
             lock (_lock) client = list_clients[id];
+
 
 
 
             while (true)
             {
-                NetworkStream stream = client.GetStream();
-                byte[] buffer = new byte[1024];
-                int byte_count = stream.Read(buffer, 0, buffer.Length);
-
-
-
-                if (byte_count == 0)
+                try
                 {
-                    break;
+
+
+
+                    byte[] clientData = new byte[1024 * 500000];
+
+
+
+                    int receivedBytesLen = client.Client.Receive(clientData);
+                    if (receivedBytesLen == 0)
+                    {
+                        break;
+                    }
+
+                    Console.WriteLine("Client:{0} connected & File is being shared.", client.Client.RemoteEndPoint);
+
+
+
+                    lock (_lock)
+                    {
+                        foreach (TcpClient c in list_clients.Values)
+                        {
+                            c.Client.Send(clientData);
+                        }
+                    }
+
+
+
                 }
+                catch (Exception ex)
+                {
 
 
 
-                string data = Encoding.ASCII.GetString(buffer, 0, byte_count);
-                broadcast(data); Console.WriteLine("Message received from: " + client.Client.RemoteEndPoint);
-                Console.WriteLine(data);
+                    Console.WriteLine("File Sending fail." + ex.Message);
+                }
             }
 
 
@@ -83,24 +117,6 @@ namespace Chatserver
             client.Client.Shutdown(SocketShutdown.Both);
             client.Close();
         }
-
-
-
-        public static void broadcast(string data)
-        {
-            byte[] buffer = Encoding.ASCII.GetBytes(data + Environment.NewLine);
-
-
-
-            lock (_lock)
-            {
-                foreach (TcpClient c in list_clients.Values)
-                {
-                    NetworkStream stream = c.GetStream();
-                   
-                    stream.Write(buffer, 0, buffer.Length);
-                }
-            }
-        }
     }
 }
+

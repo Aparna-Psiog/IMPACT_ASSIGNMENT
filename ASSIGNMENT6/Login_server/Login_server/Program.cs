@@ -68,22 +68,13 @@ namespace Login_server
                 TcpListener myList = new TcpListener(ipAd, 8002);
                 myList.Start();
                 Random randDouble = new Random();
-                double randValue;
+                
                 Socket s = myList.AcceptSocket();
                 login objLogin = new login(s);
                 Thread thdLogin = new Thread(new ThreadStart(objLogin.check));
                 thdLogin.Start();
                 thdLogin.Join();
-                while (true)
-                {
-                    randValue = randDouble.NextDouble();
-                    Console.WriteLine(randValue);
-                    Thread.Sleep(500);
-                    ASCIIEncoding asen = new ASCIIEncoding();
-                    String strRandValue = randValue.ToString();
-                    byte[] msg = asen.GetBytes(strRandValue);
-                    s.Send(msg);
-                }
+            
                 s.Close();
             }
             catch (Exception e)

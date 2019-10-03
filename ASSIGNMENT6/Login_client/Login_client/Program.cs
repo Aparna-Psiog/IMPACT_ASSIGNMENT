@@ -54,11 +54,10 @@ namespace Login_client
 
                 byte[] byteMsg = new byte[100];
                 int length = stm.Read(byteMsg, 0, 100);
-                while (length > 1)
+                if (length > 1)
                 {
-                    for (int i = 0; i < length; i++)
-                        Console.Write(Convert.ToChar(byteMsg[i]));
-                    Console.WriteLine("\n");
+                    
+                    Console.WriteLine("Logged in baby");
                     length = stm.Read(byteMsg, 0, 100);
                 }
 

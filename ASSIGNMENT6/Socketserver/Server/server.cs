@@ -96,7 +96,7 @@ namespace Server
             this.clientSocket = clientSocket;
             id = Guid.NewGuid().ToString();
             clientThread = new Thread(server.DATA_IN);
-            clientThread.Start();
+            clientThread.Start(clientSocket);
             sendregistrationpacket();
             }
 

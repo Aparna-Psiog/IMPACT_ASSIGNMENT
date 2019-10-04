@@ -80,6 +80,7 @@ namespace Client
             switch(p.packettype)
             {
                 case Packet.PacketType.Registration:
+                    Console.WriteLine("Received a packet for registration:");
                     id = p.GData[0];
                     break;
 

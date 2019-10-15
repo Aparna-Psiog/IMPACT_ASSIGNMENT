@@ -5,7 +5,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
-
+using System.Threading.Tasks;
 
 
 
@@ -191,16 +191,12 @@ namespace Lastsampleserver
                         byte[] splitbuffer = new byte[1024 * 5000];
                         int Len = client.Client.Receive(splitbuffer);
                         string client_name = Encoding.ASCII.GetString(splitbuffer, 0, Len);
-
-
-
-
-
+                        
 
                         foreach (KeyValuePair<string, TcpClient> entry in list_clients)
                         {
 
-                            if (entry.Key == client_name)
+                            if (client_name.Contains(entry.Key))
                             {
                                 if (messagedata == "privatefile")
                                 {

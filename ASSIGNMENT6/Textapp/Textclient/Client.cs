@@ -48,6 +48,8 @@ namespace Textapp
 
 
 
+           
+
 
 
             while (!string.IsNullOrEmpty((s = Console.ReadLine())))
@@ -119,6 +121,7 @@ namespace Textapp
                 messageByte.CopyTo(messageBuffer, 0);
                 client.Client.Send(messageBuffer);
                 Array.Clear(messageBuffer, 0, messageBuffer.Length);
+
                 byte[] buffer1 = Encoding.ASCII.GetBytes(name + ":");
                 byte[] buffer = Encoding.ASCII.GetBytes(s);
                 byte[] buffer2 = new byte[4 + buffer1.Length + buffer.Length];
@@ -170,7 +173,7 @@ namespace Textapp
         }
 
 
-
+        
         static void ReceiveData(TcpClient client)
         {
             while (true)

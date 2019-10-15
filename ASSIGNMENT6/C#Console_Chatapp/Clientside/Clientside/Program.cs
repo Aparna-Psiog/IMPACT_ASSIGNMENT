@@ -28,15 +28,15 @@ namespace Lastsampleclient
                 NetworkStream ns = client.GetStream();
                 Thread thread = new Thread(o => ReceiveData((TcpClient)o));
                 thread.Start(client);
-                //Thread thread1 = new Thread(o => Conversation.clientnames((TcpClient)o));
+                
 
                 Console.WriteLine("client connected!!");
-                //thread1.Start(client);
+              
 
                 string s;
                 string name;
 
-                //string sender;
+               
                 Console.WriteLine("Enter the user name:");
                 name = Console.ReadLine();
                 while (String.IsNullOrEmpty(name))
@@ -143,7 +143,7 @@ namespace Lastsampleclient
                         messageByte.CopyTo(messageBuffer, 0);
                         client.Client.Send(messageBuffer);
                         Array.Clear(messageBuffer, 0, messageBuffer.Length);
-                        //string sender;
+                        
 
                         byte[] fileNameByte = Encoding.ASCII.GetBytes(s);
                         byte[] fileData = File.ReadAllBytes(filePath + s);
@@ -201,7 +201,7 @@ namespace Lastsampleclient
                     Console.ReadLine();
                     mciSendString("save recsound C:\\Users\\aparna.j\\Desktop\\result.wav", "", 0, 0);
                     mciSendString("close recsound ", "", 0, 0);
-                    //string sender;
+                   
                     if (s.Contains("/"))
                     {
                         string filePath = @"C:/Users/aparna.j/Desktop/";
@@ -243,9 +243,7 @@ namespace Lastsampleclient
                         messageByte.CopyTo(messageBuffer, 0);
                         client.Client.Send(messageBuffer);
                         Array.Clear(messageBuffer, 0, messageBuffer.Length);
-                        //int count = 1;
-
-                        //count++;
+                      
                         byte[] fileNameByte = Encoding.ASCII.GetBytes("result.wav");
                         byte[] fileData = File.ReadAllBytes(filePath + "result.wav");
                         byte[] myData = new byte[4 + fileNameByte.Length + fileData.Length];
@@ -311,14 +309,14 @@ namespace Lastsampleclient
                     byte[] buffer = new byte[1024];
                     int byte_count1 = client.Client.Receive(buffer);
                     string messagedata = Encoding.ASCII.GetString(buffer, 0, byte_count1);
-                    //Console.WriteLine(messagedata);
+                    
 
                     if (messagedata == "message")
                     {
                         Array.Clear(buffer, 0, buffer.Length);
                         NetworkStream ns = client.GetStream();
                         byte[] receivedBytes = new byte[1024];
-                        //byte[] receivedbytes1 = new byte[1024 * 5000];
+                       
                         int byte_count;
                         if ((byte_count = ns.Read(receivedBytes, 0, receivedBytes.Length)) > 0)
                         {
@@ -336,7 +334,7 @@ namespace Lastsampleclient
                         int fileNameLen = BitConverter.ToInt32(receivedBytes, 0);
                         string fileName = Encoding.ASCII.GetString(receivedBytes, 4, fileNameLen);
                         Console.WriteLine("Client:{0} connected & File {1} sharing started.", client.Client.RemoteEndPoint, fileName);
-                        //var charfile = System.Text.Encoding.UTF8.GetString(receivedBytes).ToCharArray();
+                      
                         BinaryWriter bwrite = new BinaryWriter(File.Open(receivedPath + fileName, FileMode.Append));
                         bwrite.Write(receivedBytes, 4 + fileNameLen, receivedBytesLen - 4 - fileNameLen);
                         Console.WriteLine("File: {0} received & saved at path: {1}", fileName, receivedPath);
@@ -348,7 +346,7 @@ namespace Lastsampleclient
                         Array.Clear(buffer, 0, buffer.Length);
                         NetworkStream ns = client.GetStream();
                         byte[] receivedBytes = new byte[1024];
-                        //byte[] receivedbytes1 = new byte[1024 * 5000];
+                       
                         int byte_count;
                         Console.WriteLine("The clients who are now in connection are:");
                        

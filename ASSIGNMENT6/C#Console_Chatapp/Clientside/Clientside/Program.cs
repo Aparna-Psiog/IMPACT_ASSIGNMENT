@@ -19,7 +19,7 @@ namespace Lastsampleclient
             try
             {
                 Console.Title = "Client";
-                IPAddress ip = IPAddress.Parse("192.168.153.58");
+                IPAddress ip = IPAddress.Parse("192.168.153.57");
                 int port = 5000;
 
                 TcpClient client = new TcpClient();
@@ -120,7 +120,7 @@ namespace Lastsampleclient
                         splitfileByte.CopyTo(splitBuffer, 0);
                         client.Client.Send(splitBuffer);
                         Array.Clear(splitBuffer, 0, splitBuffer.Length);
-
+                       
 
                         byte[] fileNameByte = Encoding.ASCII.GetBytes(split_file[1]);
                         byte[] fileData = File.ReadAllBytes(filePath + split_file[1]);
@@ -129,6 +129,7 @@ namespace Lastsampleclient
                         fileNameLen.CopyTo(myData, 0);
                         fileNameByte.CopyTo(myData, 4);
                         fileData.CopyTo(myData, 4 + fileNameByte.Length);
+                        client.Client.Send(myData);
                         client.Client.Send(myData);
                         Array.Clear(fileData, 0, fileData.Length);
 
@@ -325,7 +326,7 @@ namespace Lastsampleclient
                         ns.Flush();
                     }
 
-                    else if (messagedata == "file")
+                    else if ((messagedata == "file")||(messagedata=="privatefile"))
                     {
                         Array.Clear(buffer, 0, buffer.Length);
                         byte[] receivedBytes = new byte[1024 * 5000];
@@ -340,7 +341,8 @@ namespace Lastsampleclient
                         Console.WriteLine("File: {0} received & saved at path: {1}", fileName, receivedPath);
                         bwrite.Close();
                     }
-                    
+                  
+
                     else if (messagedata == "all")
                     {
                         Array.Clear(buffer, 0, buffer.Length);

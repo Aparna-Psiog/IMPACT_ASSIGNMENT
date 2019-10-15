@@ -5,7 +5,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
+
 
 
 
@@ -51,26 +51,10 @@ namespace Lastsampleserver
 
         }
 
-        public static void display_clients()
-        {
-            foreach (TcpClient c in list_clients.Values)
-            {
-
-                NetworkStream stream = c.GetStream();
-                foreach (string name in list_clients.Keys)
-                {
-                    byte[] displayByte = Encoding.ASCII.GetBytes(name);
-                    byte[] displayBuffer = new byte[displayByte.Length];
-                    displayByte.CopyTo(displayBuffer, 0);
-                    stream.Write(displayBuffer, 0, displayBuffer.Length);
-                    Array.Clear(displayBuffer, 0, displayBuffer.Length);
-                }
-            }
-        }
 
         public static void handle_clients(object o)
         {
-            // display_clients();
+            
             string id = (string)o;
             TcpClient client;
             lock (_lock) client = list_clients[id];
@@ -87,7 +71,7 @@ namespace Lastsampleserver
                     byte[] buffer = new byte[1024];
                     int byte_count = client.Client.Receive(buffer);
                     string messagedata = Encoding.ASCII.GetString(buffer, 0, byte_count);
-                    // Console.WriteLine(messagedata);
+                   
 
 
 
@@ -180,7 +164,7 @@ namespace Lastsampleserver
 
                         foreach (TcpClient c in list_clients.Values)
                         {
-                            //stream.Write(clientData, 0, clientData.Length);
+                            
                             messagedata = "file";
                             byte[] messageByte = Encoding.ASCII.GetBytes(messagedata);
                             byte[] messageBuffer = new byte[messageByte.Length];
@@ -234,7 +218,7 @@ namespace Lastsampleserver
                                 {
                                     break;
                                 }
-                                //stream.Write(clientData, 0, clientData.Length);
+                              
                                 messagedata = "file";
                                 byte[] messageByte = Encoding.ASCII.GetBytes(messagedata);
                                 byte[] messageBuffer = new byte[messageByte.Length];

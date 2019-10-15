@@ -66,11 +66,6 @@ namespace Textapp
 
 
 
-
-
-
-
-
         public static void handle_clients(object o)
         {
             string id = (string)o;

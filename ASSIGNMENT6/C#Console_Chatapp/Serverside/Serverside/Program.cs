@@ -181,24 +181,25 @@ namespace Lastsampleserver
 
                     }
 
-                    else if (messagedata == "privatefile" || messagedata == "privatevoice")
+                    else if (messagedata.Contains("privatefile") || messagedata.Contains("privatevoice"))
                     {
-                        string myKey;
-                        myKey = list_clients.FirstOrDefault(x => x.Value == client).Key;
-                        
                         Array.Clear(buffer, 0, buffer.Length);
 
-                        byte[] splitbuffer = new byte[1024 * 5000];
-                        int Len = client.Client.Receive(splitbuffer);
-                        string client_name = Encoding.ASCII.GetString(splitbuffer, 0, Len);
-                        
+                        string myKey;
+                        myKey = list_clients.FirstOrDefault(x => x.Value == client).Key;
+
+                        string[] split_content = messagedata.Split('/');
+
+                        string client_name = split_content[1];
 
                         foreach (KeyValuePair<string, TcpClient> entry in list_clients)
                         {
 
-                            if (client_name.Contains(entry.Key))
+
+
+                            if (client_name == entry.Key)
                             {
-                                if (messagedata == "privatefile")
+                                if (messagedata.Contains("privatefile"))
                                 {
                                     Console.WriteLine($"{myKey} sent a file privately to {entry.Key}.");
                                 }
@@ -207,14 +208,18 @@ namespace Lastsampleserver
                                     Console.WriteLine($"{myKey} sent a private voice note to {entry.Key}.");
                                 }
 
+
+
                                 byte[] clientData = new byte[1024 * 5000];
                                 int receivedBytesLen = client.Client.Receive(clientData);
+
+
 
                                 if (receivedBytesLen == 0)
                                 {
                                     break;
                                 }
-                              
+                                //stream.Write(clientData, 0, clientData.Length);
                                 messagedata = "file";
                                 byte[] messageByte = Encoding.ASCII.GetBytes(messagedata);
                                 byte[] messageBuffer = new byte[messageByte.Length];
@@ -222,15 +227,14 @@ namespace Lastsampleserver
                                 entry.Value.Client.Send(messageBuffer);
                                 Array.Clear(messageBuffer, 0, messageBuffer.Length);
                                 entry.Value.Client.Send(clientData);
-                               
-                            }
 
+
+
+                            }
                         }
 
-
-
                     }
-                    
+
                     else if(messagedata == "all")
                     {
                      

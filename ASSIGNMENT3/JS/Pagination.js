@@ -8,6 +8,7 @@ function go() {
     validation(records_per_page);
     current_page = 1;
     changePage(current_page);
+    document.getElementById("myInput1").value=" ";
 }
 
 function show() {
@@ -20,6 +21,7 @@ function gotopage() {
     current_page = document.getElementById("myInput2").value;
     validategotopage(current_page);
     changePage(current_page);
+    document.getElementById("myInput2").value=" ";
 }
 
 function validategotopage(y) {

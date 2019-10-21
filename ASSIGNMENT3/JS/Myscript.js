@@ -545,6 +545,7 @@ function validate() {
     isValid = true;
     if (isNaN(document.getElementById("itemName").value)) {
       isValid = true;
+      
     }
     else {
       isValid = false;

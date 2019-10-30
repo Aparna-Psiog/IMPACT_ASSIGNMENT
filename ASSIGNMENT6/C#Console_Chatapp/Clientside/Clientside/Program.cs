@@ -19,7 +19,7 @@ namespace Lastsampleclient
             try
             {
                 Console.Title = "Client";
-                IPAddress ip = IPAddress.Parse("192.168.153.57");
+                IPAddress ip = IPAddress.Parse("192.168.153.58");
                 int port = 5000;
 
                 TcpClient client = new TcpClient();
@@ -124,7 +124,7 @@ namespace Lastsampleclient
                         fileNameByte.CopyTo(myData, 4);
                         fileData.CopyTo(myData, 4 + fileNameByte.Length);
                         client.Client.Send(myData);
-                        client.Client.Send(myData);
+                        
                         Array.Clear(fileData, 0, fileData.Length);
 
                         Console.WriteLine("File:{0} has been sent.", split_file[1]);

@@ -8,7 +8,7 @@ namespace Hospital_management
 {
     class Departments
     {
-        public void Show()
+        public void displayDepartment()
         {
             int userOption;
             string Getoption;

@@ -52,12 +52,12 @@
     <Compile Include="Appointment.cs" />
     <Compile Include="Bill.cs" />
     <Compile Include="Departments.cs" />
-    <Compile Include="Check_up.cs" />
-    <Compile Include="Login_system.cs" />
+    <Compile Include="Checkup.cs" />
+    <Compile Include="loginSystem.cs" />
     <Compile Include="Patient.cs" />
-    <Compile Include="Patient_Appointment.cs" />
-    <Compile Include="Patient_info.cs" />
-    <Compile Include="PreviousAppointment.cs" />
+    <Compile Include="patientAppointment.cs" />
+    <Compile Include="patientInfo.cs" />
+    <Compile Include="previousAppointment.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Users.cs" />

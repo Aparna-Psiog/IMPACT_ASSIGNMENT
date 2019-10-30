@@ -9,8 +9,7 @@ namespace Hospital_management
 {
     public class patientInfo
     {
- 
-        List<Patient> PatientList = new List<Patient>();
+
         static bool DateCheck(string stringdate)
             {
                 // Define the acceptable date formats and check if entered date is valid
@@ -61,23 +60,7 @@ namespace Hospital_management
                 int years = DateTime.Now.Year - birthDay.Year;
                 return years;
             }
-        static int Calculatemonth(string dateOfbirth)
-        {
-            DateTime birthDay = DateTime.Parse(dateOfbirth);
-            int month = DateTime.Now.Month - birthDay.Month;
-            return month;
-        }
-
-        static double Calculatedate(string dateOfbirth)
-        {
-            DateTime birthDay = DateTime.Parse(dateOfbirth);
-            double date = (DateTime.Now.Date - birthDay.Date).TotalDays;
-            return date;
-        }
-
-
-
-
+      
             //A function to check if a given phone/telephone number is null, a number or less/greater than 10 digits
             static bool checkPhoneNumber(string phoneNumber)
             {

@@ -26,7 +26,7 @@ namespace Hospital_management
                     if (isValidFormat)
                     {
                         // If date is valid, check whether the given year is more than the year Today
-                        if ((CalculateAge(parsedDate.ToString()) < 0)|| (Calculatemonth(parsedDate.ToString()) < 0)|| (Calculatedate(parsedDate.ToString()) < 0))
+                        if (CalculateAge(parsedDate.ToString()) < 0)
                         {
                             Console.WriteLine("Birth date must be prior to today!");
                             return false;

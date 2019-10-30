@@ -1,12 +1,10 @@
 ﻿
-using Hospital_management;
 using System;
 using System.Collections.Generic;
 using System.IO;
-
 using Newtonsoft.Json;
 using System.Xml.Serialization;
-using System.Text;
+
 
 namespace Hospital_management
 {
@@ -37,7 +35,7 @@ namespace Hospital_management
             foreach (Patient_Appointment i in Patient_name)
             {
                 i.SNo = SNo;
-                // i.Total = i.Price * i.Quantity;
+                
                 sw.WriteLine($"{i.SNo,10} \t  {i.Checkup_Name,10}{i.Correct_time,10}");
 
                 SNo += 1;

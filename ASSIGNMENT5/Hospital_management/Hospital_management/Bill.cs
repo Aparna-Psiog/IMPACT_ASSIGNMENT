@@ -11,7 +11,7 @@ namespace Hospital_management
     class Bill 
     {
       
-        public static void PrintBill(List<Patient_Appointment> Patient_name)                   //Printing bill
+        public static void PrintBill(List<patientAppointment> Patient_name)                   //Printing bill
         {
             
             var SNo = 1;
@@ -32,7 +32,7 @@ namespace Hospital_management
             sw.WriteLine();
 
             SNo = 1;
-            foreach (Patient_Appointment i in Patient_name)
+            foreach (patientAppointment i in Patient_name)
             {
                 i.SNo = SNo;
                 
@@ -47,7 +47,7 @@ namespace Hospital_management
             
         }
 
-        public static void saveasjson(List<Patient_Appointment> Patient_name)
+        public static void saveasjson(List<patientAppointment> Patient_name)
         {
             using (StreamWriter file = File.CreateText(@"Jsonfile.txt"))
             {
@@ -61,10 +61,10 @@ namespace Hospital_management
          
         }
 
-        public static void saveasxml(List<Patient_Appointment> Patient_name)
+        public static void saveasxml(List<patientAppointment> Patient_name)
         {
 
-            XmlSerializer xs1 = new XmlSerializer(typeof(List<Patient_Appointment>));
+            XmlSerializer xs1 = new XmlSerializer(typeof(List<patientAppointment>));
          
 
             TextWriter txtWriter = new StreamWriter(@"Xmlfile.xml");

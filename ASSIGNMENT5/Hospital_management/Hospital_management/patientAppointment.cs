@@ -4,7 +4,7 @@ using System.Globalization;
 
 namespace Hospital_management
 {
-    public class Patient_Appointment
+    public class patientAppointment
     {
         public int SNo = 1;
         public string Checkup_Name;
@@ -75,9 +75,9 @@ namespace Hospital_management
             return date;
         }
 
-        public void GetOrder(List<Tuple<int, string>> department, int userOption, List<Patient_Appointment> Patient_name)
+        public void GetOrder(List<Tuple<int, string>> department, int userOption, List<patientAppointment> Patient_name)
         {
-            Patient_Appointment patientdetails = new Patient_Appointment();
+            patientAppointment patientdetails = new patientAppointment();
             foreach (Tuple<int, string> tuple in department)             //loop inside the Tuple
             {
                 if (tuple.Item1 == userOption)
@@ -109,7 +109,7 @@ namespace Hospital_management
             Patient_name.Add(patientdetails);
         }
 
-        public void Display(List<Patient_Appointment> Patient_name)
+        public void Display(List<patientAppointment> Patient_name)
         {
             //long TotalCost = 0;
             int Option = 0;
@@ -125,7 +125,7 @@ namespace Hospital_management
             Console.WriteLine();
 
             SNo = 1;
-            foreach (Patient_Appointment i in Patient_name)
+            foreach (patientAppointment i in Patient_name)
             {
                 i.SNo = SNo;
                 Console.WriteLine($"{i.SNo,10} \t  {i.Checkup_Name,10}{i.Correct_time,10}");

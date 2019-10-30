@@ -5,9 +5,9 @@ using System.IO;
 
 namespace Hospital_management
 {
-    class PreviousAppointment
+    class previousAppointment
     {
-        public static void AddAppoint(List<Patient_Appointment> Patient_name)
+        public static void AddAppoint(List<patientAppointment> Patient_name)
         {
             
             var SNo = 1;
@@ -26,7 +26,7 @@ namespace Hospital_management
             sw1.WriteLine();
 
             SNo = 1;
-            foreach (Patient_Appointment i in Patient_name)
+            foreach (patientAppointment i in Patient_name)
             {
                 i.SNo = SNo;
        

@@ -10,20 +10,20 @@ namespace Hospital_management
     {
         private static int Option;
 
-        public static string Getoption { get; private set; }
-        public static bool Confirmresult { get; private set; }
+        public static string GetOption { get; private set; }
+        public static bool ConfirmResult { get; private set; }
 
-        static bool DateCheck(string stringdate)
+        static bool dateCheck(string stringDate)
         {
             // Define the acceptable date formats and check if entered date is valid
             string[] formats = { "d/MM/yyyy", "dd/MM/yyyy", "d/M/yyyy" };
-            string bdate = stringdate;
+        
 
             DateTime parsedDate;
             try
             {
                 //Conversion from string to Date time
-                bool isValidFormat = DateTime.TryParseExact(stringdate, formats, new CultureInfo("ta-IN"), DateTimeStyles.None, out parsedDate);
+                bool isValidFormat = DateTime.TryParseExact(stringDate, formats, new CultureInfo("ta-IN"), DateTimeStyles.None, out parsedDate);
 
                 if (isValidFormat)
                 {
@@ -54,22 +54,22 @@ namespace Hospital_management
                 return false;
             }
         }
-        static int CalculateAge(string dateOfbirth)
+        static int CalculateAge(string dateOfBirth)
         {
-            DateTime birthDay = DateTime.Parse(dateOfbirth);
+            DateTime birthDay = DateTime.Parse(dateOfBirth);
             int years = DateTime.Now.Year - birthDay.Year;
             return years;
         }
-        static int Calculatemonth(string dateOfbirth)
+        static int Calculatemonth(string dateOfBirth)
         {
-            DateTime birthDay = DateTime.Parse(dateOfbirth);
+            DateTime birthDay = DateTime.Parse(dateOfBirth);
             int month = DateTime.Now.Month - birthDay.Month;
             return month;
         }
 
-        static double Calculatedate(string dateOfbirth)
+        static double Calculatedate(string dateOfBirth)
         {
-            DateTime birthDay = DateTime.Parse(dateOfbirth);
+            DateTime birthDay = DateTime.Parse(dateOfBirth);
             double date = (DateTime.Now.Date - birthDay.Date).TotalDays;
             return date;
         }
@@ -90,15 +90,15 @@ namespace Hospital_management
                 Console.WriteLine("Enter your Option");
 
             
-                Getoption = Console.ReadLine();
-                while (!int.TryParse(Getoption, out Option))
+                GetOption = Console.ReadLine();
+                while (!int.TryParse(GetOption, out Option))
                 {
                     Console.WriteLine("This is not a number!");
-                    Getoption = Console.ReadLine();
+                    GetOption = Console.ReadLine();
                 }
                 if ((Option > 0) && (Option < 3))
                 {
-                    Confirmresult = false;
+                    ConfirmResult = false;
                     
                     switch (Option)      //Switch case for chosing what to do
                     {
@@ -119,11 +119,11 @@ namespace Hospital_management
 
                 }else
                 {
-                    Confirmresult = true;
+                    ConfirmResult = true;
                     Console.WriteLine("Re-enter option");
                 }
 
-            } while (Confirmresult == true);
+            } while (ConfirmResult == true);
             Console.WriteLine("\nYour Appointment slip is being processed");
             Console.WriteLine("\n Press Enter to exit");
             Console.ReadLine();
@@ -131,7 +131,7 @@ namespace Hospital_management
         }
         public static void Update(List<Patient_Appointment> Patient_name)
         {
-            bool Confirmresult = true;
+            bool ConfirmResult = true;
             int UpdateOption = 0;
             string Getupdateoption;
            string UpdateQuantity=" ";
@@ -151,7 +151,7 @@ namespace Hospital_management
                 {
                     if (UpdateOption == i.SNo)
                     {
-                        Confirmresult = false;
+                        ConfirmResult = false;
 
                         Console.WriteLine("Enter the appointment date you want to change");
                         //Getting the update quantity 
@@ -165,7 +165,7 @@ namespace Hospital_management
                             
 
                             //validate date input if empty and if satisfies formatting conditions
-                            if (!string.IsNullOrEmpty(UpdateQuantity) && DateCheck(UpdateQuantity))
+                            if (!string.IsNullOrEmpty(UpdateQuantity) && dateCheck(UpdateQuantity))
                                 {
                                 //end loop
                                 result = false;
@@ -181,19 +181,19 @@ namespace Hospital_management
                     }
                 }
 
-                if (Confirmresult == true)
+                if (ConfirmResult == true)
                 {
                     Console.WriteLine("Item doesnt Exist");
                     Console.WriteLine("Which Item you want to update");
-                    Confirmresult = true;
+                    ConfirmResult = true;
                 }
-            } while (Confirmresult == true);
+            } while (ConfirmResult == true);
             Console.WriteLine("Updated Appointment details");
             pt.Display(Patient_name);
         }
         public static void Delete(List<Patient_Appointment> Patient_name)
         {
-            bool Confirmresult = true;
+            bool ConfirmResult = true;
             int UpdateOption = 0;
             string Getupdateoption;
            Patient_Appointment pt = new Patient_Appointment();
@@ -208,10 +208,10 @@ namespace Hospital_management
                     Getupdateoption = Console.ReadLine();
                 }
 
-                Confirmresult = false;
+                ConfirmResult = false;
                 Patient_name.RemoveAll(idel => idel.SNo == UpdateOption);
 
-            } while (Confirmresult == true);
+            } while (ConfirmResult == true);
             Console.WriteLine("Updated Appointment details:");
             pt.Display(Patient_name);
         }

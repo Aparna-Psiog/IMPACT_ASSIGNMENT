@@ -12,9 +12,9 @@ namespace Hospital_management
 
             var arrUsers = new Users[]
        {
-            new Users("user1","pass1"),
-            new Users("user2","pass2"),
-            new Users("user3","pass3")
+            new Users("Aparna","pass1"),
+            new Users("John","pass2"),
+            new Users("Ganesh","pass3")
        };
             var username = "";
             var password ="";

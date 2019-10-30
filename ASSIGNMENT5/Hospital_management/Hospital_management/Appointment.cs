@@ -74,13 +74,13 @@ namespace Hospital_management
             return date;
         }
 
-        public static void Confirm(List<Patient_Appointment> Patient_name)
+        public static void Confirm(List<patientAppointment> Patient_name)
         {
               Bill.PrintBill(Patient_name);
          
             // Calling the print bill function
 
-            PreviousAppointment.AddAppoint(Patient_name);
+            previousAppointment.AddAppoint(Patient_name);
             do
             {
                 Console.WriteLine("How do you want to save your file? ");
@@ -129,14 +129,14 @@ namespace Hospital_management
             Console.ReadLine();
             Environment.Exit(0);
         }
-        public static void Update(List<Patient_Appointment> Patient_name)
+        public static void Update(List<patientAppointment> Patient_name)
         {
             bool ConfirmResult = true;
             int UpdateOption = 0;
             string Getupdateoption;
            string UpdateQuantity=" ";
             bool result = true;
-            Patient_Appointment pt = new Patient_Appointment();
+            patientAppointment pt = new patientAppointment();
 
             Console.WriteLine("Which Item you want to update");
             do
@@ -147,7 +147,7 @@ namespace Hospital_management
                     Console.WriteLine("This is not a number!");
                     Getupdateoption = Console.ReadLine();
                 }
-                foreach (Patient_Appointment i in Patient_name)
+                foreach (patientAppointment i in Patient_name)
                 {
                     if (UpdateOption == i.SNo)
                     {
@@ -191,12 +191,12 @@ namespace Hospital_management
             Console.WriteLine("Updated Appointment details");
             pt.Display(Patient_name);
         }
-        public static void Delete(List<Patient_Appointment> Patient_name)
+        public static void Delete(List<patientAppointment> Patient_name)
         {
             bool ConfirmResult = true;
             int UpdateOption = 0;
             string Getupdateoption;
-           Patient_Appointment pt = new Patient_Appointment();
+           patientAppointment pt = new patientAppointment();
 
             Console.WriteLine("Which Item you want to Delete");
             do

@@ -10,13 +10,13 @@ namespace Hospital_management
     {
         public string username;
         public string password;
-        private int id;
+   
 
-        public Users(string username, string password, int id)
+        public Users(string username, string password)
         {
             this.username = username;
             this.password = password;
-            this.id = id;
+          
         }
     }
 }

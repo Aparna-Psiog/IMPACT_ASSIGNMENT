@@ -13,8 +13,8 @@ namespace Hospital_management
             int userOption;
             string Getoption;
             bool Confirmresult = false;
-            List<Patient_Appointment> Patient_name = new List<Patient_Appointment>();
-            Check_up check = new Check_up();
+            List<patientAppointment> Patient_name = new List<patientAppointment>();
+            Checkup check = new Checkup();
             do
             {
                 Console.WriteLine("\t\t\t Welcome To Front Line Hospital");

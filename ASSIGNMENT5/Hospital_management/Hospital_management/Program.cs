@@ -13,14 +13,14 @@ namespace Hospital_management
         {
             Console.WriteLine("Welcome to Front Line Hospital!!");
             Console.WriteLine();
-            Login_system login = new Login_system();
+            loginUser login = new loginUser();
             login.login_user();
 
-           Patient_info p = new Patient_info();
+           patientInfo p = new patientInfo();
             p.patient_info();
 
             Departments d = new Departments();
-            d.Show();
+            d.displayDepartment();
 
         }
     }

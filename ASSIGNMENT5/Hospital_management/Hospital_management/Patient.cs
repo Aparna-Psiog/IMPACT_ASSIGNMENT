@@ -15,10 +15,6 @@ namespace Hospital_management
         public string Gender { get; set; }
         public string Married { get; set; }
         public string BirthDate { get; set; }
-        public double HealthCareExpenses { get; set; }
-        public double CopayRate { get; }
-        public double Copay { get; }
-        public double InsuranceCoverage { get; }
         public string StreetAddress { get; set; }
         public string City { get; set; }
         public string State { get; set; }

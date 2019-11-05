@@ -19,7 +19,9 @@ namespace Lastsampleclient
             try
             {
                 Console.Title = "Client";
-                IPAddress ip = IPAddress.Parse("192.168.153.58");
+                Console.WriteLine("Which server you want to connect?");
+                var ip1 = Console.ReadLine();
+                IPAddress ip = IPAddress.Parse(ip1);
                 int port = 5000;
 
                 TcpClient client = new TcpClient();

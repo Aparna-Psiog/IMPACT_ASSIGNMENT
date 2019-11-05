@@ -49,7 +49,6 @@ window.print_location();//window object can access print_location function since
 
 car_obj1.show_room_name();
 
-console.log(car_obj1.showroomname);//Encapsulation-cannot be accessed because it is a private variable encapsulated inside show_room_name function
 
 console.log("----------------------Showroom1---------------------");
 car_obj1.displaydetails();

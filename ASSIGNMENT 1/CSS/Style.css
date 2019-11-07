@@ -4,10 +4,10 @@
     width:100%;
     color:#CCCC00;
     margin-top:0;
-   padding-top:0;
+    padding-top:0;
     padding-left:2%;
     margin-bottom: 0;
-  
+
 }
 
 .a1{
@@ -41,8 +41,9 @@
 .dropbtn {
   background-color: #000000;
   color: white;
-  padding: 0.8em;
+  padding: 0.2em;
   font-size: 0.8em;
+  font-family:"Open Sans"; 
   border: none;
 }
 

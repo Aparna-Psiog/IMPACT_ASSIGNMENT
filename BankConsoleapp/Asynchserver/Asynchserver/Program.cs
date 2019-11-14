@@ -89,7 +89,14 @@ public class AsynchronousSocketListener
 
     public static void ReadCallback(IAsyncResult ar)
     {
-        String[] content = { "PRASYYYYYYYY","ddsd"};
+        string[] content1 = { "PRASYYYYYYYY","ddsd"};
+        string[] content2 = { "PRdkjkldj", "ddsd" };
+
+        string[] content = new string[content1.Length + content2.Length];
+        
+
+        content1.CopyTo(content, 0);
+        content2.CopyTo(content, content1.Length);
 
         // Retrieve the state object and the handler socket  
         // from the asynchronous state object.  
@@ -128,7 +135,7 @@ public class AsynchronousSocketListener
         byte[] byteData = Encoding.ASCII.GetBytes(data);
 
         // Begin sending the data to the remote device.  
-        handler.BeginSend(byteData, 0, byteData.Length, 0,
+          handler.BeginSend(byteData, 0, byteData.Length, 0,
             new AsyncCallback(SendCallback), handler);
     }
 

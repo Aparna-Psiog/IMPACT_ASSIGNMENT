@@ -63,6 +63,7 @@ public class AsynchronousClient
             Receive(client);
             receiveDone.WaitOne();
 
+            
             // Write the response to the console.  
             while (true)
             {
@@ -70,15 +71,20 @@ public class AsynchronousClient
                 {
                     break;
                 }
+                else if(Console.ReadLine()==" ")
+                {
+                    Console.WriteLine("hii");
+                }
                 else
                 {
                     Console.WriteLine("Response received : {0}", response);
                     Thread.Sleep(2500);
                 }
             }
-                // Release the socket.  
-                client.Shutdown(SocketShutdown.Both);
-                client.Close();
+
+            // Release the socket.  
+            client.Shutdown(SocketShutdown.Both);
+            client.Close();
             
         }
         catch (Exception e)

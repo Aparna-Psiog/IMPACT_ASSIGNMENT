@@ -16,10 +16,20 @@ namespace BankApplication
 
         private static bool refresh;
         private static List<string> messages = new List<string>();
+        public static int UserOption;
+        public static string GetOption;
+        public static bool Confirm = false;
+        public static Task sendTask;
+        public static Task recieveTask;
+        public static Task updateConvTask;
 
-        public static void Main()
+        public static async Task Main()
         {
             Console.Title = "Client";
+
+            var tokenSource = new CancellationTokenSource();
+            var token = tokenSource.Token;
+
 
             do //try to connect
             {
@@ -41,9 +51,9 @@ namespace BankApplication
             reader = new StreamReader(client.GetStream());
             writer = new StreamWriter(client.GetStream());
 
-            var sendTask = Task.Run(() => SendMessage());      //task for sending messages
-            var recieveTask = Task.Run(() => RecieveMessage());       //task for recieving messages
-            var updateConvTask = Task.Run(() => UpdateConversation());   //task for update console window
+            sendTask =Task.Run(() => SendMessage());      //task for sending messages
+            recieveTask =Task.Run(() => RecieveMessage(token),token);       //task for recieving messages
+            updateConvTask = Task.Run(() => UpdateConversation(token),token);   //task for update console window
 
             Task.WaitAll(sendTask, recieveTask); //wait for end of all tasks
         }
@@ -61,6 +71,8 @@ namespace BankApplication
                         break;
 
                     case "M":
+                       
+                        Console.WriteLine("\nTask cancellation requested.");
                         Menu();
                         break;
 
@@ -73,32 +85,95 @@ namespace BankApplication
 
         private static void Menu()
         {
-            
-        }
+            do
+            {
+                Console.WriteLine("Please choose a particular scheme");
+                Console.WriteLine();
 
-        private static void RecieveMessage()
+                Console.WriteLine("1. Loan ");
+                Console.WriteLine("2. Credit card ");
+                Console.WriteLine("3. Provident fund ");
+                Console.WriteLine();
+      
+                GetOption = Console.ReadLine();
+
+                while (!int.TryParse(GetOption, out UserOption))
+                {
+                    Console.WriteLine("This is not a number!");
+                    GetOption = Console.ReadLine();
+                }
+
+                if ((UserOption > 0) && (UserOption < 4))
+                {
+                    Confirm = false;
+                    switch (UserOption)
+                    {
+                        case 1:
+                            Console.Clear();
+                           
+                            break;
+
+                        case 2:
+                            Console.Clear();
+                           
+                            break;
+
+                        case 3:
+                            Console.Clear();
+   
+                            break;
+
+                        default:
+                            Console.WriteLine("No match found");
+                            break;
+                    }
+                }
+                else
+                {
+                    Confirm = true;
+                    Console.Clear();
+                    Console.WriteLine("Re-enter the options");
+                }
+
+            } while (Confirm == true);
+        }
+    
+
+        private static void RecieveMessage(CancellationToken ct)
         {
+            // recieveTask = Task.Run(() => RecieveMessage());
+          
             try
             {
                 while (client.Connected)
                 {
                     //Console.Clear();
-                   
-                    string msg = reader.ReadLine();
-
-                    if (msg != string.Empty)
+                    if (ct.IsCancellationRequested)
                     {
-                        if (msg == "%C") //special message from server, clear messages if recieve it
-                        {
-                            messages.Clear();
-                        }
-                        else
-                        {
-                            messages.Add(msg);
-                            refresh = true; //refresh console window
-                        }
+                        Console.WriteLine("Task {0} was cancelled before it got started.");
+                        ct.ThrowIfCancellationRequested();
                     }
 
+                    int maxiterations = 100;
+
+                    string msg = reader.ReadLine();
+
+
+                    for (int i = 0; i <= maxiterations; i++)
+                    {
+                        if (msg != string.Empty)
+                        {
+                            if (msg == "%C") //special message from server, clear messages if recieve it
+                            {
+                                messages.Clear();
+                            }
+                            else
+                            {
+                                messages.Add(msg);
+                                refresh = true; //refresh console window
+                            }
+                        }
+                    }
  
                    //if(msg==Console.ReadLine())
                    // {
@@ -116,7 +191,7 @@ namespace BankApplication
             }
         }
 
-        private static void UpdateConversation()
+        private static void UpdateConversation(CancellationToken ct)
         {
             //string conversationTmp = string.Empty;
 
@@ -124,12 +199,23 @@ namespace BankApplication
             {
                 while (true)
                 {
-                    if (refresh) //only if refresh
+                    if (ct.IsCancellationRequested)
                     {
-                        refresh = false;
-                        Console.Clear();
-                        messages.ForEach(msg => Console.WriteLine(msg)); //write all messages
-                        Console.WriteLine();
+                        Console.WriteLine("Task {0} was cancelled before it got started.");
+                        ct.ThrowIfCancellationRequested();
+                    }
+
+                    int maxiterations = 100;
+
+                    for (int i = 0; i <= maxiterations; i++)
+                    {
+                        if (refresh) //only if refresh
+                        {
+                            refresh = false;
+                            Console.Clear();
+                            messages.ForEach(msg => Console.WriteLine(msg)); //write all messages
+                            Console.WriteLine();
+                        }
                     }
                 }
             }

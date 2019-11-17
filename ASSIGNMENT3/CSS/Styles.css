@@ -1,8 +1,8 @@
 .h1{
-    background-color:#000000;
+    background-color:#cd853f;
     height:auto;
     width:100%;
-   color:#fff;
+   color:#000000;
     margin-top:0;
    padding-top:0;
     padding-left:2%;
@@ -13,9 +13,19 @@
 
 body, html {
     height: 100%;
-    background-color:lightgoldenrodyellow;
+    
+  }
+
+  .bg {
+    /* The image used */
+    background-image: url("bg2.jpeg");
+  
+    /* Full height */
+    height: 100%; 
+  
+    /* Center and scale the image nicely */
     background-position: center;
-    background-repeat: repeat;
+    background-repeat: no-repeat;
     background-size: cover;
   }
   
@@ -186,7 +196,7 @@ label.validation-error{
     width:15%;
     height:2.81em;
     border-radius:0.18em;
-    background-color:#0000ff;
+    background-color:#009900;
     color:#fff;
     font-family:'Raleway',sans-serif;
     font-size:1.12em;
@@ -199,7 +209,7 @@ label.validation-error{
         width:15%;
         height:2.81em;
         border-radius:0.18em;
-        background-color:#FF0000;
+        background-color:#009900;
         color:#fff;
         font-family:'Raleway',sans-serif;
         font-size:1.12em;
@@ -212,7 +222,7 @@ label.validation-error{
                 width:15%;
                 height:2.81em;
                 border-radius:0.18em;
-                background-color:#0000ff;
+                background-color:#009900;
                 color:#fff;
                 font-family:'Raleway',sans-serif;
                 font-size:1.12em;
@@ -224,7 +234,7 @@ label.validation-error{
             width:15%;
             height:2.81em;
             border-radius:0.18em;
-            background-color:#0000ff;
+            background-color:#009900;
             color:#fff;
             font-family:'Raleway',sans-serif;
             font-size:1.12em;
@@ -236,7 +246,7 @@ label.validation-error{
                 width:15%;
                 height:2.81em;
                 border-radius:0.18em;
-                background-color:#0000ff;
+                background-color:#009900;
                 color:#fff;
                 font-family:'Raleway',sans-serif;
                 font-size:1.12em;

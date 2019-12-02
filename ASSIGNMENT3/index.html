@@ -12,10 +12,12 @@
 <body class="bg">
     <header>
         <h1 class="h1">Batinda Dines</h1>
+        <hr/>
     </header>
 
-    <input type="text" id="myInput" onkeyup="searchfunction()" placeholder="Search for Items.." title="Type in a name">
     <br />
+  
+    <input type="text" id="myInput" onkeyup="searchfunction()" placeholder="Search for Items.." title="Type in a name">
     <button id="create" onclick="create_div_show()">+ Create product</button>
     <button id="delete_select" onclick="deleteselected()">Delete Selected</button>
     <button id="undo" onclick="undo()">Undo</button>
@@ -57,19 +59,18 @@
                             <section>
                                 <label>CATEGORY*</label><label class="validation-error hide"
                                     id="categoryValidationError">This field is required.</label>
-                                <select id="category">
-                                    <option value="Starters">Starters</option>
+                                <select id="category" onchange="show()">
+                                    <option selected="selected" value="Starters">Starters</option>
                                     <option value="Maincourse">Main Course</option>
                                     <option value="Desserts">Desserts</option>
                                     <option value="Chat">Chat</option>
                                 </select>
                             </section>
 
-
-
                             <div class="form-action-buttons">
                                 <input type="submit" value="Update" onclick="div_hide()">
                             </div>
+                 
 
                         </form>
 
@@ -91,6 +92,7 @@
                             <th>DESCRIPTION</th>
                             <th>PRICE</th>
                             <th>CATEGORY</th>
+                            <th>OPERATIONS</th>
 
                             <th></th>
                         </tr>
@@ -129,7 +131,8 @@
                 <button id="gotopage" onclick="gotopage()">GO</button>
 
                 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                <label id="display">Display</label> <select id="sel" onchange="show()">
+                <label id="display">Display</label> 
+                <select id="sel" onchange="show()">
                     <option selected="selected" value="5">5</option>
                     <option value="10">10</option>
                     <option value="15">15</option>

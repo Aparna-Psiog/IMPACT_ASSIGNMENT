@@ -25,14 +25,16 @@ namespace Lastsampleserver
         static void Main(string[] args)
         {
             Console.Title = "Server";
-            int count = 1;
+            int counter = 1;
             TcpListener ServerSocket = new TcpListener(IPAddress.Any, 5000);
             ServerSocket.Start();
-            Console.WriteLine("Welcome to Chat room!!");
+            Console.WriteLine("--------------------------------------------------------");
+            Console.WriteLine("\t\tWelcome to Chat room!!");
+            Console.WriteLine("--------------------------------------------------------");
             Console.WriteLine("How many clients are going to connect to this server?:");
             int numberOfClients = int.Parse(Console.ReadLine());
 
-            for (count = 1; count <= numberOfClients; count++)
+            while (counter <= numberOfClients)
             {
                 TcpClient client = ServerSocket.AcceptTcpClient();
 
@@ -41,12 +43,14 @@ namespace Lastsampleserver
                 string client_name = Encoding.ASCII.GetString(namebuffer, 0, name_byte_count);
                 lock (_lock) list_clients.Add(client_name, client);
 
+
                 Console.WriteLine($"Client {client_name} connected!!");
+
 
                 Thread t = new Thread(handle_clients);
                 t.Start(client_name);
 
-                Console.WriteLine($"Number of clients connected {count}");
+                counter++;
             }
 
         }
@@ -54,26 +58,20 @@ namespace Lastsampleserver
 
         public static void handle_clients(object o)
         {
-            
+
             string id = (string)o;
             TcpClient client;
             lock (_lock) client = list_clients[id];
-
 
 
             try
             {
                 while (true)
                 {
-
-
-
                     byte[] buffer = new byte[1024];
                     int byte_count = client.Client.Receive(buffer);
                     string messagedata = Encoding.ASCII.GetString(buffer, 0, byte_count);
-                   
-
-
+                    // Console.WriteLine(messagedata);
 
                     if (messagedata == "message")
                     {
@@ -112,6 +110,7 @@ namespace Lastsampleserver
                                 NetworkStream stream1 = entry.Value.GetStream();
                                 stream1.Write(buffer1, 0, buffer1.Length);
                                 stream1.Flush();
+
                                 Console.WriteLine($"{myKey} sent a private message to {entry.Key}.");
                             }
 
@@ -119,14 +118,11 @@ namespace Lastsampleserver
 
                         if (isvalue == true)
                         {
-
-                            
                             continue;
                         }
                         else
                         {
-
-                            broadcast(data);
+                            broadcast(data, client);
                             myKey = list_clients.FirstOrDefault(x => x.Value == client).Key;
                             Console.WriteLine($"{myKey} sent a message.");
                         }
@@ -164,16 +160,17 @@ namespace Lastsampleserver
 
                         foreach (TcpClient c in list_clients.Values)
                         {
-                            
-                            messagedata = "file";
-                            byte[] messageByte = Encoding.ASCII.GetBytes(messagedata);
-                            byte[] messageBuffer = new byte[messageByte.Length];
-                            messageByte.CopyTo(messageBuffer, 0);
-                            c.Client.Send(messageBuffer);
-                            Array.Clear(messageBuffer, 0, messageBuffer.Length);
-                            c.Client.Send(clientData);
-
-
+                            if (c != client)
+                            {
+                                //stream.Write(clientData, 0, clientData.Length);
+                                messagedata = "file";
+                                byte[] messageByte = Encoding.ASCII.GetBytes(messagedata);
+                                byte[] messageBuffer = new byte[messageByte.Length];
+                                messageByte.CopyTo(messageBuffer, 0);
+                                c.Client.Send(messageBuffer);
+                                Array.Clear(messageBuffer, 0, messageBuffer.Length);
+                                c.Client.Send(clientData);
+                            }
 
                         }
 
@@ -192,10 +189,9 @@ namespace Lastsampleserver
 
                         string client_name = split_content[1];
 
+
                         foreach (KeyValuePair<string, TcpClient> entry in list_clients)
                         {
-
-
 
                             if (client_name == entry.Key)
                             {
@@ -208,12 +204,8 @@ namespace Lastsampleserver
                                     Console.WriteLine($"{myKey} sent a private voice note to {entry.Key}.");
                                 }
 
-
-
                                 byte[] clientData = new byte[1024 * 5000];
                                 int receivedBytesLen = client.Client.Receive(clientData);
-
-
 
                                 if (receivedBytesLen == 0)
                                 {
@@ -228,21 +220,22 @@ namespace Lastsampleserver
                                 Array.Clear(messageBuffer, 0, messageBuffer.Length);
                                 entry.Value.Client.Send(clientData);
 
-
-
                             }
+
                         }
+
+
 
                     }
 
-                    else if(messagedata == "all")
+                    else if (messagedata == "all")
                     {
-                     
+
                         foreach (KeyValuePair<string, TcpClient> entry in list_clients)
                         {
                             if (entry.Value == client)
                             {
-                               
+
                                 byte[] messageByte = Encoding.ASCII.GetBytes(messagedata);
                                 byte[] messageBuffer = new byte[messageByte.Length];
                                 messageByte.CopyTo(messageBuffer, 0);
@@ -258,15 +251,15 @@ namespace Lastsampleserver
                                 }
                             }
                         }
-                        
+
                     }
-    
+
 
                 }
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                Console.WriteLine("failed in type of file" + e.Message);
             }
 
 
@@ -280,7 +273,7 @@ namespace Lastsampleserver
 
 
 
-        public static void broadcast(string data)
+        public static void broadcast(string data, TcpClient client)
         {
             byte[] buffer = Encoding.ASCII.GetBytes(data + Environment.NewLine);
 
@@ -288,21 +281,19 @@ namespace Lastsampleserver
 
             foreach (TcpClient c in list_clients.Values)
             {
-                string messagedata = "message";
-                byte[] messageByte = Encoding.ASCII.GetBytes(messagedata);
-                byte[] messageBuffer = new byte[messageByte.Length];
-                messageByte.CopyTo(messageBuffer, 0);
-                c.Client.Send(messageBuffer);
-                Array.Clear(messageBuffer, 0, messageBuffer.Length);
-            }
+                if (c != client)
+                {
+                    string messagedata = "message";
+                    byte[] messageByte = Encoding.ASCII.GetBytes(messagedata);
+                    byte[] messageBuffer = new byte[messageByte.Length];
+                    messageByte.CopyTo(messageBuffer, 0);
+                    c.Client.Send(messageBuffer);
+                    Array.Clear(messageBuffer, 0, messageBuffer.Length);
 
-
-
-            foreach (TcpClient c in list_clients.Values)
-            {
-                NetworkStream stream = c.GetStream();
-                stream.Write(buffer, 0, buffer.Length);
-                stream.Flush();
+                    NetworkStream stream = c.GetStream();
+                    stream.Write(buffer, 0, buffer.Length);
+                    stream.Flush();
+                }
             }
 
 

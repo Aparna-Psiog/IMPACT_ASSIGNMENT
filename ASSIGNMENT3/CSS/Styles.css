@@ -1,19 +1,21 @@
 .h1{
-    background-color:#cd853f;
+
     height:auto;
     width:100%;
-   color:#000000;
+    color:#000000;
     margin-top:0;
-   padding-top:0;
+    padding-top:0;
     padding-left:2%;
     padding-bottom:2%;
     margin-bottom: 0;
-  
+    text-align: center;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 3em;
 }
 
 body, html {
     height: 100%;
-    
+    margin-top:0;
   }
 
   .bg {
@@ -88,6 +90,7 @@ form div.form-action-buttons{
 }
 
 .Edit{
+    border: 2px solid #4CAF50; 
     cursor: pointer;
     color: #fff;
     background-color:#0000A0; 
@@ -160,6 +163,7 @@ label.validation-error{
     margin-left:-12em;
     font-family:'Raleway',sans-serif
     }
+    
     form {
     max-width:18em;
     min-width:15em;
@@ -289,14 +293,15 @@ label.validation-error{
     }
 
     #myInput {
-  
+   
         background-position: 0.62em 0.62em;
         background-repeat: no-repeat;
-        width: 50%;
+        width: 45%;
         font-size: 1em;
         padding: 0.75em 1.25em 0.75em 2.5em;
         border: 4px solid #ddd;
         margin-bottom: 0.75em;
+        margin-top:0;
     }
     #myInput1 {
   

@@ -17,6 +17,7 @@ function onFormSubmit() {
 
     resetForm();
   }
+
 }
 
 
@@ -539,7 +540,6 @@ function validate() {
     alert("Enter valid price value");
     div_show();
   }
-  
 
   else {
     isValid = true;

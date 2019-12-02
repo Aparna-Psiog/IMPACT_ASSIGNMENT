@@ -19,11 +19,8 @@ namespace Lastsampleclient
             try
             {
                 Console.Title = "Client";
-                Console.WriteLine("Which server you want to connect?");
-                var ip1 = Console.ReadLine();
-               
-
-               IPAddress ip = IPAddress.Parse(ip1);
+                Console.WriteLine("Enter the server ip address to connect:");
+                IPAddress ip = IPAddress.Parse(Console.ReadLine());
                 int port = 5000;
 
                 TcpClient client = new TcpClient();
@@ -32,15 +29,15 @@ namespace Lastsampleclient
                 NetworkStream ns = client.GetStream();
                 Thread thread = new Thread(o => ReceiveData((TcpClient)o));
                 thread.Start(client);
-                
+                //Thread thread1 = new Thread(o => Conversation.clientnames((TcpClient)o));
 
-                Console.WriteLine("client connected!!");
-              
+
+                //thread1.Start(client);
 
                 string s;
                 string name;
 
-               
+                //string sender;
                 Console.WriteLine("Enter the user name:");
                 name = Console.ReadLine();
                 while (String.IsNullOrEmpty(name))
@@ -54,7 +51,7 @@ namespace Lastsampleclient
                 nameByte.CopyTo(nameBuffer, 0);
                 client.Client.Send(nameBuffer);
                 Array.Clear(nameBuffer, 0, nameBuffer.Length);
-
+                Console.WriteLine("Connected to server!!");
                 Conversation.help();
 
                 while (!string.IsNullOrEmpty((s = Console.ReadLine())))
@@ -69,7 +66,7 @@ namespace Lastsampleclient
                     {
                         Conversation.callvoicechat(client, name, s);
                     }
-                    
+
                     else if (s.Contains("all") || s.Contains("All"))
                     {
                         Conversation.clientnames(client);
@@ -86,18 +83,21 @@ namespace Lastsampleclient
                 client.Client.Shutdown(SocketShutdown.Send);
                 ns.Close();
                 client.Close();
-                Console.WriteLine("disconnect from server!!");
+                Console.WriteLine("Disconnect from server!!");
                 Console.ReadKey();
             }
 
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine("Server connection attempt failed" + e.Message);
+                Console.ReadKey();
             }
 
-     }
+        }
 
-  
+
+
+
         public class Conversation
         {
             static string filename1 = "result";
@@ -105,20 +105,18 @@ namespace Lastsampleclient
             static string ext = ".wav";
             public static void callfilecode(TcpClient client, string name, string s)
             {
-                try {
+                try
+                {
                     if (s.Contains("/"))
                     {
-                        string filePath = @"C:/Users/aparna.j/Desktop/";
                         string[] split_file = s.Split('/');
-                        
+                        string filePath = @"C:/Users/aparna.j/Desktop/";
                         string message = "privatefile" + "/" + split_file[0];
                         byte[] messageByte = Encoding.ASCII.GetBytes(message);
                         byte[] messageBuffer = new byte[messageByte.Length];
                         messageByte.CopyTo(messageBuffer, 0);
                         client.Client.Send(messageBuffer);
                         Array.Clear(messageBuffer, 0, messageBuffer.Length);
-
-
 
                         byte[] fileNameByte = Encoding.ASCII.GetBytes(split_file[1]);
                         byte[] fileData = File.ReadAllBytes(filePath + split_file[1]);
@@ -128,7 +126,6 @@ namespace Lastsampleclient
                         fileNameByte.CopyTo(myData, 4);
                         fileData.CopyTo(myData, 4 + fileNameByte.Length);
                         client.Client.Send(myData);
-                        
                         Array.Clear(fileData, 0, fileData.Length);
 
                         Console.WriteLine("File:{0} has been sent.", split_file[1]);
@@ -142,7 +139,7 @@ namespace Lastsampleclient
                         messageByte.CopyTo(messageBuffer, 0);
                         client.Client.Send(messageBuffer);
                         Array.Clear(messageBuffer, 0, messageBuffer.Length);
-                        
+                        //string sender;
 
                         byte[] fileNameByte = Encoding.ASCII.GetBytes(s);
                         byte[] fileData = File.ReadAllBytes(filePath + s);
@@ -158,11 +155,11 @@ namespace Lastsampleclient
                     }
                 }
 
-                catch(Exception e)
+                catch (Exception e)
                 {
                     Console.WriteLine(e.Message);
                 }
-                }
+            }
 
 
             public static void callmessagecode(TcpClient client, string name, NetworkStream ns, string s)
@@ -184,8 +181,8 @@ namespace Lastsampleclient
                     Array.Clear(buffer, 0, buffer.Length);
                     ns.Flush();
                 }
-                
-                catch(Exception e)
+
+                catch (Exception e)
                 {
                     Console.WriteLine(e.Message);
                 }
@@ -193,26 +190,25 @@ namespace Lastsampleclient
 
             public static void callvoicechat(TcpClient client, string name, string s)
             {
-                try {
+                try
+                {
                     mciSendString("open new Type waveaudio Alias recsound", "", 0, 0);
                     mciSendString("record recsound", "", 0, 0);
                     Console.WriteLine("recording, press Enter to stop and save ...");
                     Console.ReadLine();
-                    mciSendString("save recsound C:\\Users\\aparna.j\\Desktop\\"+ filename1 + count + ext, "", 0, 0);
+                    mciSendString("save recsound C:\\Users\\aparna.j\\Desktop\\" + filename1 + count + ext, "", 0, 0);
                     mciSendString("close recsound ", "", 0, 0);
-                   
+                    //string sender;
                     if (s.Contains("/"))
                     {
-                        string filePath = @"C:/Users/aparna.j/Desktop/";
                         string[] split_file = s.Split('/');
-                       
+                        string filePath = @"C:/Users/Sabarish.a/Desktop/";
                         string message = "privatevoice" + "/" + split_file[0];
                         byte[] messageByte = Encoding.ASCII.GetBytes(message);
                         byte[] messageBuffer = new byte[messageByte.Length];
                         messageByte.CopyTo(messageBuffer, 0);
                         client.Client.Send(messageBuffer);
                         Array.Clear(messageBuffer, 0, messageBuffer.Length);
-
 
 
                         byte[] fileNameByte = Encoding.ASCII.GetBytes(filename1 + count + ext);
@@ -229,14 +225,16 @@ namespace Lastsampleclient
                     }
                     else
                     {
-                        string filePath = @"C:/Users/aparna.j/Desktop/";
+                        string filePath = @"C:/Users/aparna.j/Desktop//";
                         string message = "voice";
                         byte[] messageByte = Encoding.ASCII.GetBytes(message);
                         byte[] messageBuffer = new byte[messageByte.Length];
                         messageByte.CopyTo(messageBuffer, 0);
                         client.Client.Send(messageBuffer);
                         Array.Clear(messageBuffer, 0, messageBuffer.Length);
-                      
+                        //int count = 1;
+
+                        //count++;
                         byte[] fileNameByte = Encoding.ASCII.GetBytes(filename1 + count + ext);
                         byte[] fileData = File.ReadAllBytes(filePath + filename1 + count + ext);
                         byte[] myData = new byte[4 + fileNameByte.Length + fileData.Length];
@@ -248,18 +246,16 @@ namespace Lastsampleclient
                         Array.Clear(fileData, 0, fileData.Length);
 
                         Console.WriteLine("Audio has been recorded");
-                        Console.WriteLine("Voice note {0} has been sent.", filename1 + count + ext);
+                        Console.WriteLine("Voice note {0} has been sent.", "result" + count + ".wav");
                     }
-      
                     count++;
-
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     Console.WriteLine(e.Message);
                 }
-                }
-            
+            }
+
 
 
             public static void clientnames(TcpClient client)
@@ -273,15 +269,15 @@ namespace Lastsampleclient
                     client.Client.Send(messageBuffer);
                     Array.Clear(messageBuffer, 0, messageBuffer.Length);
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     Console.WriteLine(e.Message);
                 }
-                
+
             }
             public static void help()
             {
-                
+
                 Console.WriteLine("\t" + "----------General Instructions----------");
                 Console.WriteLine("\n1.To Broadcast Text Message type the message and Press 'Enter'");
                 Console.WriteLine("\n2.To Broadcast File type the 'filename' followed by the 'filetype'.Eg:sample.txt");
@@ -295,8 +291,6 @@ namespace Lastsampleclient
 
         static void ReceiveData(TcpClient client)
         {
-
-
             while (true)
             {
                 try
@@ -304,14 +298,14 @@ namespace Lastsampleclient
                     byte[] buffer = new byte[1024];
                     int byte_count1 = client.Client.Receive(buffer);
                     string messagedata = Encoding.ASCII.GetString(buffer, 0, byte_count1);
-                    
+                    //Console.WriteLine(messagedata);
 
                     if (messagedata == "message")
                     {
                         Array.Clear(buffer, 0, buffer.Length);
                         NetworkStream ns = client.GetStream();
                         byte[] receivedBytes = new byte[1024];
-                       
+                        //byte[] receivedbytes1 = new byte[1024 * 5000];
                         int byte_count;
                         if ((byte_count = ns.Read(receivedBytes, 0, receivedBytes.Length)) > 0)
                         {
@@ -320,7 +314,7 @@ namespace Lastsampleclient
                         ns.Flush();
                     }
 
-                    else if ((messagedata == "file")||(messagedata=="privatefile"))
+                    else if (messagedata == "file")
                     {
                         Array.Clear(buffer, 0, buffer.Length);
                         byte[] receivedBytes = new byte[1024 * 5000];
@@ -329,34 +323,33 @@ namespace Lastsampleclient
                         int fileNameLen = BitConverter.ToInt32(receivedBytes, 0);
                         string fileName = Encoding.ASCII.GetString(receivedBytes, 4, fileNameLen);
                         Console.WriteLine("Client:{0} connected & File {1} sharing started.", client.Client.RemoteEndPoint, fileName);
-                      
+                        //var charfile = System.Text.Encoding.UTF8.GetString(receivedBytes).ToCharArray();
                         BinaryWriter bwrite = new BinaryWriter(File.Open(receivedPath + fileName, FileMode.Append));
                         bwrite.Write(receivedBytes, 4 + fileNameLen, receivedBytesLen - 4 - fileNameLen);
                         Console.WriteLine("File: {0} received & saved at path: {1}", fileName, receivedPath);
                         bwrite.Close();
                     }
-                  
 
                     else if (messagedata == "all")
                     {
                         Array.Clear(buffer, 0, buffer.Length);
                         NetworkStream ns = client.GetStream();
                         byte[] receivedBytes = new byte[1024];
-                       
+                        //byte[] receivedbytes1 = new byte[1024 * 5000];
                         int byte_count;
                         Console.WriteLine("The clients who are now in connection are:");
-                       
-                            if ((byte_count = ns.Read(receivedBytes, 0, receivedBytes.Length)) > 0)
-                            {
-                               
-                                Console.WriteLine(Encoding.ASCII.GetString(receivedBytes, 0, byte_count));
-                                
-                            }
-                        
-                      
+
+                        if ((byte_count = ns.Read(receivedBytes, 0, receivedBytes.Length)) > 0)
+                        {
+
+                            Console.WriteLine(Encoding.ASCII.GetString(receivedBytes, 0, byte_count));
+
+                        }
+
+
                         ns.Flush();
                     }
-                    
+
                 }
                 catch (Exception e)
                 {
